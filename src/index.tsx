@@ -1,8 +1,8 @@
-// custom hook we will import into React Query to enable rewind functionality
+// entry point that exports the useReactQueryRewind hook
 
 import { useEffect } from 'react';
 import { QueryClient } from '@tanstack/react-query';
-import { SubscribeEvent } from '../types/types';
+import { SubscribeEvent } from './types';
 
 export const useReactQueryRewind = (queryClient: QueryClient) => {
   useEffect(() => {
