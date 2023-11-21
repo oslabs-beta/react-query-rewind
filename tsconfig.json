@@ -1,25 +1,19 @@
+//  provides TypeScript compiler options for type checking and IDE integration
+
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    // "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "target": "es6", // Choose a target depending on your environment support requirements
+    "module": "esnext", // ES modules are standard in modern JS development
+    "lib": ["dom", "esnext"], // Include DOM and ESNext features
+    "jsx": "react-jsx", // JSX support for React
+    "moduleResolution": "node", // Node-style module resolution
+    "esModuleInterop": true, // Allows default imports from modules with no default export
+    "strict": true, // Enable all strict type-checking options
+    "skipLibCheck": true, // Skip type checking for all declaration files
+    "forceConsistentCasingInFileNames": true, // Ensure case consistency in imports
+    "noEmit": true, // Does not output any files and leaves that to rollup
+    "sourceMap": true // Add this line to enable source maps
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src/**/*"], // Include all files in the src directory
+  "exclude": ["node_modules", "dist"] // Exclude node_modules and dist from the compilation
 }
