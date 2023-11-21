@@ -11,7 +11,8 @@
     "test": "jest",
     "example": "vite --config example/vite.example.config.ts",
     "build": "tsc && rollup -c",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "clean": "rm -rf dist"
   },
   "peerDependencies": {
     "@tanstack/react-query": "^5.8.4",
