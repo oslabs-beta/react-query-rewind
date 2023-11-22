@@ -1,0 +1,23 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+body,
+html {
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+.window {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: blue;
+}
