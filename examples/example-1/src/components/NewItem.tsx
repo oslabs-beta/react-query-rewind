@@ -1,6 +1,6 @@
 import React from 'react';
 
-const NewItem = ({ addNewItem }) => {
+const NewItem:React.FC = ({ addNewItem }) => {
   return (
     <div>
       <form

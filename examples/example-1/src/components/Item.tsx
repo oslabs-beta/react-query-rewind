@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Item = ({ id, name, checked, toggleCheck, deleteItem }) => {
+const Item:React.FC = ({ id, name, checked, toggleCheck, deleteItem }) => {
   const liStyle = {
     display: 'flex',
     justifyContent: 'space-between',
