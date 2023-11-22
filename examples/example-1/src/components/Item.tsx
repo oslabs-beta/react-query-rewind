@@ -1,6 +1,15 @@
 import React from 'react';
+import { UseMutationResult } from '@tanstack/react-query';
 
-const Item:React.FC = ({ id, name, checked, toggleCheck, deleteItem }) => {
+type itemTypes = {
+  id: string,
+  name: string,
+  checked: boolean,
+  toggleCheck: UseMutationResult<void, unknown, string, unknown>,
+  deleteItem: UseMutationResult<void, unknown, string, unknown>,
+}
+
+const Item:React.FC<itemTypes> = ({ id, name, checked, toggleCheck, deleteItem }) => {
   const liStyle = {
     display: 'flex',
     justifyContent: 'space-between',
@@ -9,13 +18,13 @@ const Item:React.FC = ({ id, name, checked, toggleCheck, deleteItem }) => {
     paddingTop: '2px',
   };
 
-  const checkBoxClick = e => {
+  const checkBoxClick = (e: React.ChangeEvent<HTMLInputElement>)  => {
     console.log('Toggled');
-    toggleCheck.mutate(e.target.id);
+    toggleCheck.mutate(e.currentTarget.id);
   };
 
-  const deleteItemFunc = e => {
-    deleteItem.mutate(e.target.id);
+  const deleteItemFunc = (e: React.MouseEvent<HTMLButtonElement>)  => {
+    deleteItem.mutate(e.currentTarget.id);
   };
 
   return (

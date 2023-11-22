@@ -35,7 +35,7 @@ const networkRequest = (duration: number) => {
 };
 
 // React Component
-const ItemContainer:React.FC = () => {
+const ItemContainer:React.FC<{}> = () => {
   // get the query client in this context
   const queryClient = useQueryClient();
 
@@ -94,7 +94,7 @@ const ItemContainer:React.FC = () => {
     <div>
       <NewItem addNewItem={addNewItem} />
       <ul>
-        {itemsQuery.data.map(item => (
+        {itemsQuery.data?.map(item => (
           <Item
             key={item.id}
             id={item.id}

@@ -48,10 +48,7 @@ const ReactQueryRewind = () => {
     return () => unsubscribe();
   }, []); // Because this component is imported at the root of the app, it re-runs every time anything in the app changes
   // return a fragment to keep react happy, but this affects the build
-  return;
-  // return (
-  // <></>
-  // );
+  return <></>;
 }
 
 export default ReactQueryRewind;
