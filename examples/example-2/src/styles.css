@@ -31,15 +31,19 @@ html {
   align-items: center;
   font-weight: bold;
   font-size: 3rem;
+  color: white;
+}
+
+.posts-container {
+  height: auto;
+  width: auto;
 }
 
 .create-post-container {
-  height: 4rem;
-  width: 28rem;
   background-color: white;
   display: flex;
-  justify-content: center;
   align-items: center;
+  padding: 1rem;
 }
 
 .input {
@@ -73,11 +77,6 @@ html {
   border-color: #0056b3;
 }
 
-.posts-container {
-  height: auto;
-  width: 28rem;
-}
-
 .post-container {
   height: auto;
   width: 100%;
@@ -89,10 +88,30 @@ html {
 }
 
 .post-text {
-  padding: 0.5rem;
   color: white;
+  padding: 1rem;
 }
 
 .like-comment-container {
   background-color: red;
+  padding: 1rem;
+}
+
+.left-margin {
+  margin-left: 1rem;
+}
+
+.red {
+  background-color: lightcoral;
+  border: 1px solid lightcoral;
+}
+
+.button.red:hover {
+  background-color: red; /* Color when hovered */
+  border-color: red;
+}
+
+.comment-section {
+  height: 50px;
+  background-color: purple;
 }

@@ -14,7 +14,8 @@
     "lint": "eslint . --ext .ts,.tsx --fix",
     "build": "rollup -c",
     "prepublishOnly": "npm run build",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "install-all": "npm install && (cd examples/example-1 && npm install) && (cd examples/example-2 && npm install)"
   },
   "keywords": [],
   "author": "",
