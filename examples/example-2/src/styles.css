@@ -4,9 +4,9 @@
   padding: 0;
   border: none;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 1.1rem;
 }
 
-body,
 html {
   overflow: hidden;
   font-family: Arial, sans-serif;
@@ -17,7 +17,82 @@ html {
   width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: top;
+  align-items: center;
+  background-color: #f0f0f0;
+}
+
+.nav-bar {
+  height: 6rem;
+  width: 100%;
+  background-color: #007bff;
+  display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: bold;
+  font-size: 3rem;
+}
+
+.create-post-container {
+  height: 4rem;
+  width: 28rem;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input {
+  height: 2rem;
+  width: 20rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none; /* Removes the default focus outline */
+  margin-right: 0.8rem;
+}
+
+.input:focus {
+  border-color: #007bff; /* Blue border on focus */
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); /* Soft blue glow */
+}
+
+.button {
+  height: 2rem;
+  padding: 0 0.8rem;
+  background-color: #007bff; /* Blue background */
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.button:hover {
+  background-color: #0056b3; /* Slightly darker blue on hover */
+  border-color: #0056b3;
+}
+
+.posts-container {
+  height: auto;
+  width: 28rem;
+}
+
+.post-container {
+  height: auto;
+  width: 100%;
   background-color: blue;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+}
+
+.post-text {
+  padding: 0.5rem;
+  color: white;
+}
+
+.like-comment-container {
+  background-color: red;
 }
