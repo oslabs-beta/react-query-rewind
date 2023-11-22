@@ -1,5 +1,5 @@
 // core logic for rewind feature
-const formatAndSendToChrome = (queryKey, event) => {
+const formatAndSendToChrome = () => {
   // placeholder
   console.log('formatAndSendToChrome inovked');
   return;

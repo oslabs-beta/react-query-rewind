@@ -4,7 +4,12 @@ import Item from './Item';
 import NewItem from './NewItem';
 
 // Dummy Data to simulate a database
-const TODOS = [
+type todoType = {
+  checked: boolean;
+  name: string;
+  id: string;
+};
+const TODOS: todoType[] = [
   {
     checked: false,
     name: 'Run',
@@ -30,7 +35,7 @@ const networkRequest = (duration: number) => {
 };
 
 // React Component
-const ItemContainer = () => {
+const ItemContainer:React.FC<{}> = () => {
   // get the query client in this context
   const queryClient = useQueryClient();
 
@@ -53,33 +58,33 @@ const ItemContainer = () => {
         );
     },
     onSuccess: () => {
-      return queryClient.invalidateQueries(['todos']);
+      return queryClient.invalidateQueries({queryKey: ['todos']});
     },
   });
 
   // Check or uncheck an item
   const toggleCheck = useMutation({
-    mutationFn: (id: number) => {
+    mutationFn: (id: string) => {
       return networkRequest(1000).then(() => {
         const index = TODOS.findIndex(obj => obj.id === id);
         TODOS[index].checked = !TODOS[index].checked;
       });
     },
     onSuccess: () => {
-      return queryClient.invalidateQueries(['todos']);
+      return queryClient.invalidateQueries({queryKey: ['todos']});
     },
   });
 
   // Delete an item
   const deleteItem = useMutation({
-    mutationFn: (id: number) => {
+    mutationFn: (id: string) => {
       return networkRequest(1000).then(() => {
         const index = TODOS.findIndex(obj => obj.id === id);
         TODOS.splice(index, 1);
       });
     },
     onSuccess: () => {
-      return queryClient.invalidateQueries(['todos']);
+      return queryClient.invalidateQueries({queryKey: ['todos']});
     },
   });
 
@@ -89,7 +94,7 @@ const ItemContainer = () => {
     <div>
       <NewItem addNewItem={addNewItem} />
       <ul>
-        {itemsQuery.data.map(item => (
+        {itemsQuery.data?.map(item => (
           <Item
             key={item.id}
             id={item.id}
