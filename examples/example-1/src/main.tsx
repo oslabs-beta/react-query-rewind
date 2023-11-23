@@ -10,6 +10,8 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 // Path for testing
 import ReactQueryRewind from '../../../src/index.tsx'
 
+// import ReactQueryRewind from './index.tsx'
+
 // create queryClientProvider
 const queryClient = new QueryClient({
   defaultOptions: {
