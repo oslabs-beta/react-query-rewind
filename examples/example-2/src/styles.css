@@ -20,6 +20,7 @@ html {
   justify-content: top;
   align-items: center;
   background-color: #f0f0f0;
+  overflow-y: auto;
 }
 
 .nav-bar {
@@ -32,15 +33,23 @@ html {
   font-weight: bold;
   font-size: 3rem;
   color: white;
+  position: fixed;
 }
 
 .posts-container {
   height: auto;
   width: auto;
+  margin-top: 6rem;
 }
 
 .create-post-container {
   background-color: white;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+}
+
+.create-post-container-2 {
   display: flex;
   align-items: center;
   padding: 1rem;
@@ -57,6 +66,21 @@ html {
 }
 
 .input:focus {
+  border-color: #007bff; /* Blue border on focus */
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); /* Soft blue glow */
+}
+
+.input-2 {
+  height: 2rem;
+  width: 20rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none; /* Removes the default focus outline */
+  margin-right: 0.8rem;
+}
+
+.input-2:focus {
   border-color: #007bff; /* Blue border on focus */
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); /* Soft blue glow */
 }
@@ -88,12 +112,11 @@ html {
 }
 
 .post-text {
-  color: white;
+  color: black;
   padding: 1rem;
 }
 
 .like-comment-container {
-  background-color: red;
   padding: 1rem;
 }
 
@@ -111,7 +134,10 @@ html {
   border-color: red;
 }
 
-.comment-section {
-  height: 50px;
-  background-color: purple;
+.green {
+  background-color: lightgray;
+}
+
+.blue {
+  background-color: lightblue;
 }

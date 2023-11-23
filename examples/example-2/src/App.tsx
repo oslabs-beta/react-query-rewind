@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 
 type Post = {
   text: string;
@@ -9,7 +9,10 @@ type Post = {
 
 function App() {
   const [postsArray, setPostsArray] = useState<Post[]>([]);
-  // const [inputValue, setInputValue] = useState<string>('');
+
+  useEffect(() => {
+    console.log('test');
+  }, [postsArray]);
 
   const createPost = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -17,30 +20,30 @@ function App() {
     const input = form.querySelector('.input') as HTMLInputElement;
 
     if (input.value.trim()) {
+      const postText = input.value;
+
       const newPost = {
-        text: input.value,
+        text: postText,
         liked: false,
         comments: [],
         createComment: false,
       };
-      setPostsArray([...postsArray, newPost]);
+
+      const newPostsArray = [...postsArray];
+      newPostsArray.unshift(newPost);
+
+      setPostsArray(newPostsArray);
       input.value = '';
     }
   };
 
   const likePost = (index: number) => {
-    setPostsArray((postsArray: Post[]) => {
-      return postsArray.map((post, curIndex) => {
-        if (index === curIndex) {
-          if (post.liked) {
-            post.liked = false;
-          } else {
-            post.liked = true;
-          }
-        }
-        return post;
-      });
-    });
+    setPostsArray(postsArray =>
+      postsArray.map((post, curIndex) => ({
+        ...post,
+        liked: index === curIndex ? !post.liked : post.liked,
+      }))
+    );
   };
 
   const deletePost = (index: number) => {
@@ -51,7 +54,39 @@ function App() {
     });
   };
 
-  const createComment = (index: number) => {};
+  const openComment = (index: number) => {
+    setPostsArray(postsArray =>
+      postsArray.map((post, curIndex) => ({
+        ...post,
+        createComment:
+          index === curIndex ? !post.createComment : post.createComment,
+      }))
+    );
+  };
+
+  const createComment = (event: FormEvent<HTMLFormElement>, index: number) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const input = form.querySelector('.input-2') as HTMLInputElement;
+
+    if (input && input.value.trim()) {
+      const comment = input.value;
+
+      setPostsArray(postsArray =>
+        postsArray.map((post, curIndex) => {
+          if (curIndex === index) {
+            console.log('in', input.value);
+            return {
+              ...post,
+              comments: [...post.comments, comment],
+            };
+          }
+          return post;
+        })
+      );
+      input.value = '';
+    }
+  };
 
   return (
     <>
@@ -65,7 +100,10 @@ function App() {
             </button>
           </form>
           {postsArray.map((post, index) => (
-            <div className="post-container" key={index}>
+            <div
+              className={`post-container ${index % 2 === 0 ? 'green' : 'blue'}`}
+              key={index}
+            >
               <div className="post-text">{post.text}</div>
               <div className="like-comment-container">
                 <button
@@ -74,7 +112,12 @@ function App() {
                 >
                   Like
                 </button>
-                <button className="button left-margin">Comment</button>
+                <button
+                  className="button left-margin"
+                  onClick={() => openComment(index)}
+                >
+                  Comment
+                </button>
                 <button
                   className="button left-margin"
                   onClick={() => deletePost(index)}
@@ -83,7 +126,25 @@ function App() {
                 </button>
               </div>
               <div className="comment-section">
-                {/* {post.createComment === true && ()} */}
+                {post.createComment === true && (
+                  <>
+                    {' '}
+                    <form
+                      className="create-post-container-2"
+                      onSubmit={event => createComment(event, index)}
+                    >
+                      <input type="text" className="input-2" />
+                      <button className="button margin-left" type="submit">
+                        Send
+                      </button>
+                    </form>
+                    {post.comments.map((comment, index) => (
+                      <div className="post-text" key={index}>
+                        {`${index}) ${comment}`}
+                      </div>
+                    ))}
+                  </>
+                )}
               </div>
             </div>
           ))}
