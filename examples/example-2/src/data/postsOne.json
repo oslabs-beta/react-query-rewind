@@ -1,0 +1,20 @@
+[
+  {
+    "text": "Sample Post 1",
+    "liked": false,
+    "comments": [],
+    "createComment": false
+  },
+  {
+    "text": "Sample Post 2",
+    "liked": false,
+    "comments": [],
+    "createComment": false
+  },
+  {
+    "text": "Sample Post 3",
+    "liked": false,
+    "comments": [],
+    "createComment": false
+  }
+]
