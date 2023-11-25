@@ -31,8 +31,17 @@ export default {
 
 
 # Development
-To develop, either build and ensure examples are importing from the build *or* ensure examples are importing from the src folder
 
-Might be a good idea to clean first. But always npm run watch then npm run link-package in that order. Then you start your example
 
-Need to solve multiple versions of react when using npm link
+## Testing with Example 1
+**From the root directory:**
+1. `npm run install-all`
+2. `npm run link-dependencies`
+    1. Installs all peer dependencies in our package to ensure there are no duplicates
+    2. Can see all packages currently linked with *`npm ls -g --depth=0 --link=tr`*    
+3. `npm run watch`
+    1. Starts rollup in watch mode and creates dist folder
+4. `npm run link-package`
+    1. Links React Query Rewind
+5. `npm run example-1`
+    1. Starts the example server with webpack
