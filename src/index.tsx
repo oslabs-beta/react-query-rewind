@@ -8,7 +8,7 @@ import { SubscribeEvent } from './types';
 // Test function so we can see data in the console
 const logging = (event: SubscribeEvent) => {
   // need to parse through this data and send it to the chrome extension
-  
+
   const simplifiedObj = {
     type: event.type,
     time: event.query.state.dataUpdatedAt, //might need to format this as a datetime
@@ -17,9 +17,8 @@ const logging = (event: SubscribeEvent) => {
     data: event.query.state.data,
     status: event.query.state.status,
     fetchStatus: event.query.state.fetchStatus,
-    action: event.action ? event.action.type : null 
-  }
-  
+    action: event.action ? event.action.type : null,
+  };
 
   // console.log(event);
 
@@ -27,10 +26,10 @@ const logging = (event: SubscribeEvent) => {
   if (importantTypes.includes(simplifiedObj.type)) {
     console.log(simplifiedObj);
   }
-}
+};
 
 const ReactQueryRewind = () => {
-  // React does not allow hooks inside of useEffect 
+  // React does not allow hooks inside of useEffect
   const queryClient = useQueryClient();
   useEffect(() => {
     const queryCache = queryClient.getQueryCache();
@@ -42,13 +41,13 @@ const ReactQueryRewind = () => {
         // formatAndSendToChrome(event.query.queryKey, event.query.state.data);
         // for testing purposes
         logging(event);
-      }, 0)
+      }, 0);
     });
 
     return () => unsubscribe();
   }, []); // Because this component is imported at the root of the app, it re-runs every time anything in the app changes
   // return a fragment to keep react happy, but this affects the build
   return <></>;
-}
+};
 
 export default ReactQueryRewind;
