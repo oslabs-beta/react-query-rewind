@@ -5,10 +5,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 // I think we need to update package.json for this
-import ReactQueryRewind, { RewindHook } from 'react-query-rewind';
+// import ReactQueryRewind, { RewindHook } from 'react-query-rewind';
 
 import TestReactQueryRewind from './components/TestReactQueryRewind'
-
 
 // create queryClientProvider
 const queryClient = new QueryClient({

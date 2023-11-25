@@ -7,6 +7,7 @@
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/types.d.ts",
+  "files": ["dist"],
   "scripts": {
     "example-1": "cd examples/example-1 &&  npm run dev",
     "example-2": "cd examples/example-2 &&  npm run dev",
@@ -18,7 +19,7 @@
     "clean": "rm -rf dist",
     "install-all": "npm install && (cd examples/example-1 && npm install) && (cd examples/example-2 && npm install)",
     "link-package": "npm link && (cd examples/example-1 && npm link react-query-rewind)",
-    "unlink-package": "npm unlink (cd examples/example-1 && npm unlink react-query-rewind)"
+    "unlink-package": "(cd examples/example-1 && npm unlink react-query-rewind) && npm unlink"
   },
   "keywords": [],
   "author": "",

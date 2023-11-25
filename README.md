@@ -32,3 +32,5 @@ export default {
 
 # Development
 To develop, either build and ensure examples are importing from the build *or* ensure examples are importing from the src folder
+
+Always npm run watch then npm run link-package in that order. Then you start your example
