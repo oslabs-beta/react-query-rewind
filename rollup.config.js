@@ -51,17 +51,17 @@ export default {
   input: 'src/index.tsx', // Adjust the input file to your main TypeScript file
   output: [
     {
-      file: 'dist/bundle.cjs.js', // CommonJS format
+      file: 'dist/cjs/index.js', // CommonJS format
       format: 'cjs',
       sourcemap: true
     },
     {
-      file: 'dist/bundle.esm.js', // ES Module format
+      file: 'dist/esm/index.js', // ES Module format
       format: 'esm',
       sourcemap: true
     },
     {
-      file: 'dist/bundle.umd.js', // UMD format
+      file: 'dist/umd/index.js', // UMD format
       format: 'umd',
       name: 'MyDebugComponent', // Replace with your component's global variable name if used in script tags
       sourcemap: true

@@ -1,19 +1,11 @@
 import React, { useEffect } from 'react';
 import ItemContainer from './components/ItemContainer';
-import ReactQueryRewind from 'react-query-rewind/dist/bundle.esm';
 import { QueryClient, useQueryClient } from '@tanstack/react-query';
-
+import ReactQueryRewind, { RewindHook } from 'react-query-rewind';
 function App() {
   console.log('React Version:', React.version);
 
-  // const queryClient = useQueryClient();
-  // useEffect(() => {
-  //   const queryCache = queryClient.getQueryCache();
-  //   const unsubscribe = queryCache.subscribe((event) => {
-  //     console.log(event);
-  //   });
-  //   return () => unsubscribe();
-  // }, [])
+  RewindHook();
 
   return (
     <>
