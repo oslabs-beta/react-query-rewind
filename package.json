@@ -19,7 +19,9 @@
     "clean": "rm -rf dist",
     "install-all": "npm install && (cd examples/example-1 && npm install) && (cd examples/example-2 && npm install)",
     "link-package": "npm link && (cd examples/example-1 && npm link react-query-rewind)",
-    "unlink-package": "(cd examples/example-1 && npm unlink react-query-rewind) && npm unlink"
+    "link-dependencies": "npm link examples/example-1/node_modules/react examples/example-1/node_modules/react-dom examples/example-1/node_modules/@tanstack/react-query",
+    "unlink-package": "(cd examples/example-1 && npm unlink react-query-rewind) && npm unlink",
+    "start-all": ""
   },
   "keywords": [],
   "author": "",
