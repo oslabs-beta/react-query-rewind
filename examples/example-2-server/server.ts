@@ -107,7 +107,7 @@ app.post('/create-comment', async (req, res) => {
     const postIndex = parseInt(index, 10);
 
     db.posts[postIndex].comments.push(comment);
-    db.posts[postIndex].createComment = true;
+    // db.posts[postIndex].createComment = true;
 
     await fs.writeFile(dbPath, JSON.stringify(db, null, 2), 'utf8');
 

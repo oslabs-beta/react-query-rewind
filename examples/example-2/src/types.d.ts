@@ -4,3 +4,8 @@ export type Post = {
   comments: string[];
   createComment: boolean;
 };
+
+export type CreateCommentParams = {
+  index: number;
+  comment: string;
+};

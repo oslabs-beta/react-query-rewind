@@ -1,31 +1,25 @@
 {
   "posts": [
     {
-      "text": "a",
+      "id": 1,
+      "text": "First Post",
       "liked": false,
       "comments": [
-        "Test",
-        "Test",
-        "Test"
-      ],
-      "createComment": true
-    },
-    {
-      "text": "a",
-      "liked": false,
-      "comments": [
-        "Test"
+        "First comment on first post",
+        "Second comment on first post"
       ],
       "createComment": false
     },
     {
-      "text": "a",
+      "id": 2,
+      "text": "Second Post",
       "liked": false,
-      "comments": [],
+      "comments": ["Only comment on second post"],
       "createComment": false
     },
     {
-      "text": "Test",
+      "id": 3,
+      "text": "Third Post",
       "liked": false,
       "comments": [],
       "createComment": false

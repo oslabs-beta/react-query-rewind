@@ -3,13 +3,8 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { usePostInputChange } from '../hooks/usePostInputChange';
 import { useCommentInputChange } from '../hooks/useCommentInputChange';
-import { Post } from '../types';
+import { Post, CreateCommentParams } from '../types';
 import { openComment } from '../functions/openComment';
-
-type CreateCommentParams = {
-  index: number;
-  comment: string;
-};
 
 function PostsOne() {
   const queryClient = useQueryClient();
@@ -38,7 +33,7 @@ function PostsOne() {
 
   // query for fetching old posts
   const {
-    data: newPostsArray,
+    data: postsState,
     isLoading,
     error,
   } = useQuery({
@@ -90,8 +85,6 @@ function PostsOne() {
       };
 
       newPostMutation.mutate(newPost);
-
-      // setPostsArray([newPost, ...postsArray]);
       setPostInput('');
     }
   };
@@ -130,13 +123,6 @@ function PostsOne() {
   // function that likes post
   const likePost = (index: number) => {
     likePostMutation.mutate(index);
-
-    // setPostsArray(postsArray =>
-    //   postsArray.map((post, curIndex) => ({
-    //     ...post,
-    //     liked: index === curIndex ? !post.liked : post.liked,
-    //   }))
-    // );
   };
 
   // delete-post route
@@ -173,12 +159,6 @@ function PostsOne() {
   //function that deletes post
   const deletePost = (index: number) => {
     deletePostMutation.mutate(index);
-
-    // setPostsArray((postsArray: Post[]) => {
-    //   return postsArray.filter((_, curIndex) => {
-    //     return index !== curIndex;
-    //   });
-    // });
   };
 
   // create-comment route
@@ -226,18 +206,6 @@ function PostsOne() {
 
     if (comment && comment.trim()) {
       createCommentMutation.mutate({ index: postIndex, comment: comment });
-
-      // setPostsArray(postsArray =>
-      //   postsArray.map((post, curIndex) => {
-      //     if (curIndex === postIndex) {
-      //       return {
-      //         ...post,
-      //         comments: [...post.comments, comment],
-      //       };
-      //     }
-      //     return post;
-      //   })
-      // );
       setCommentInputs({ ...commentInputs, [postIndex]: '' });
     }
   };
