@@ -9,8 +9,6 @@
   "dependencies": {
     "@tanstack/react-query": "^5.8.4",
     "@tanstack/react-query-devtools": "^5.8.4",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "react-query": "^3.39.3",
     "ts-node": "^10.9.1"
   },
@@ -31,5 +29,5 @@
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
-  } 
+  }
 }
