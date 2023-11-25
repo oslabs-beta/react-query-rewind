@@ -1,78 +1,52 @@
 import { useState, FormEvent } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
+import postsOneData from '../database.json';
 
 import { usePostInputChange } from '../hooks/usePostInputChange';
 import { useCommentInputChange } from '../hooks/useCommentInputChange';
-import { Post } from '../types';
-import { openComment } from '../functions/openComment';
+
+type Post = {
+  text: string;
+  liked: boolean;
+  comments: string[];
+  createComment: boolean;
+};
+
+// simulate a fetch request with a delay
+const fetchPosts = () => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(postsOneData);
+    }, 2000);
+  });
+};
 
 function PostsOne() {
-  const queryClient = useQueryClient();
-
   const [postsArray, setPostsArray] = useState<Post[]>([]);
   const { postInput, setPostInput, postInputChange } = usePostInputChange();
   const { commentInputs, setCommentInputs, commentInputChange } =
     useCommentInputChange();
 
-  // fetch-data route to get starting posts
-  const fetchPostsRoute = async () => {
-    try {
-      const response = await fetch('http://localhost:3000/fetch-data');
-      if (!response.ok) {
-        throw new Error('Server response was not ok');
-      }
-
-      const newPostsArray = await response.json();
-      setPostsArray(newPostsArray);
-
-      return newPostsArray;
-    } catch (error) {
-      console.error('Fetching posts failed:', error);
-    }
-  };
-
-  // query for fetching old posts
+  // Using useQuery to fetch posts
   const {
     data: newPostsArray,
     isLoading,
     error,
   } = useQuery({
     queryKey: ['posts'],
-    queryFn: fetchPostsRoute,
+    queryFn: fetchPosts,
   });
 
-  // create-post route to create a new post
-  const createPostRoute = async (newPost: Post) => {
-    try {
-      const response = await fetch('http://localhost:3000/create-post', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newPost),
-      });
+  // Check for loading state
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-      if (!response.ok) {
-        throw new Error('Error creating post');
-      }
+  // Check for error state
+  if (error) {
+    return <div>Error loading posts</div>;
+  }
 
-      const updatedPostsArray = await response.json();
-      return updatedPostsArray;
-    } catch (errror) {
-      console.error('Creating post failed:', error);
-    }
-  };
-
-  // mutation for creating a new post
-  const newPostMutation = useMutation({
-    mutationFn: createPostRoute,
-    onSuccess: updatedPostsArray => {
-      queryClient.invalidateQueries({ queryKey: ['posts'] });
-      setPostsArray(updatedPostsArray);
-    },
-  });
-
-  // function that creates new post
   const createPost = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -84,54 +58,18 @@ function PostsOne() {
         createComment: false,
       };
 
-      newPostMutation.mutate(newPost);
-
-      // setPostsArray([newPost, ...postsArray]);
+      setPostsArray([newPost, ...postsArray]);
       setPostInput('');
     }
   };
 
-  // like-post route to create a new post
-  const likePostRoute = async (index: number) => {
-    try {
-      const response = await fetch('http://localhost:3000/like-post', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ index: index }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Error creating post');
-      }
-
-      const updatedPostsArray = await response.json();
-      return updatedPostsArray;
-    } catch (errror) {
-      console.error('Creating post failed:', error);
-    }
-  };
-
-  // mutation for liking a post
-  const likePostMutation = useMutation({
-    mutationFn: likePostRoute,
-    onSuccess: updatedPostsArray => {
-      queryClient.invalidateQueries({ queryKey: ['posts'] });
-      setPostsArray(updatedPostsArray);
-    },
-  });
-
-  // function that likes post
   const likePost = (index: number) => {
-    likePostMutation.mutate(index);
-
-    // setPostsArray(postsArray =>
-    //   postsArray.map((post, curIndex) => ({
-    //     ...post,
-    //     liked: index === curIndex ? !post.liked : post.liked,
-    //   }))
-    // );
+    setPostsArray(postsArray =>
+      postsArray.map((post, curIndex) => ({
+        ...post,
+        liked: index === curIndex ? !post.liked : post.liked,
+      }))
+    );
   };
 
   const deletePost = (index: number) => {
@@ -140,6 +78,16 @@ function PostsOne() {
         return index !== curIndex;
       });
     });
+  };
+
+  const openComment = (index: number) => {
+    setPostsArray(postsArray =>
+      postsArray.map((post, curIndex) => ({
+        ...post,
+        createComment:
+          index === curIndex ? !post.createComment : post.createComment,
+      }))
+    );
   };
 
   const createComment = (
@@ -164,6 +112,8 @@ function PostsOne() {
       setCommentInputs({ ...commentInputs, [postIndex]: '' });
     }
   };
+
+  console.log(newPostsArray);
 
   return (
     <>
@@ -194,7 +144,7 @@ function PostsOne() {
               </button>
               <button
                 className="button left-margin"
-                onClick={() => openComment(postsArray, index, setPostsArray)}
+                onClick={() => openComment(index)}
               >
                 Comment
               </button>

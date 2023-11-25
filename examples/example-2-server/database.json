@@ -1,0 +1,39 @@
+{
+  "posts": [
+    {
+      "text": "Hello",
+      "liked": false,
+      "comments": [],
+      "createComment": false
+    },
+    {
+      "text": "Hello",
+      "liked": false,
+      "comments": [],
+      "createComment": false
+    },
+    {
+      "text": "First post content",
+      "liked": true,
+      "comments": [
+        "First comment on first post",
+        "Second comment on first post"
+      ],
+      "createComment": false
+    },
+    {
+      "text": "Second post content",
+      "liked": true,
+      "comments": [
+        "Only comment on second post"
+      ],
+      "createComment": false
+    },
+    {
+      "text": "Third post content",
+      "liked": true,
+      "comments": [],
+      "createComment": false
+    }
+  ]
+}
