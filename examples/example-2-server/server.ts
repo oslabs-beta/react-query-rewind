@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// getting initital data
+// fetching initital data
 app.get('/fetch-data', async (req, res) => {
   try {
     const data = await fs.readFile(
@@ -26,7 +26,7 @@ app.get('/fetch-data', async (req, res) => {
   }
 });
 
-// creating post
+// create post
 app.post('/create-post', async (req, res) => {
   try {
     const dbPath = path.join(__dirname, 'database.json');
@@ -45,7 +45,7 @@ app.post('/create-post', async (req, res) => {
   }
 });
 
-// liking post
+// like post
 app.post('/like-post', async (req, res) => {
   try {
     const dbPath = path.join(__dirname, 'database.json');
@@ -61,9 +61,53 @@ app.post('/like-post', async (req, res) => {
       };
     });
 
-    console.log(updatedPostsArray);
+    db.posts = updatedPostsArray;
+
+    await fs.writeFile(dbPath, JSON.stringify(db, null, 2), 'utf8');
+
+    res.status(201).json(db.posts);
+  } catch (err) {
+    console.error('Error updating database.json:', err);
+    res.status(500).send('Error saving data');
+  }
+});
+
+// delete post
+app.post('/delete-post', async (req, res) => {
+  try {
+    const dbPath = path.join(__dirname, 'database.json');
+    const data = await fs.readFile(dbPath, 'utf8');
+    const db = JSON.parse(data);
+
+    const index = parseInt(req.body.index, 10);
+
+    const updatedPostsArray = db.posts.filter((_, curIndex) => {
+      return curIndex !== index;
+    });
 
     db.posts = updatedPostsArray;
+
+    await fs.writeFile(dbPath, JSON.stringify(db, null, 2), 'utf8');
+
+    res.status(201).json(db.posts);
+  } catch (err) {
+    console.error('Error updating database.json:', err);
+    res.status(500).send('Error saving data');
+  }
+});
+
+// create commment
+app.post('/create-comment', async (req, res) => {
+  try {
+    const dbPath = path.join(__dirname, 'database.json');
+    const data = await fs.readFile(dbPath, 'utf8');
+    const db = JSON.parse(data);
+
+    const { index, comment } = req.body;
+    const postIndex = parseInt(index, 10);
+
+    db.posts[postIndex].comments.push(comment);
+    db.posts[postIndex].createComment = true;
 
     await fs.writeFile(dbPath, JSON.stringify(db, null, 2), 'utf8');
 

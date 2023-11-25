@@ -6,6 +6,11 @@ import { useCommentInputChange } from '../hooks/useCommentInputChange';
 import { Post } from '../types';
 import { openComment } from '../functions/openComment';
 
+type CreateCommentParams = {
+  index: number;
+  comment: string;
+};
+
 function PostsOne() {
   const queryClient = useQueryClient();
 
@@ -41,7 +46,7 @@ function PostsOne() {
     queryFn: fetchPostsRoute,
   });
 
-  // create-post route to create a new post
+  // create-post route
   const createPostRoute = async (newPost: Post) => {
     try {
       const response = await fetch('http://localhost:3000/create-post', {
@@ -91,7 +96,7 @@ function PostsOne() {
     }
   };
 
-  // like-post route to create a new post
+  // like-post route
   const likePostRoute = async (index: number) => {
     try {
       const response = await fetch('http://localhost:3000/like-post', {
@@ -134,14 +139,83 @@ function PostsOne() {
     // );
   };
 
-  const deletePost = (index: number) => {
-    setPostsArray((postsArray: Post[]) => {
-      return postsArray.filter((_, curIndex) => {
-        return index !== curIndex;
+  // delete-post route
+  const deletePostRoute = async (index: number) => {
+    try {
+      const response = await fetch('http://localhost:3000/delete-post', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ index: index }),
       });
-    });
+
+      if (!response.ok) {
+        throw new Error('Error creating post');
+      }
+
+      const updatedPostsArray = await response.json();
+      return updatedPostsArray;
+    } catch (errror) {
+      console.error('Creating post failed:', error);
+    }
   };
 
+  // mutation for deleting a post
+  const deletePostMutation = useMutation({
+    mutationFn: deletePostRoute,
+    onSuccess: updatedPostsArray => {
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
+      setPostsArray(updatedPostsArray);
+    },
+  });
+
+  //function that deletes post
+  const deletePost = (index: number) => {
+    deletePostMutation.mutate(index);
+
+    // setPostsArray((postsArray: Post[]) => {
+    //   return postsArray.filter((_, curIndex) => {
+    //     return index !== curIndex;
+    //   });
+    // });
+  };
+
+  // create-comment route
+  const createCommentRoute = async ({
+    index,
+    comment,
+  }: CreateCommentParams) => {
+    try {
+      const response = await fetch('http://localhost:3000/create-comment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ index, comment }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error creating post');
+      }
+
+      const updatedPostsArray = await response.json();
+      return updatedPostsArray;
+    } catch (errror) {
+      console.error('Creating post failed:', error);
+    }
+  };
+
+  // mutation for creating a comment
+  const createCommentMutation = useMutation({
+    mutationFn: createCommentRoute,
+    onSuccess: updatedPostsArray => {
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
+      setPostsArray(updatedPostsArray);
+    },
+  });
+
+  // function that creates comment
   const createComment = (
     event: FormEvent<HTMLFormElement>,
     postIndex: number
@@ -149,18 +223,21 @@ function PostsOne() {
     event.preventDefault();
 
     const comment = commentInputs[postIndex];
+
     if (comment && comment.trim()) {
-      setPostsArray(postsArray =>
-        postsArray.map((post, curIndex) => {
-          if (curIndex === postIndex) {
-            return {
-              ...post,
-              comments: [...post.comments, comment],
-            };
-          }
-          return post;
-        })
-      );
+      createCommentMutation.mutate({ index: postIndex, comment: comment });
+
+      // setPostsArray(postsArray =>
+      //   postsArray.map((post, curIndex) => {
+      //     if (curIndex === postIndex) {
+      //       return {
+      //         ...post,
+      //         comments: [...post.comments, comment],
+      //       };
+      //     }
+      //     return post;
+      //   })
+      // );
       setCommentInputs({ ...commentInputs, [postIndex]: '' });
     }
   };

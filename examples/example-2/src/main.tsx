@@ -6,7 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { QueryClient } from '@tanstack/react-query';
 import './styles.css';
 
-// import ReactQueryRewind from '../../../src/index.tsx';
+import ReactQueryRewind from '../../../src/index.tsx';
 
 export const queryClient = new QueryClient();
 
@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <QueryClientProvider client={queryClient}>
     <App />
     <ReactQueryDevtools />
-    {/* <ReactQueryRewind /> */}
+    <ReactQueryRewind />
   </QueryClientProvider>
   // </React.StrictMode>
 );
