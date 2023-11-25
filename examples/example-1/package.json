@@ -7,7 +7,6 @@
     "dev": "webpack-dev-server"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.8.4",
     "@tanstack/react-query-devtools": "^5.8.4",
     "ts-node": "^10.9.1"
   },

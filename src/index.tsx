@@ -6,16 +6,14 @@ import { SubscribeEvent } from './types';
 const ReactQueryRewind = () => {
   // React does not allow hooks inside of useEffect 
   const queryClient = useQueryClient();
-
-  // const queryCache = queryClient.getQueryCache();
-  // queryCache.subscribe((event: SubscribeEvent) => {
-
-  //   console.log(event);
-    
-  // });
+  useEffect(() => {
+    const queryCache = queryClient.getQueryCache();
+    const unsubscribe = queryCache.subscribe((event) => console.log(event));
+    return () => unsubscribe();
+  }, [])
   // useEffect(() => console.log('Effect in pacakge'), [])
-  console.log('React Query Rewind New');
-  return <></>;
+  console.log('React Query Rewind Test');
+  return <></>
 }
 
 

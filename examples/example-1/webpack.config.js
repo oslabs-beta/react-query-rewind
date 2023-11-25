@@ -20,6 +20,14 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    symlinks: false,
+    alias: {
+      react: path.resolve('./node_modules//react'),
+      'react-dom': path.resolve('./node_modules//react-dom'),
+      '@tanstack/react-query': path.resolve('./node_modules/@tanstack/react-query'),
+      // 'react-query': path.resolve('./node_modules/@tanstack/react-query'),
+      // 'query-core': path.resolve('./node_modules/@tanstack/query-core')
+    }
   },
   plugins: [
     new HtmlWebpackPlugin({
