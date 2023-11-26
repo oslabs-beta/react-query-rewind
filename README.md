@@ -35,6 +35,7 @@ export default {
 
 ## Testing with Example 1
 **From the root directory:**
+
 1. `npm run install-all`
 2. `npm run link-dependencies`
     1. Installs all peer dependencies in our package to ensure there are no duplicates

@@ -5,27 +5,27 @@ import { SubscribeEvent } from './types';
 // import formatAndSendToChrome from './lib/rewind'
 
 // Test function so we can see data in the console
-const logging = (event: SubscribeEvent) => {
-  // need to parse through this data and send it to the chrome extension
+// const logging = (event: SubscribeEvent) => {
+//   // need to parse through this data and send it to the chrome extension
 
-  const simplifiedObj = {
-    type: event.type,
-    time: event.query.state.dataUpdatedAt, //might need to format this as a datetime
-    queryKey: event.query.queryKey,
-    func: event.query.options.queryFn,
-    data: event.query.state.data,
-    status: event.query.state.status,
-    fetchStatus: event.query.state.fetchStatus,
-    action: event.action ? event.action.type : null,
-  };
+//   const simplifiedObj = {
+//     type: event.type,
+//     time: event.query.state.dataUpdatedAt, //might need to format this as a datetime
+//     queryKey: event.query.queryKey,
+//     func: event.query.options.queryFn,
+//     data: event.query.state.data,
+//     status: event.query.state.status,
+//     fetchStatus: event.query.state.fetchStatus,
+//     action: event.action ? event.action.type : null,
+//   };
 
-  // console.log(event);
+//   // console.log(event);
 
-  const importantTypes = ['updated', 'removed', 'added'];
-  if (importantTypes.includes(simplifiedObj.type)) {
-    console.log(simplifiedObj);
-  }
-};
+//   const importantTypes = ['updated', 'removed', 'added'];
+//   if (importantTypes.includes(simplifiedObj.type)) {
+//     console.log(simplifiedObj);
+//   }
+// };
 
 const ReactQueryRewind = () => {
   // React does not allow hooks inside of useEffect
@@ -37,9 +37,8 @@ const ReactQueryRewind = () => {
       // setTimeout ensure it runs after components load
       setTimeout(() => {
         // These need to be optimized so that if it's data I don't want, the functions are never called or return as early as possible
-        // formatAndSendToChrome(event.query.queryKey, event.query.state.data);
-        // for testing purposes
-        logging(event);
+        console.log(event);
+        // logging(event);
       }, 0)
     });
 
