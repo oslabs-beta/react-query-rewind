@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { SubscribeEvent } from './types';
+
 // import formatAndSendToChrome from './lib/rewind'
 
 const ReactQueryRewind = () => {
@@ -27,6 +28,17 @@ const ReactQueryRewind = () => {
             action: event.action ? event.action.type : null,
           };
           console.log(simplifiedObj);
+          
+          try {
+            window.postMessage({
+              type: "FROM_PAGE",
+              payload: simplifiedObj
+            }, "*");
+          } catch (e) {
+            console.log(e);
+          }
+
+
           localStorage.setItem('test', JSON.stringify(simplifiedObj))
         }
       }, 0)
