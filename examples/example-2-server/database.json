@@ -1,0 +1,28 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "text": "First Post",
+      "liked": false,
+      "comments": [
+        "First comment on first post",
+        "Second comment on first post"
+      ],
+      "createComment": false
+    },
+    {
+      "id": 2,
+      "text": "Second Post",
+      "liked": false,
+      "comments": ["Only comment on second post"],
+      "createComment": false
+    },
+    {
+      "id": 3,
+      "text": "Third Post",
+      "liked": false,
+      "comments": [],
+      "createComment": false
+    }
+  ]
+}
