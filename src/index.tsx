@@ -21,7 +21,7 @@ const ReactQueryRewind = () => {
             type: event.type,
             time: event.query.state.dataUpdatedAt, //might need to format this as a datetime
             queryKey: event.query.queryKey,
-            func: event.query.options.queryFn,
+            // func: event.query.options.queryFn,
             data: event.query.state.data,
             status: event.query.state.status,
             fetchStatus: event.query.state.fetchStatus,
@@ -30,10 +30,14 @@ const ReactQueryRewind = () => {
           console.log(simplifiedObj);
           
           try {
+            // postMessage takes in:
+              // message - can be object with any fields
+              // target (just saying all for now)
+              // other options
             window.postMessage({
-              type: "FROM_PAGE",
+              type: "react-query-rewind",
               payload: simplifiedObj
-            }, "*");
+            }, "*"); // use * for all - not sure if this is secure
           } catch (e) {
             console.log(e);
           }
