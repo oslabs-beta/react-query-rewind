@@ -38,7 +38,6 @@ const ReactQueryRewind = () => {
             console.log(e);
           }
 
-
           localStorage.setItem('test', JSON.stringify(simplifiedObj))
         }
       }, 0)
