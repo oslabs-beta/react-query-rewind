@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { useState, FormEvent } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -40,6 +42,8 @@ function PostsOne() {
     queryKey: ['posts'],
     queryFn: fetchPostsRoute,
   });
+
+  console.log(postsState, isLoading);
 
   // create-post route
   const createPostRoute = async (newPost: Post) => {

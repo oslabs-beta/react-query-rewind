@@ -1,6 +1,7 @@
+import React from 'react';
 import PostsOne from './components/PostsOne';
 
-function App() {
+const App = () => {
   return (
     <>
       <div className="window">
@@ -9,6 +10,6 @@ function App() {
       </div>
     </>
   );
-}
+};
 
 export default App;

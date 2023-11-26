@@ -12,9 +12,7 @@
   ],
   "scripts": {
     "example-1": "cd examples/example-1 &&  npm run dev",
-    "example-2-client": "cd examples/example-2 &&  npm run dev",
-    "example-2-server": "cd examples/example-2-server && npm run server",
-    "example-2": "npm-run-all --parallel example-2-server example-2-client",
+    "example-2": "cd examples/example-2 && npm run example-2",
     "test": "jest",
     "lint": "eslint . --ext .ts,.tsx --fix",
     "build": "rollup -c",
