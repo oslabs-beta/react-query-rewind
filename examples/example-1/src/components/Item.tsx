@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { UseMutationResult } from '@tanstack/react-query';
 
 type itemTypes = {
@@ -10,6 +10,12 @@ type itemTypes = {
 }
 
 const Item:React.FC<itemTypes> = ({ id, name, checked, toggleCheck, deleteItem }) => {
+  // Testing useEffect
+  useEffect( () => {
+    console.log('Use Effect working in function component');
+  }, [])
+
+
   const liStyle = {
     display: 'flex',
     justifyContent: 'space-between',
