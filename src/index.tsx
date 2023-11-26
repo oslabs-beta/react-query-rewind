@@ -27,6 +27,7 @@ const ReactQueryRewind = () => {
             action: event.action ? event.action.type : null,
           };
           console.log(simplifiedObj);
+          localStorage.setItem('test', JSON.stringify(simplifiedObj))
         }
       }, 0)
     });
