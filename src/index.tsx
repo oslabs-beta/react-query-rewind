@@ -17,15 +17,23 @@ const ReactQueryRewind = () => {
         const importantTypes = ['updated', 'removed', 'added'];
         if (importantTypes.includes(event.type)) {
           // if type is added, then only send if action=success and fetchStatus=idle
+          if (event.type === 'added' &&
+              (
+                event.query.state.status !== 'sucess'
+                || event.query.state.fetchStatus !== 'idle'
+              )
+            ) {
+            return;
+          }
           const simplifiedObj = {
             type: event.type,
             time: event.query.state.dataUpdatedAt, //might need to format this as a datetime
-            queryKey: event.query.queryKey,
+            queryKey: event.query.queryKey, // stringify?
             // func: event.query.options.queryFn,
-            data: event.query.state.data,
-            status: event.query.state.status,
-            fetchStatus: event.query.state.fetchStatus,
-            action: event.action ? event.action.type : null,
+            data: event.query.state.data, // stringify??
+            // status: event.query.state.status,
+            // fetchStatus: event.query.state.fetchStatus,
+            // action: event.action ? event.action.type : null,
           };
           console.log(simplifiedObj);
           
