@@ -30,8 +30,10 @@ type PostsController = {
 const postsController: PostsController = {
   fetchData: async (req, res, next) => {
     try {
+      const database = req.query.database;
+
       const data = await fs.readFile(
-        path.join(__dirname, '../../models/database.json'),
+        path.join(__dirname, `../../models/${database}.json`),
         'utf8'
       );
       const db = JSON.parse(data);
@@ -47,11 +49,12 @@ const postsController: PostsController = {
 
   createPost: async (req, res, next) => {
     try {
-      const dbPath = path.join(__dirname, '../../models/database.json');
+      const { newPost, database } = req.body;
+
+      const dbPath = path.join(__dirname, `../../models/${database}.json`);
       const data = await fs.readFile(dbPath, 'utf8');
       const db = JSON.parse(data);
 
-      const newPost = req.body;
       db.posts.unshift(newPost);
 
       await fs.writeFile(dbPath, JSON.stringify(db, null, 2), 'utf8');
@@ -67,13 +70,14 @@ const postsController: PostsController = {
 
   likePost: async (req, res, next) => {
     try {
-      const dbPath = path.join(__dirname, '../../models/database.json');
+      const { database, index } = req.body;
+      const postIndex = parseInt(index, 10);
+
+      const dbPath = path.join(__dirname, `../../models/${database}.json`);
       const data = await fs.readFile(dbPath, 'utf8');
       const db = JSON.parse(data);
 
-      const index = parseInt(req.body.index, 10);
-
-      db.posts[index].liked = !db.posts[index].liked;
+      db.posts[postIndex].liked = !db.posts[postIndex].liked;
 
       await fs.writeFile(dbPath, JSON.stringify(db, null, 2), 'utf8');
 
@@ -88,14 +92,15 @@ const postsController: PostsController = {
 
   deletePost: async (req, res, next) => {
     try {
-      const dbPath = path.join(__dirname, '../../models/database.json');
+      const { database, index } = req.body;
+      const postIndex = parseInt(index, 10);
+
+      const dbPath = path.join(__dirname, `../../models/${database}.json`);
       const data = await fs.readFile(dbPath, 'utf8');
       const db = JSON.parse(data);
 
-      const index = parseInt(req.body.index, 10);
-
       const updatedPostsArray = db.posts.filter((_, curIndex) => {
-        return curIndex !== index;
+        return curIndex !== postIndex;
       });
 
       db.posts = updatedPostsArray;
@@ -113,12 +118,12 @@ const postsController: PostsController = {
 
   createComment: async (req, res, next) => {
     try {
-      const dbPath = path.join(__dirname, '../../models/database.json');
+      const { database, index, comment } = req.body;
+      const postIndex = parseInt(index, 10);
+
+      const dbPath = path.join(__dirname, `../../models/${database}.json`);
       const data = await fs.readFile(dbPath, 'utf8');
       const db = JSON.parse(data);
-
-      const { index, comment } = req.body;
-      const postIndex = parseInt(index, 10);
 
       db.posts[postIndex].comments.push(comment);
 
@@ -135,13 +140,14 @@ const postsController: PostsController = {
 
   openComment: async (req, res, next) => {
     try {
-      const dbPath = path.join(__dirname, '../../models/database.json');
+      const { database, index } = req.body;
+      const postIndex = parseInt(index, 10);
+
+      const dbPath = path.join(__dirname, `../../models/${database}.json`);
       const data = await fs.readFile(dbPath, 'utf8');
       const db = JSON.parse(data);
 
-      const index = parseInt(req.body.index, 10);
-
-      db.posts[index].createComment = !db.posts[index].createComment;
+      db.posts[postIndex].createComment = !db.posts[postIndex].createComment;
 
       await fs.writeFile(dbPath, JSON.stringify(db, null, 2), 'utf8');
 

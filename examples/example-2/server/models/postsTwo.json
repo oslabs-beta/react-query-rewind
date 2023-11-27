@@ -14,7 +14,9 @@
       "id": 2,
       "text": "Feed 2 - Second Post",
       "liked": false,
-      "comments": ["Only comment on second post"],
+      "comments": [
+        "Only comment on second post"
+      ],
       "createComment": false
     },
     {
