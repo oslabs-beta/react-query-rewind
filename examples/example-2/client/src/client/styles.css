@@ -28,12 +28,40 @@ html {
   width: 100%;
   background-color: #007bff;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  position: fixed;
+}
+
+.title {
   font-weight: bold;
   font-size: 3rem;
   color: white;
-  position: fixed;
+  margin-left: 2rem;
+}
+
+.nav-options {
+  display: flex;
+}
+
+.nav-option {
+  font-weight: bold;
+  font-size: 2.1rem;
+  color: white;
+  margin-right: 3rem;
+  cursor: pointer;
+}
+
+.nav-option:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 0.22rem;
+  text-underline-offset: 0.3rem;
+}
+
+.nav-option.active {
+  text-decoration: underline;
+  text-decoration-thickness: 0.22rem;
+  text-underline-offset: 0.3rem;
 }
 
 .posts-container {
