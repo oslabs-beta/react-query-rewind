@@ -1,9 +1,15 @@
 {
   "posts": [
     {
+      "text": "Test",
+      "liked": false,
+      "comments": [],
+      "createComment": false
+    },
+    {
       "id": 1,
       "text": "First Post",
-      "liked": true,
+      "liked": false,
       "comments": [
         "First comment on first post",
         "Second comment on first post"
