@@ -107,7 +107,26 @@ app.post('/create-comment', async (req, res) => {
     const postIndex = parseInt(index, 10);
 
     db.posts[postIndex].comments.push(comment);
-    // db.posts[postIndex].createComment = true;
+
+    await fs.writeFile(dbPath, JSON.stringify(db, null, 2), 'utf8');
+
+    res.status(201).json(db.posts);
+  } catch (err) {
+    console.error('Error updating database.json:', err);
+    res.status(500).send('Error saving data');
+  }
+});
+
+// open comment
+app.post('/open-comment', async (req, res) => {
+  try {
+    const dbPath = path.join(__dirname, 'database.json');
+    const data = await fs.readFile(dbPath, 'utf8');
+    const db = JSON.parse(data);
+
+    const index = parseInt(req.body.index, 10);
+
+    db.posts[index].createComment = !db.posts[index].createComment;
 
     await fs.writeFile(dbPath, JSON.stringify(db, null, 2), 'utf8');
 

@@ -1,17 +1,12 @@
-import React from 'react';
-
-import { useState, FormEvent } from 'react';
+import React, { FormEvent } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-
 import { usePostInputChange } from '../hooks/usePostInputChange';
 import { useCommentInputChange } from '../hooks/useCommentInputChange';
 import { Post, CreateCommentParams } from '../types';
-import { openComment } from '../functions/openComment';
 
 function PostsOne() {
   const queryClient = useQueryClient();
 
-  const [postsArray, setPostsArray] = useState<Post[]>([]);
   const { postInput, setPostInput, postInputChange } = usePostInputChange();
   const { commentInputs, setCommentInputs, commentInputChange } =
     useCommentInputChange();
@@ -25,7 +20,6 @@ function PostsOne() {
       }
 
       const newPostsArray = await response.json();
-      setPostsArray(newPostsArray);
 
       return newPostsArray;
     } catch (error) {
@@ -35,15 +29,13 @@ function PostsOne() {
 
   // query for fetching old posts
   const {
-    data: postsState,
+    data: postsArray,
     isLoading,
     error,
-  } = useQuery({
+  } = useQuery<Post[]>({
     queryKey: ['posts'],
     queryFn: fetchPostsRoute,
   });
-
-  console.log(postsState, isLoading);
 
   // create-post route
   const createPostRoute = async (newPost: Post) => {
@@ -70,9 +62,8 @@ function PostsOne() {
   // mutation for creating a new post
   const newPostMutation = useMutation({
     mutationFn: createPostRoute,
-    onSuccess: updatedPostsArray => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['posts'] });
-      setPostsArray(updatedPostsArray);
     },
   });
 
@@ -118,9 +109,8 @@ function PostsOne() {
   // mutation for liking a post
   const likePostMutation = useMutation({
     mutationFn: likePostRoute,
-    onSuccess: updatedPostsArray => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['posts'] });
-      setPostsArray(updatedPostsArray);
     },
   });
 
@@ -154,9 +144,8 @@ function PostsOne() {
   // mutation for deleting a post
   const deletePostMutation = useMutation({
     mutationFn: deletePostRoute,
-    onSuccess: updatedPostsArray => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['posts'] });
-      setPostsArray(updatedPostsArray);
     },
   });
 
@@ -193,9 +182,8 @@ function PostsOne() {
   // mutation for creating a comment
   const createCommentMutation = useMutation({
     mutationFn: createCommentRoute,
-    onSuccess: updatedPostsArray => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['posts'] });
-      setPostsArray(updatedPostsArray);
     },
   });
 
@@ -214,6 +202,41 @@ function PostsOne() {
     }
   };
 
+  // open-comment route
+  const openCommentRoute = async (index: number) => {
+    try {
+      const response = await fetch('http://localhost:3000/open-comment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ index: index }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error creating post');
+      }
+
+      const updatedPostsArray = await response.json();
+      return updatedPostsArray;
+    } catch (errror) {
+      console.error('Creating post failed:', error);
+    }
+  };
+
+  // mutation for opening comment
+  const openCommentMutation = useMutation({
+    mutationFn: openCommentRoute,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
+    },
+  });
+
+  // function that opens comment
+  const openComment = (index: number) => {
+    openCommentMutation.mutate(index);
+  };
+
   return (
     <>
       <div className="posts-container">
@@ -228,60 +251,64 @@ function PostsOne() {
             Send
           </button>
         </form>
-        {postsArray.map((post, index) => (
-          <div
-            className={`post-container ${index % 2 === 0 ? 'green' : 'blue'}`}
-            key={index}
-          >
-            <div className="post-text">{post.text}</div>
-            <div className="like-comment-container">
-              <button
-                className={`button ${post.liked === true ? 'red' : ''}`}
-                onClick={() => likePost(index)}
-              >
-                Like
-              </button>
-              <button
-                className="button left-margin"
-                onClick={() => openComment(postsArray, index, setPostsArray)}
-              >
-                Comment
-              </button>
-              <button
-                className="button left-margin"
-                onClick={() => deletePost(index)}
-              >
-                Delete
-              </button>
+
+        {isLoading && <div>Loading...</div>}
+        {error && <div>Error loading posts</div>}
+        {postsArray &&
+          postsArray.map((post, index) => (
+            <div
+              className={`post-container ${index % 2 === 0 ? 'green' : 'blue'}`}
+              key={index}
+            >
+              <div className="post-text">{post.text}</div>
+              <div className="like-comment-container">
+                <button
+                  className={`button ${post.liked === true ? 'red' : ''}`}
+                  onClick={() => likePost(index)}
+                >
+                  Like
+                </button>
+                <button
+                  className="button left-margin"
+                  onClick={() => openComment(index)}
+                >
+                  Comment
+                </button>
+                <button
+                  className="button left-margin"
+                  onClick={() => deletePost(index)}
+                >
+                  Delete
+                </button>
+              </div>
+              <div className="comment-section">
+                {post.createComment === true && (
+                  <>
+                    {' '}
+                    <form
+                      className="create-post-container-2"
+                      onSubmit={event => createComment(event, index)}
+                    >
+                      <input
+                        type="text"
+                        className="input-2"
+                        value={commentInputs[index] || ''}
+                        onChange={event => commentInputChange(index, event)}
+                      />
+                      <button className="button margin-left" type="submit">
+                        Send
+                      </button>
+                    </form>
+                    {post.comments.map((comment, commentIndex) => (
+                      <div className="post-text" key={commentIndex}>
+                        {`${commentIndex}) ${comment}`}
+                      </div>
+                    ))}
+                  </>
+                )}
+              </div>
             </div>
-            <div className="comment-section">
-              {post.createComment === true && (
-                <>
-                  {' '}
-                  <form
-                    className="create-post-container-2"
-                    onSubmit={event => createComment(event, index)}
-                  >
-                    <input
-                      type="text"
-                      className="input-2"
-                      value={commentInputs[index] || ''}
-                      onChange={event => commentInputChange(index, event)}
-                    />
-                    <button className="button margin-left" type="submit">
-                      Send
-                    </button>
-                  </form>
-                  {post.comments.map((comment, commentIndex) => (
-                    <div className="post-text" key={commentIndex}>
-                      {`${commentIndex}) ${comment}`}
-                    </div>
-                  ))}
-                </>
-              )}
-            </div>
-          </div>
-        ))}
+          ))}
       </div>
     </>
   );
