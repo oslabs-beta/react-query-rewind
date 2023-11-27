@@ -65,14 +65,14 @@ const ReactQueryRewind = () => {
 
 export default ReactQueryRewind;
 
-export const RewindHook = () => {
-  // const queryClient = useQueryClient();
-  // useEffect(() => {
-  //   const queryCache = queryClient.getQueryCache();
-  //   const unsubscribe = queryCache.subscribe((event) => console.log(event));
-  //   return () => unsubscribe();
-  // }, [])
+// export const RewindHook = () => {
+//   // const queryClient = useQueryClient();
+//   // useEffect(() => {
+//   //   const queryCache = queryClient.getQueryCache();
+//   //   const unsubscribe = queryCache.subscribe((event) => console.log(event));
+//   //   return () => unsubscribe();
+//   // }, [])
 
-  console.log('Hook Test');
-  return;
-}
+//   console.log('Hook Test');
+//   return;
+// }
