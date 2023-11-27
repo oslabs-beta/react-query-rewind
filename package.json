@@ -1,7 +1,33 @@
 {
   "name": "react-query-rewind",
+  "contributors": [
+    {
+      "name": "John Dunn"
+    },
+    {
+      "name": "Austin Cavanagh"
+    },
+    {
+      "name": "Rui Fan"
+    },
+    {
+      "name": "Emma Teering"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oslabs-beta/react-query-rewind"
+  },
   "version": "1.0.0",
-  "description": "",
+  "description": "React Query Rewind is a library that helps developers debug applications that use React Query (ie TanStack Query) by letting them time travel through state changes directly in their chrome dev tools",
+  "keywords": [
+    "react",
+    "react query",
+    "tanstack query",
+    "@tanstack",
+    "state",
+    "devtools"
+  ],
   "private": false,
   "type": "module",
   "main": "dist/cjs/index.js",
@@ -24,7 +50,6 @@
     "link-dependencies": "npm link examples/example-1/node_modules/react examples/example-1/node_modules/react-dom examples/example-1/node_modules/@tanstack/react-query",
     "unlink-package": "(cd examples/example-1 && npm unlink react-query-rewind) && npm unlink"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "peerDependencies": {
