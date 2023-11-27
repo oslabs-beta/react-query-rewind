@@ -73,15 +73,6 @@ const postsController: PostsController = {
 
       const index = parseInt(req.body.index, 10);
 
-      //   const updatedPostsArray = db.posts.map((post, curIndex) => {
-      //     return {
-      //       ...post,
-      //       liked: index === curIndex ? !post.liked : post.liked,
-      //     };
-      //   });
-
-      //   db.posts = updatedPostsArray;
-
       db.posts[index].liked = !db.posts[index].liked;
 
       await fs.writeFile(dbPath, JSON.stringify(db, null, 2), 'utf8');
@@ -150,7 +141,7 @@ const postsController: PostsController = {
 
       const index = parseInt(req.body.index, 10);
 
-      db.posts[index].createComment = !db.posts[index].create;
+      db.posts[index].createComment = !db.posts[index].createComment;
 
       await fs.writeFile(dbPath, JSON.stringify(db, null, 2), 'utf8');
 

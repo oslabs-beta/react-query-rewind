@@ -2,7 +2,7 @@
   "posts": [
     {
       "id": 1,
-      "text": "Feed 1 - First Post",
+      "text": "Feed 3 - First Post",
       "liked": false,
       "comments": [
         "First comment on first post",
@@ -12,14 +12,14 @@
     },
     {
       "id": 2,
-      "text": "Feed 1 - Second Post",
+      "text": "Feed 3 - Second Post",
       "liked": false,
       "comments": ["Only comment on second post"],
       "createComment": false
     },
     {
       "id": 3,
-      "text": "Feed 1 - Third Post",
+      "text": "Feed 3 - Third Post",
       "liked": false,
       "comments": [],
       "createComment": false
