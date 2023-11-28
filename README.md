@@ -2,15 +2,23 @@
 Add an overview here
 
 ## Installation and Set-Up
-  npm i -D react-query-rewind
+Install the pacakage with: 
+  `npm i -D react-query-rewind`
 
+Import the ReactQueryRewind component and place it as close as possible to the root of your app.
 
-# Example 
+Download the chrome extension from ***insert url here*** in order to time travel state in a developer toosl panel within your chrome browser.
+
+## Example 
+
+```javascript
   import React from 'react';
   import ReactDOM from 'react-dom/client';
   import App from './App';
   import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
   import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
+  const queryClient = new QueryClient();
 
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <QueryClientProvider client={queryClient}>
@@ -19,12 +27,12 @@ Add an overview here
       <ReactQueryDevtools />
     </QueryClientProvider>
   );
+```
 
 # Development
-## Testing with Example 1
+Contributions are always welcome. Please create a fork from https://github.com/oslabs-beta/react-query-rewind. To get started with the example apps:
 
-Contributions are always welcome
-
+## Set-Up Example 1
 **From the root directory:**
 1. `npm run install-all`
 2. `npm run link-dependencies`
