@@ -14,8 +14,8 @@ const formatData = (event: QueryCacheNotifyEvent, queryClient: QueryClient) => {
 
   if (queryHash === '["test-data"]') return;
 
-  // handle updated events with success action type
   if (event.type === 'updated' && event.action?.type === 'success') {
+    // handle updated events with success action type
     const queryData = queryClient.getQueryData(event.query.queryKey);
 
     return {
@@ -50,24 +50,14 @@ const ReactQueryRewind = () => {
     const unsubscribe = queryCache.subscribe((event: QueryCacheNotifyEvent) => {
       const data = formatData(event, queryClient);
       if (data) {
-        // send data to chrome extension
-        try {
-          // postMessage takes in:
-          // message - can be object with any fields
-          // target (just saying all for now)
-          // other options
-          window.postMessage(
-            {
-              type: 'react-query-rewind',
-              payload: data,
-            },
-            '*'
-          ); // use * for all - not sure if this is secure
-        } catch (e) {
-          console.error(e);
-        }
-
-        localStorage.setItem('test', JSON.stringify(data));
+        // function that sends data to chrome extension
+        window.postMessage(
+          {
+            type: 'react-query-rewind',
+            payload: data,
+          },
+          '*'
+        );
       }
     });
 

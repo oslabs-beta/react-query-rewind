@@ -51,7 +51,14 @@ const ReactQueryRewind = () => {
       const data = formatData(event, queryClient);
       if (data) {
         // place function that sends data to chrome extension
-        queryClient.setQueryData(['test-data'], data);
+        // queryClient.setQueryData(['test-data'], data);
+        window.postMessage(
+          {
+            type: 'react-query-rewind',
+            payload: data,
+          },
+          '*'
+        );
       }
     });
 
