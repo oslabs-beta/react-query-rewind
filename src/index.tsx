@@ -1,30 +1,8 @@
 import React, { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { SubscribeEvent } from './types';
+
 // import formatAndSendToChrome from './lib/rewind'
-
-// Test function so we can see data in the console
-// const logging = (event: SubscribeEvent) => {
-//   // need to parse through this data and send it to the chrome extension
-
-//   const simplifiedObj = {
-//     type: event.type,
-//     time: event.query.state.dataUpdatedAt, //might need to format this as a datetime
-//     queryKey: event.query.queryKey,
-//     func: event.query.options.queryFn,
-//     data: event.query.state.data,
-//     status: event.query.state.status,
-//     fetchStatus: event.query.state.fetchStatus,
-//     action: event.action ? event.action.type : null,
-//   };
-
-//   // console.log(event);
-
-//   const importantTypes = ['updated', 'removed', 'added'];
-//   if (importantTypes.includes(simplifiedObj.type)) {
-//     console.log(simplifiedObj);
-//   }
-// };
 
 const ReactQueryRewind = () => {
   // React does not allow hooks inside of useEffect
@@ -50,14 +28,14 @@ const ReactQueryRewind = () => {
 
 export default ReactQueryRewind;
 
-export const RewindHook = () => {
-  // const queryClient = useQueryClient();
-  // useEffect(() => {
-  //   const queryCache = queryClient.getQueryCache();
-  //   const unsubscribe = queryCache.subscribe((event) => console.log(event));
-  //   return () => unsubscribe();
-  // }, [])
+// export const RewindHook = () => {
+//   // const queryClient = useQueryClient();
+//   // useEffect(() => {
+//   //   const queryCache = queryClient.getQueryCache();
+//   //   const unsubscribe = queryCache.subscribe((event) => console.log(event));
+//   //   return () => unsubscribe();
+//   // }, [])
 
-  console.log('Hook Test');
-  return;
-};
+//   console.log('Hook Test');
+//   return;
+// }

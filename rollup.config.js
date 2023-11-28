@@ -23,14 +23,14 @@ export default {
   ],
   plugins: [
     peerDepsExternal(), // prevents duplicate bundling and in theory, multiple versions of react
-    resolve(), // Resolves node modules
+    resolve(), 
     commonjs(), // Converts CommonJS modules to ES6
     typescript({ tsconfig: './tsconfig.json' }), // TypeScript plugin
     babel({
       exclude: 'node_modules/**', // Babel for transpiling React and ES6
       presets: ['@babel/preset-react']
     }),
-    terser() // Minifies the bundles
+    terser(), // Minifies the bundles
   ]
 };
  
