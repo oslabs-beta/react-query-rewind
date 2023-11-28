@@ -83,5 +83,8 @@
     "ts-jest": "^29.1.1",
     "tslib": "^2.6.2",
     "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "react-query-rewind": "^1.0.1"
   }
 }
