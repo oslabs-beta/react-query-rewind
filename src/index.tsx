@@ -1,41 +1,80 @@
 import React, { useEffect } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
-import { SubscribeEvent } from './types';
+import {
+  useQueryClient,
+  QueryCacheNotifyEvent,
+  QueryClient,
+} from '@tanstack/react-query';
 
-// import formatAndSendToChrome from './lib/rewind'
+// format data before sending to chrome extension
+const formatData = (event: QueryCacheNotifyEvent, queryClient: QueryClient) => {
+  const eventType = event.type;
+  const queryKey = event.query.queryKey;
+  const queryHash = event.query.queryHash;
+  const timestamp = new Date(event.query.state.dataUpdatedAt);
+
+  if (queryHash === '["test-data"]') return;
+
+  // handle updated events with success action type
+  if (event.type === 'updated' && event.action?.type === 'success') {
+    const queryData = queryClient.getQueryData(event.query.queryKey);
+
+    return {
+      eventType,
+      queryKey,
+      queryHash,
+      timestamp,
+      queryData,
+    };
+  }
+
+  // handle removed events to clear query cache
+  if (event.type === 'removed') {
+    return {
+      eventType,
+      queryKey,
+      queryHash,
+      timestamp,
+    };
+  }
+
+  return null;
+};
 
 const ReactQueryRewind = () => {
-  // React does not allow hooks inside of useEffect
   const queryClient = useQueryClient();
+
+  // when component mounts add event listener to query cache to track changes
   useEffect(() => {
     const queryCache = queryClient.getQueryCache();
-    // tbh this is a callback - it will only every take in one event. You can't accidentally call this function. It looks like there are ways to do partial checks in enormous objects but it might not be worth it for us. We can type check the fields we care about and send those along to the pure functions
-    const unsubscribe = queryCache.subscribe((event: SubscribeEvent) => {
-      // setTimeout ensure it runs after components load
-      setTimeout(() => {
-        // These need to be optimized so that if it's data I don't want, the functions are never called or return as early as possible
-        console.log(event);
-        // logging(event);
-      }, 0);
+
+    const unsubscribe = queryCache.subscribe((event: QueryCacheNotifyEvent) => {
+      const data = formatData(event, queryClient);
+      if (data) {
+        // send data to chrome extension
+        try {
+          // postMessage takes in:
+          // message - can be object with any fields
+          // target (just saying all for now)
+          // other options
+          window.postMessage(
+            {
+              type: 'react-query-rewind',
+              payload: data,
+            },
+            '*'
+          ); // use * for all - not sure if this is secure
+        } catch (e) {
+          console.error(e);
+        }
+
+        localStorage.setItem('test', JSON.stringify(data));
+      }
     });
 
+    // remove event listener on component dismount
     return () => unsubscribe();
   }, []);
-  // useEffect(() => console.log('Effect in pacakge'), [])
-  console.log('React Query Rewind Test');
   return <></>;
 };
 
 export default ReactQueryRewind;
-
-// export const RewindHook = () => {
-//   // const queryClient = useQueryClient();
-//   // useEffect(() => {
-//   //   const queryCache = queryClient.getQueryCache();
-//   //   const unsubscribe = queryCache.subscribe((event) => console.log(event));
-//   //   return () => unsubscribe();
-//   // }, [])
-
-//   console.log('Hook Test');
-//   return;
-// }
