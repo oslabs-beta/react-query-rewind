@@ -1,56 +1,64 @@
 import React, { useEffect } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
+import {
+  useQueryClient,
+  QueryCacheNotifyEvent,
+  QueryClient,
+} from '@tanstack/react-query';
 
-type SubscribeEvent = {
-  type: string;
-  query: {
-    state: {
-      data: any;
-    };
-  };
-};
-
-const cleanData = (event: SubscribeEvent) => {
-  const relevantTypes = ['added', 'removed', 'updated'];
+// format data before sending to chrome extension
+const formatData = (event: QueryCacheNotifyEvent, queryClient: QueryClient) => {
   const eventType = event.type;
+  const queryKey = event.query.queryKey;
+  const queryHash = event.query.queryHash;
+  const timestamp = new Date(event.query.state.dataUpdatedAt);
 
-  if (!relevantTypes.includes(eventType)) return;
+  if (queryHash === '["test-data"]') return;
 
-  console.log(event);
+  if (event.type === 'updated' && event.action?.type === 'success') {
+    // handle updated events with success action type
+    const queryData = queryClient.getQueryData(event.query.queryKey);
 
-  // if (event.type === 'added') {
-  //   console.log('ADDED', event.query.state.data);
-  // }
+    return {
+      eventType,
+      queryKey,
+      queryHash,
+      timestamp,
+      queryData,
+    };
+  }
 
-  // if (event.type === 'updated') {
-  //   console.log('UPDATED', event.query.state.data);
-  // }
+  // handle removed events to clear query cache
+  if (event.type === 'removed') {
+    return {
+      eventType,
+      queryKey,
+      queryHash,
+      timestamp,
+    };
+  }
+
+  return null;
 };
 
 const ReactQueryRewind = () => {
   const queryClient = useQueryClient();
 
+  // when component mounts add event listener to query cache to track changes
   useEffect(() => {
     const queryCache = queryClient.getQueryCache();
 
-    const unsubscribe = queryCache.subscribe((event: SubscribeEvent) => {
-      cleanData(event);
+    const unsubscribe = queryCache.subscribe((event: QueryCacheNotifyEvent) => {
+      const data = formatData(event, queryClient);
+      if (data) {
+        // place function that sends data to chrome extension
+        queryClient.setQueryData(['test-data'], data);
+      }
     });
 
+    // remove event listener on component dismount
     return () => unsubscribe();
   }, []);
   return <></>;
 };
 
 export default ReactQueryRewind;
-
-export const RewindHook = () => {
-  // const queryClient = useQueryClient();
-  // useEffect(() => {
-  //   const queryCache = queryClient.getQueryCache();
-  //   const unsubscribe = queryCache.subscribe((event) => console.log(event));
-  //   return () => unsubscribe();
-  // }, [])
-
-  return;
-};

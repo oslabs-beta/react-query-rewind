@@ -1,13 +1,10 @@
 {
   "posts": [
     {
-      "id": 1,
-      "text": "Feed 3 - First Post",
+      "id": 3,
+      "text": "Feed 3 - Third Post",
       "liked": false,
-      "comments": [
-        "First comment on first post",
-        "Second comment on first post"
-      ],
+      "comments": [],
       "createComment": false
     },
     {
@@ -20,10 +17,13 @@
       "createComment": false
     },
     {
-      "id": 3,
-      "text": "Feed 3 - Third Post",
+      "id": 1,
+      "text": "Feed 3 - First Post",
       "liked": false,
-      "comments": [],
+      "comments": [
+        "First comment on first post",
+        "Second comment on first post"
+      ],
       "createComment": false
     }
   ]

@@ -1,15 +1,18 @@
 {
   "posts": [
     {
-      "id": 3,
-      "text": "Feed 2 - Third Post",
+      "id": 1,
+      "text": "Feed 1 - First Post",
       "liked": false,
-      "comments": [],
+      "comments": [
+        "First comment on first post",
+        "Second comment on first post"
+      ],
       "createComment": false
     },
     {
       "id": 2,
-      "text": "Feed 2 - Second Post",
+      "text": "Feed 1 - Second Post",
       "liked": false,
       "comments": [
         "Only comment on second post"
@@ -17,13 +20,10 @@
       "createComment": false
     },
     {
-      "id": 1,
-      "text": "Feed 2 - First Post",
+      "id": 3,
+      "text": "Feed 1 - Third Post",
       "liked": false,
-      "comments": [
-        "First comment on first post",
-        "Second comment on first post"
-      ],
+      "comments": [],
       "createComment": false
     }
   ]
