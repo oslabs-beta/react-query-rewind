@@ -29,7 +29,6 @@ type QuerySnapshot = {
 
 const ChromeComponent: React.FC<ChromeComponentProps> = ({ queryData }) => {
   const [querySnapshot, setQuerySnapshot] = useState<QuerySnapshot>({});
-
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const [selectedQueries, setSelectedQueries] = useState<SelectedQueriesState>(
@@ -96,6 +95,8 @@ const ChromeComponent: React.FC<ChromeComponentProps> = ({ queryData }) => {
       Math.min(prevIndex + 1, combinedUpdates.length - 1)
     );
   };
+
+  console.log(queryData);
 
   return (
     <>
