@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PostsOne from './components/PostsOne';
 import PostsTwo from './components/PostsTwo';
 import PostsThree from './components/PostsThree';
-import ChromeComponent from './components/ChromeComponent';
-import { useQuery } from '@tanstack/react-query';
-import { QueryKey } from '@tanstack/react-query';
+// import ChromeComponent from './components/ChromeComponent';
+import { useQuery, QueryKey } from '@tanstack/react-query';
 
 type QueryEvent = {
   eventType: string;
@@ -22,7 +21,6 @@ type QueryData = {
 
 const App = () => {
   const [screenView, setScreenView] = useState<string>('Posts One');
-
   const [queryData, setQueryData] = useState<QueryData>({});
 
   // Fetch the data from React Query's cache
@@ -36,7 +34,6 @@ const App = () => {
       'queryHash' in queryEvent
     ) {
       const newEvent = queryEvent as QueryEvent;
-
       const queryHash = newEvent.queryHash;
       const existingUpdates = queryData[queryHash]?.updates || [];
 
@@ -99,7 +96,7 @@ const App = () => {
         {screenView === 'Posts One' && <PostsOne />}
         {screenView === 'Posts Two' && <PostsTwo />}
         {screenView === 'Posts Three' && <PostsThree />}
-        {screenView === 'Data' && <ChromeComponent queryData={queryData} />}
+        {/* {screenView === 'Data' && <ChromeComponent queryData={queryData} />} */}
       </div>
     </>
   );
