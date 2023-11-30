@@ -84,19 +84,12 @@ const App = () => {
             >
               Feed 3
             </div>
-            <div
-              className={`nav-option ${screenView === 'Data' ? 'active' : ''}`}
-              onClick={() => handleNavClick('Data')}
-            >
-              Data
-            </div>
           </div>
         </div>
 
         {screenView === 'Posts One' && <PostsOne />}
         {screenView === 'Posts Two' && <PostsTwo />}
         {screenView === 'Posts Three' && <PostsThree />}
-        {/* {screenView === 'Data' && <ChromeComponent queryData={queryData} />} */}
       </div>
     </>
   );
