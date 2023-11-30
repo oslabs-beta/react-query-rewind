@@ -3,6 +3,7 @@ export type Post = {
   liked: boolean;
   comments: string[];
   createComment: boolean;
+  timestamp: string;
 };
 
 export type CreateCommentParams = {

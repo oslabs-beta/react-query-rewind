@@ -1,22 +1,6 @@
 {
   "posts": [
     {
-      "id": 3,
-      "text": "Feed 2 - Third Post",
-      "liked": false,
-      "comments": [],
-      "createComment": false
-    },
-    {
-      "id": 2,
-      "text": "Feed 2 - Second Post",
-      "liked": false,
-      "comments": [
-        "Only comment on second post"
-      ],
-      "createComment": false
-    },
-    {
       "id": 1,
       "text": "Feed 2 - First Post",
       "liked": false,
@@ -24,7 +8,8 @@
         "First comment on first post",
         "Second comment on first post"
       ],
-      "createComment": false
+      "createComment": false,
+      "timestamp": "12:00 PM"
     }
   ]
 }

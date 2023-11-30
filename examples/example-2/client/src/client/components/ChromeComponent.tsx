@@ -96,8 +96,6 @@ const ChromeComponent: React.FC<ChromeComponentProps> = ({ queryData }) => {
     );
   };
 
-  console.log(queryData);
-
   return (
     <>
       <div className="select-query">

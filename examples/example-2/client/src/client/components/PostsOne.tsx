@@ -3,6 +3,10 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { usePostInputChange } from '../hooks/usePostInputChange';
 import { useCommentInputChange } from '../hooks/useCommentInputChange';
 import { Post, CreateCommentParams } from '../types';
+import formatTimestamp from '../functions/formatTimestamp';
+
+// import IconButton from '@mui/material/IconButton';
+// import SendIcon from '@mui/icons-material/Send';
 
 function PostsOne() {
   const queryClient = useQueryClient();
@@ -86,6 +90,7 @@ function PostsOne() {
         liked: false,
         comments: [],
         createComment: false,
+        timestamp: formatTimestamp(),
       };
 
       newPostMutation.mutate(newPost);
@@ -269,7 +274,11 @@ function PostsOne() {
               className={`post-container ${index % 2 === 0 ? 'green' : 'blue'}`}
               key={index}
             >
-              <div className="post-text">{post.text}</div>
+              <div className="post-content">
+                <span className="post-text">{post.text}</span>
+                <span className="post-timestamp">{post.timestamp}</span>
+              </div>
+
               <div className="like-comment-container">
                 <button
                   className={`button ${post.liked === true ? 'red' : ''}`}
