@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@tanstack/react-query-devtools": "^5.8.4",
+    "react-query-rewind": "^1.0.1",
     "ts-node": "^10.9.1"
   },
   "devDependencies": {
@@ -22,7 +23,6 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.4",
     "html-webpack-plugin": "^5.5.3",
-    "react-query-rewind": "^1.0.1",
     "ts-loader": "^9.5.1",
     "typescript": "^5.2.2",
     "webpack": "^5.89.0",
