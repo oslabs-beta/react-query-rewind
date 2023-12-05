@@ -56,13 +56,11 @@ function PostsOne() {
     isLoading,
     error,
   } = useQuery<Post[]>({
-    queryKey: [
-      'posts-one',
-      'http://localhost:3000/fetch-data?database=postsOne',
-    ],
-    staleTime: Infinity, // Data will not become stale
+    queryKey: ['posts-one'],
+    meta: { url: 'http://localhost:3000/fetch-data?database=posts-one' },
   });
 
+  
   // create-post route
   const createPostRoute = async (newPost: Post) => {
     try {
@@ -71,7 +69,7 @@ function PostsOne() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ database: 'postsOne', newPost: newPost }),
+        body: JSON.stringify({ database: 'posts-one', newPost: newPost }),
       });
 
       if (!response.ok) {
@@ -119,7 +117,7 @@ function PostsOne() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ database: 'postsOne', index: index }),
+        body: JSON.stringify({ database: 'posts-one', index: index }),
       });
 
       if (!response.ok) {
@@ -154,7 +152,7 @@ function PostsOne() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ database: 'postsOne', index: index }),
+        body: JSON.stringify({ database: 'posts-one', index: index }),
       });
 
       if (!response.ok) {
@@ -192,7 +190,7 @@ function PostsOne() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ database: 'postsOne', index, comment }),
+        body: JSON.stringify({ database: 'posts-one', index, comment }),
       });
 
       if (!response.ok) {
@@ -237,7 +235,7 @@ function PostsOne() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ database: 'postsOne', index: index }),
+        body: JSON.stringify({ database: 'posts-one', index: index }),
       });
 
       if (!response.ok) {

@@ -12,31 +12,6 @@ function PostsTwo() {
   const { commentInputs, setCommentInputs, commentInputChange } =
     useCommentInputChange();
 
-  // fetch-data route to get starting posts
-  const fetchPostsRoute = async () => {
-    try {
-      const database = 'postsTwo';
-      const response = await fetch(
-        `http://localhost:3000/fetch-data?database=${database}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      if (!response.ok) {
-        throw new Error('Server response was not ok');
-      }
-
-      const newPostsArray = await response.json();
-
-      return newPostsArray;
-    } catch (error) {
-      console.error('Fetching posts failed:', error);
-    }
-  };
-
   // query for fetching old posts
   const {
     data: postsArray,
@@ -44,7 +19,7 @@ function PostsTwo() {
     error,
   } = useQuery<Post[]>({
     queryKey: ['posts-two'],
-    queryFn: fetchPostsRoute,
+    meta: { url: 'http://localhost:3000/fetch-data?database=posts-two' },
   });
 
   // create-post route
@@ -55,7 +30,7 @@ function PostsTwo() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ database: 'postsTwo', newPost: newPost }),
+        body: JSON.stringify({ database: 'posts-two', newPost: newPost }),
       });
 
       if (!response.ok) {
@@ -103,7 +78,7 @@ function PostsTwo() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ database: 'postsTwo', index: index }),
+        body: JSON.stringify({ database: 'posts-two', index: index }),
       });
 
       if (!response.ok) {
@@ -138,7 +113,7 @@ function PostsTwo() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ database: 'postsTwo', index: index }),
+        body: JSON.stringify({ database: 'posts-two', index: index }),
       });
 
       if (!response.ok) {
@@ -176,7 +151,7 @@ function PostsTwo() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ database: 'postsTwo', index, comment }),
+        body: JSON.stringify({ database: 'posts-two', index, comment }),
       });
 
       if (!response.ok) {
@@ -221,7 +196,7 @@ function PostsTwo() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ database: 'postsTwo', index: index }),
+        body: JSON.stringify({ database: 'posts-two', index: index }),
       });
 
       if (!response.ok) {

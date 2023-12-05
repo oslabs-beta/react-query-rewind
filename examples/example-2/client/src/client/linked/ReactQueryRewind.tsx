@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useQueryClient, QueryCacheNotifyEvent } from '@tanstack/react-query';
 import formatData from './formatData';
-// import queryTracker from './queryTracker';
 
 const ReactQueryRewind = () => {
   const queryClient = useQueryClient();

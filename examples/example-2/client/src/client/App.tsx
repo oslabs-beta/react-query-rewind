@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PostsOne from './components/PostsOne';
+import PostsOne from './components/postsOne';
 import PostsTwo from './components/PostsTwo';
 import PostsThree from './components/PostsThree';
 // import ChromeComponent from './components/ChromeComponent';
