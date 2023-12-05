@@ -16,38 +16,51 @@ function PostsOne() {
     useCommentInputChange();
 
   // fetch-data route to get starting posts
-  const fetchPostsRoute = async () => {
-    try {
-      const database = 'postsOne';
-      const response = await fetch(
-        `http://localhost:3000/fetch-data?database=${database}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      if (!response.ok) {
-        throw new Error('Server response was not ok');
-      }
+  // const fetchPostsRoute = async () => {
+  //   try {
+  //     const database = 'postsOne';
+  //     const response = await fetch(
+  //       `http://localhost:3000/fetch-data?database=${database}`,
+  //       {
+  //         method: 'GET',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //       }
+  //     );
+  //     if (!response.ok) {
+  //       throw new Error('Server response was not ok');
+  //     }
 
-      const newPostsArray = await response.json();
+  //     const newPostsArray = await response.json();
 
-      return newPostsArray;
-    } catch (error) {
-      console.error('Fetching posts failed:', error);
-    }
-  };
+  //     return newPostsArray;
+  //   } catch (error) {
+  //     console.error('Fetching posts failed:', error);
+  //   }
+  // };
 
-  // query for fetching old posts
+  // // query for fetching old posts
+  // const {
+  //   data: postsArray,
+  //   isLoading,
+  //   error,
+  // } = useQuery<Post[]>({
+  //   queryKey: ['posts-one'],
+  //   queryFn: fetchPostsRoute,
+  //   staleTime: Infinity, // Data will not become stale
+  // });
+
   const {
     data: postsArray,
     isLoading,
     error,
   } = useQuery<Post[]>({
-    queryKey: ['posts-one'],
-    queryFn: fetchPostsRoute,
+    queryKey: [
+      'posts-one',
+      'http://localhost:3000/fetch-data?database=postsOne',
+    ],
+    staleTime: Infinity, // Data will not become stale
   });
 
   // create-post route

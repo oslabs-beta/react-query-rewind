@@ -1,54 +1,54 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PostsOne from './components/PostsOne';
 import PostsTwo from './components/PostsTwo';
 import PostsThree from './components/PostsThree';
 // import ChromeComponent from './components/ChromeComponent';
-import { useQuery, QueryKey } from '@tanstack/react-query';
+// import { useQuery, QueryKey } from '@tanstack/react-query';
 
-type QueryEvent = {
-  eventType: string;
-  queryKey: QueryKey;
-  queryHash: string;
-  timestamp: Date;
-  queryData?: any;
-};
+// type QueryEvent = {
+//   eventType: string;
+//   queryKey: QueryKey;
+//   queryHash: string;
+//   timestamp: Date;
+//   queryData?: any;
+// };
 
-type QueryData = {
-  [queryName: string]: {
-    updates: QueryEvent[];
-  };
-};
+// type QueryData = {
+//   [queryName: string]: {
+//     updates: QueryEvent[];
+//   };
+// };
 
 const App = () => {
   const [screenView, setScreenView] = useState<string>('Posts One');
-  const [queryData, setQueryData] = useState<QueryData>({});
+  // const [queryData, setQueryData] = useState<QueryData>({});
 
   // Fetch the data from React Query's cache
-  const { data: queryEvent } = useQuery({ queryKey: ['test-data'] });
+  // const { data: queryEvent } = useQuery({ queryKey: ['test-data'] });
 
   // Synchronize the local state with the React Query data
-  useEffect(() => {
-    if (
-      queryEvent &&
-      typeof queryEvent === 'object' &&
-      'queryHash' in queryEvent
-    ) {
-      const newEvent = queryEvent as QueryEvent;
-      const queryHash = newEvent.queryHash;
-      const existingUpdates = queryData[queryHash]?.updates || [];
+  // useEffect(() => {
+  //   if (
+  //     queryEvent &&
+  //     typeof queryEvent === 'object' &&
+  //     'queryHash' in queryEvent
+  //   ) {
+  //     const newEvent = queryEvent as QueryEvent;
+  //     const queryHash = newEvent.queryHash;
+  //     const existingUpdates = queryData[queryHash]?.updates || [];
 
-      setQueryData(prevQueryData => ({
-        ...prevQueryData,
-        [queryHash]: {
-          updates: [...existingUpdates, newEvent],
-        },
-      }));
-    }
-  }, [queryEvent]);
+  //     setQueryData(prevQueryData => ({
+  //       ...prevQueryData,
+  //       [queryHash]: {
+  //         updates: [...existingUpdates, newEvent],
+  //       },
+  //     }));
+  //   }
+  // }, [queryEvent]);
 
-  useEffect(() => {
-    console.log(queryData);
-  }, [queryData]);
+  // useEffect(() => {
+  //   console.log(queryData);
+  // }, [queryData]);
 
   const handleNavClick = (screenName: string) => {
     setScreenView(screenName);
