@@ -4,7 +4,7 @@
     "exactOptionalPropertyTypes": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitThis": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false, // changed this
     "noUnusedParameters": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,

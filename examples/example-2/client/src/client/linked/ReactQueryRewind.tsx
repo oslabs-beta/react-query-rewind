@@ -10,7 +10,7 @@ const ReactQueryRewind = () => {
     const queryCache = queryClient.getQueryCache();
 
     const unsubscribe = queryCache.subscribe((event: QueryCacheNotifyEvent) => {
-      console.log(event);
+      // console.log(event);
 
       const data = formatData(event, queryClient);
       if (data) {

@@ -8,11 +8,13 @@ import './styles.css';
 
 import ReactQueryRewind from './linked/ReactQueryRewind';
 import queryTracker from './linked/queryTracker';
+import queryRetry from './linked/queryRetry';
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       queryFn: queryTracker,
+      retry: queryRetry,
     },
   },
 });

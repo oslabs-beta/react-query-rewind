@@ -5,9 +5,6 @@ import { useCommentInputChange } from '../hooks/useCommentInputChange';
 import { Post, CreateCommentParams } from '../types';
 import formatTimestamp from '../functions/formatTimestamp';
 
-// import IconButton from '@mui/material/IconButton';
-// import SendIcon from '@mui/icons-material/Send';
-
 function PostsOne() {
   const queryClient = useQueryClient();
 
@@ -57,10 +54,9 @@ function PostsOne() {
     error,
   } = useQuery<Post[]>({
     queryKey: ['posts-one'],
-    meta: { url: 'http://localhost:3000/fetch-data?database=posts-one' },
+    meta: { url: 'http://localhost:3000/fetch-data?database=posts-on' },
   });
 
-  
   // create-post route
   const createPostRoute = async (newPost: Post) => {
     try {

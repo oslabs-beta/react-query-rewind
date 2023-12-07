@@ -19,7 +19,7 @@ function PostsTwo() {
     error,
   } = useQuery<Post[]>({
     queryKey: ['posts-two'],
-    meta: { url: 'http://localhost:3000/fetch-data?database=posts-two' },
+    meta: { url: 'http://localhost:3000/fetch-data?database=posts-tw' },
   });
 
   // create-post route
