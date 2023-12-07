@@ -1,7 +1,64 @@
-import { QueryFunctionContext } from '@tanstack/react-query';
+import { QueryFunctionContext, QueryKey } from '@tanstack/react-query';
 
-let querySuccessCount = 0;
-let queryFailureCount = 0;
+let currentQueryKey: QueryKey | undefined = undefined;
+let failedQueries = 0;
+
+const trackSuccessfulQueries = (
+  queryKey: QueryKey,
+  sucessTime: string,
+  executionTime: number
+) => {
+  window.postMessage(
+    {
+      type: 'react-query-rewind',
+      payload: {
+        type: 'metric',
+        metric: {
+          type: 'successful query',
+          data: { queryKey, sucessTime, executionTime },
+        },
+      },
+    },
+    '*'
+  );
+};
+
+const trackFailedQueries = (queryKey: QueryKey, errorTime: string) => {
+  if (JSON.stringify(queryKey) !== JSON.stringify(currentQueryKey)) {
+    currentQueryKey = queryKey;
+    failedQueries = 0;
+  }
+
+  if (failedQueries === 0) {
+    // send failed query metric to chrome dev tool
+    window.postMessage(
+      {
+        type: 'react-query-rewind',
+        payload: {
+          type: 'metric',
+          metric: { type: 'failded query', data: { queryKey, errorTime } },
+        },
+      },
+      '*'
+    );
+  }
+
+  if (failedQueries > 0) {
+    // send retry query metric to the database
+    window.postMessage(
+      {
+        type: 'react-query-rewind',
+        payload: {
+          type: 'metric',
+          metric: { type: 'retry query', data: { queryKey, errorTime } },
+        },
+      },
+      '*'
+    );
+  }
+
+  failedQueries++;
+};
 
 const queryTracker = async ({ queryKey, meta }: QueryFunctionContext) => {
   const url = meta?.url as string;
@@ -11,7 +68,6 @@ const queryTracker = async ({ queryKey, meta }: QueryFunctionContext) => {
   }
 
   try {
-    // record query start time
     const startTime = performance.now();
 
     const response = await fetch(url, {
@@ -21,27 +77,23 @@ const queryTracker = async ({ queryKey, meta }: QueryFunctionContext) => {
       },
     });
 
-    // record query end time and total execution time in milliseconds
+    // send successful query metrics to chrome dev tool
     const endTime = performance.now();
     const executionTime = endTime - startTime;
-
-    console.log('failed again');
+    const sucessTime = new Date().toISOString();
+    trackSuccessfulQueries(queryKey, sucessTime, executionTime);
 
     if (!response.ok) {
-      queryFailureCount++;
       throw new Error('Network response was not ok');
     }
 
-    console.log(executionTime);
+    const fetchedData = await response.json();
 
-    querySuccessCount++;
-
-    console.log(querySuccessCount, queryFailureCount);
-
-    return response.json();
+    return fetchedData;
   } catch (error) {
-    queryFailureCount++;
-
+    const errorTime = new Date().toISOString();
+    // send failed query metrics to chrome dev tool
+    trackFailedQueries(queryKey, errorTime);
     throw error;
   }
 };

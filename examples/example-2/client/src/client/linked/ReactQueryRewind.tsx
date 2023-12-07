@@ -10,16 +10,15 @@ const ReactQueryRewind = () => {
     const queryCache = queryClient.getQueryCache();
 
     const unsubscribe = queryCache.subscribe((event: QueryCacheNotifyEvent) => {
-      // console.log(event);
-
       const data = formatData(event, queryClient);
+
       if (data) {
         // place function that sends data to chrome extension
         // queryClient.setQueryData(['test-data'], data);
         window.postMessage(
           {
             type: 'react-query-rewind',
-            payload: data,
+            payload: { type: 'event', event: data },
           },
           '*'
         );
