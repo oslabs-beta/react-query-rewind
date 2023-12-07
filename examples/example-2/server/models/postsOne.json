@@ -6,9 +6,10 @@
       "liked": false,
       "comments": [
         "First comment on first post",
-        "Second comment on first post"
+        "Second comment on first post",
+        "Third comment on first post"
       ],
-      "createComment": false,
+      "createComment": true,
       "timestamp": "12:00 PM"
     }
   ]
