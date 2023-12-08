@@ -9,9 +9,11 @@
     },
     {
       "text": "2",
-      "liked": false,
-      "comments": [],
-      "createComment": false,
+      "liked": true,
+      "comments": [
+        "hello"
+      ],
+      "createComment": true,
       "timestamp": "9:57 PM"
     }
   ]

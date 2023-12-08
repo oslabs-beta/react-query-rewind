@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 import {
   useQueryClient,
   QueryCacheNotifyEvent,
   QueryClient,
-} from "@tanstack/react-query";
+} from '@tanstack/react-query';
 
 // format data before sending to chrome extension
 // merge into WindowEventMap
@@ -15,7 +15,7 @@ const formatData = (event: QueryCacheNotifyEvent, queryClient: QueryClient) => {
 
   if (queryHash === '["test-data"]') return;
 
-  if (event.type === "updated" && event.action?.type === "success") {
+  if (event.type === 'updated' && event.action?.type === 'success') {
     // handle updated events with success action type
     const queryData: undefined | any[] = queryClient.getQueryData(
       event.query.queryKey
@@ -31,7 +31,7 @@ const formatData = (event: QueryCacheNotifyEvent, queryClient: QueryClient) => {
   }
 
   // handle removed events to clear query cache
-  if (event.type === "removed") {
+  if (event.type === 'removed') {
     return {
       eventType,
       queryKey,
@@ -57,10 +57,10 @@ const Subscription = () => {
         // queryClient.setQueryData(['test-data'], data);
         window.postMessage(
           {
-            type: "react-query-rewind",
+            type: 'react-query-rewind',
             payload: data,
           },
-          "*"
+          '*'
         );
       }
     });

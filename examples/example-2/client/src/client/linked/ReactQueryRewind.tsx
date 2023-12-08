@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import Subscription from "./Subscription";
-import TimeTravel from "./TimeTravel";
+import React, { useEffect, useState } from 'react';
+import Subscription from './Subscription';
+import TimeTravel from './TimeTravel';
 
 const ReactQueryRewind = () => {
   const [timeTravel, setTimeTravel] = useState<boolean>(false);
@@ -9,8 +9,8 @@ const ReactQueryRewind = () => {
     const listener = function (event: CustomEvent) {
       setTimeTravel(event.detail.timeTravel);
     };
-    window.addEventListener("TimeTravel", listener);
-    return () => window.removeEventListener("TimeTravel", listener);
+    window.addEventListener('TimeTravel', listener);
+    return () => window.removeEventListener('TimeTravel', listener);
   }, []);
 
   return timeTravel ? <TimeTravel /> : <Subscription />;
