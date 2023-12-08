@@ -9,6 +9,8 @@ const queryTracker = async ({ queryKey, meta }: QueryFunctionContext) => {
     throw new Error(`URL not provided for query key: ${queryKey}`);
   }
 
+  const timestamp = new Date().toISOString();
+
   try {
     const startTime = performance.now();
 
@@ -26,15 +28,14 @@ const queryTracker = async ({ queryKey, meta }: QueryFunctionContext) => {
     }
 
     const executionTime = endTime - startTime;
-    const sucessTime = new Date().toISOString();
-    trackSuccessfulQueries(queryKey, sucessTime, executionTime);
+    trackSuccessfulQueries(JSON.stringify(queryKey), timestamp, executionTime);
 
     const fetchedData = await response.json();
 
     return fetchedData;
   } catch (error) {
     const errorTime = new Date().toISOString();
-    trackFailedQueries(queryKey, errorTime);
+    trackFailedQueries(JSON.stringify(queryKey), timestamp);
     throw error;
   }
 };

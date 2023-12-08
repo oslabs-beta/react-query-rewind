@@ -3,8 +3,8 @@
 import { QueryKey } from '@tanstack/react-query';
 
 const trackSuccessfulQueries = (
-  queryKey: QueryKey,
-  sucessTime: string,
+  queryKey: string,
+  timestamp: string,
   executionTime: number
 ) => {
   window.postMessage(
@@ -13,8 +13,8 @@ const trackSuccessfulQueries = (
       payload: {
         type: 'metric',
         metric: {
-          type: 'successful query',
-          data: { queryKey, sucessTime, executionTime },
+          type: 'successful',
+          data: { queryKey, timestamp, executionTime },
         },
       },
     },

@@ -1,9 +1,9 @@
 import { QueryFunctionContext, QueryKey } from '@tanstack/react-query';
 
-let currentQueryKey: QueryKey | undefined = undefined;
+let currentQueryKey: string | undefined = undefined;
 let failedQueries = 0;
 
-const trackFailedQueries = (queryKey: QueryKey, errorTime: string) => {
+const trackFailedQueries = (queryKey: string, timestamp: string) => {
   if (JSON.stringify(queryKey) !== JSON.stringify(currentQueryKey)) {
     currentQueryKey = queryKey;
     failedQueries = 0;
@@ -16,7 +16,7 @@ const trackFailedQueries = (queryKey: QueryKey, errorTime: string) => {
         type: 'react-query-rewind',
         payload: {
           type: 'metric',
-          metric: { type: 'failded query', data: { queryKey, errorTime } },
+          metric: { type: 'failded', data: { queryKey, timestamp } },
         },
       },
       '*'
@@ -30,7 +30,7 @@ const trackFailedQueries = (queryKey: QueryKey, errorTime: string) => {
         type: 'react-query-rewind',
         payload: {
           type: 'metric',
-          metric: { type: 'retry query', data: { queryKey, errorTime } },
+          metric: { type: 'retry', data: { queryKey, timestamp } },
         },
       },
       '*'
