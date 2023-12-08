@@ -1,16 +1,11 @@
 {
   "posts": [
     {
-      "id": 1,
-      "text": "Feed 1 - First Post",
+      "text": "feed 2",
       "liked": false,
-      "comments": [
-        "First comment on first post",
-        "Second comment on first post",
-        "Third comment on first post"
-      ],
+      "comments": [],
       "createComment": true,
-      "timestamp": "12:00 PM"
+      "timestamp": "7:02 PM"
     }
   ]
 }

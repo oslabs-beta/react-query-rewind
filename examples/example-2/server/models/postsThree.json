@@ -3,7 +3,7 @@
     {
       "id": 1,
       "text": "Feed 3 - First Post",
-      "liked": true,
+      "liked": false,
       "comments": [
         "First comment on first post",
         "Second comment on first post"

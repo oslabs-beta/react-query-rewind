@@ -8,3 +8,8 @@ declare global {
     TimeTravel: CustomEvent;
   }
 }
+
+export type QueryDisplay = {
+  queryKey: string;
+  queryData: any;
+};
