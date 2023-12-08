@@ -15,7 +15,7 @@ function PostsOne() {
   // fetch-data route to get starting posts
   // const fetchPostsRoute = async () => {
   //   try {
-  //     const database = 'postsOne';
+  //     const database = 'posts-one';
   //     const response = await fetch(
   //       `http://localhost:3000/fetch-data?database=${database}`,
   //       {
@@ -45,7 +45,6 @@ function PostsOne() {
   // } = useQuery<Post[]>({
   //   queryKey: ['posts-one'],
   //   queryFn: fetchPostsRoute,
-  //   staleTime: Infinity, // Data will not become stale
   // });
 
   const {
@@ -54,7 +53,7 @@ function PostsOne() {
     error,
   } = useQuery<Post[]>({
     queryKey: ['posts-one'],
-    meta: { url: 'http://localhost:3000/fetch-data?database=posts-on' },
+    meta: { url: 'http://localhost:3000/fetch-data?database=posts-one' },
   });
 
   // create-post route
