@@ -1,14 +1,31 @@
 {
   "posts": [
     {
+      "text": "test",
+      "liked": true,
+      "comments": [],
+      "createComment": false,
+      "timestamp": "7:25 PM"
+    },
+    {
+      "text": "new",
+      "liked": true,
+      "comments": [
+        "hi"
+      ],
+      "createComment": true,
+      "timestamp": "5:59 PM"
+    },
+    {
       "text": "feed 2",
       "liked": true,
       "comments": [
         "comment",
         "comment 1",
-        "comment 2"
+        "comment 2",
+        "hi"
       ],
-      "createComment": false,
+      "createComment": true,
       "timestamp": "7:02 PM"
     }
   ]
