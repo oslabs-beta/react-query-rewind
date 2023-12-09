@@ -43,4 +43,4 @@ Contributions are always welcome. Please create a fork from https://github.com/o
 4. `npm run link-package`
     1. Links React Query Rewind
 5. `npm run example-1`
-    1. Starts the example server with webpack
+    1. Starts the example server with webpack 

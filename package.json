@@ -85,6 +85,10 @@
     "typescript": "^5.3.2"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.23.5",
+    "@babel/preset-react": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
+    "jest-environment-jsdom": "^29.7.0",
     "react-query-rewind": "^1.0.1"
   }
 }
