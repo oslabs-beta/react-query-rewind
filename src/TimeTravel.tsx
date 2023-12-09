@@ -9,7 +9,7 @@ const TimeTravel = () => {
     const listener = (event: CustomEvent) => {
       const currentQuery: QueryDisplay[] = event.detail.currentQuery;
       currentQuery.forEach((queryState) => {
-        if (queryState.queryData !== 'N/A') {
+        if (queryState.queryData !== '') {
           queryClient.setQueryData(
             [queryState.queryKey.slice(2, -2)],
             queryState.queryData
