@@ -1,6 +1,27 @@
 {
   "posts": [
     {
+      "text": "test",
+      "liked": true,
+      "comments": [],
+      "createComment": false,
+      "timestamp": "7:33 PM"
+    },
+    {
+      "text": "new",
+      "liked": false,
+      "comments": [],
+      "createComment": false,
+      "timestamp": "7:33 PM"
+    },
+    {
+      "text": "hi",
+      "liked": false,
+      "comments": [],
+      "createComment": false,
+      "timestamp": "7:33 PM"
+    },
+    {
       "text": "4",
       "liked": true,
       "comments": [],
@@ -11,7 +32,8 @@
       "text": "2",
       "liked": true,
       "comments": [
-        "hello"
+        "hello",
+        "hi"
       ],
       "createComment": true,
       "timestamp": "9:57 PM"
