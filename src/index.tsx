@@ -16,7 +16,7 @@ const ReactQueryRewind = () => {
 
   return (
     <ErrorBoundary>
-      {timeTravel ? <TimeTravel /> : <Subscription />}
+      timeTravel ? <TimeTravel /> : <Subscription />
     </ErrorBoundary>
   )
 };

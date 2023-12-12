@@ -16,26 +16,36 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     this.state = { hasError: false };
   }
 
+  static getDerivedStateFromError(error) {
+    return {
+      hasError: true,
+      error,
+    };
+
+  }
+
   // Catches exceptions generated in descendant components. Unhandled exceptions will cause the entire component tree to unmount.
   componentDidCatch(error, info) {
     // Send window message with error info
-    useEffect(() => {
-      window.postMessage(
-        {
-          type: 'react-query-rewind',
-          payload: {
-            eventType: null,
-            queryKey: null,
-            queryHash: null,
-            timestamp: null,
-            queryData: null,
-            isError: true,
-          },
+    window.postMessage(
+      {
+        type: 'react-query-rewind',
+        payload: {
+          eventType: null,
+          queryKey: null,
+          queryHash: null,
+          timestamp: null,
+          queryData: null,
+          isError: true,
         },
-        '*'
-      );
-    },[])
-    console.log('Error!');
+      },
+      '*'
+    );
+    console.log(`%c
+    ********* WARNING ***********
+    Ensure the ReactQueryRewind component is inside your query client provider to use the dev tools
+    See documentation at https://github.com/oslabs-beta/react-query-rewind
+    `, "color: orange; font-size: 14px; font-weight: bold;")
   }
 
   render() {

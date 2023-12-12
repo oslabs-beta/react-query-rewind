@@ -19,8 +19,8 @@ const queryClient = new QueryClient({
 ReactDOM.createRoot(document.getElementById('root')!).render(
   // <React.StrictMode>
   <>
-      <ReactQueryRewind/>
     <QueryClientProvider client={queryClient}>
+      <ReactQueryRewind/>
       {/* <TestReactQueryRewind/> */}
       <App />
       <ReactQueryDevtools />
