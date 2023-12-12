@@ -49,7 +49,6 @@ const Subscription = () => {
   // when component mounts add event listener to query cache to track changes
   useEffect(() => {
     const queryCache = queryClient.getQueryCache();
-
     const unsubscribe = queryCache.subscribe((event: QueryCacheNotifyEvent) => {
       const data = formatData(event, queryClient);
       if (data) {

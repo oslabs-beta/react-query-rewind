@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Subscription from './Subscription';
 import TimeTravel from './TimeTravel';
+import ErrorBoundary from './ErrorBoundary';
 
 const ReactQueryRewind = () => {
   const [timeTravel, setTimeTravel] = useState<boolean>(false);
@@ -13,7 +14,11 @@ const ReactQueryRewind = () => {
     return () => window.removeEventListener('TimeTravel', listener);
   }, []);
 
-  return timeTravel ? <TimeTravel /> : <Subscription />;
+  return (
+    <ErrorBoundary>
+      {timeTravel ? <TimeTravel /> : <Subscription />}
+    </ErrorBoundary>
+  )
 };
 
 export default ReactQueryRewind;
