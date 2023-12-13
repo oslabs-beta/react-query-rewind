@@ -7,7 +7,6 @@ import CustomTabPanel from '../components/CustomTabPanel';
 import a11yProps from '../functions/a11yProps';
 import MetricsTab from './MetricsTab';
 import QueriesTab from './QueriesTab';
-import SettingsTab from './SettingsTab';
 
 const ParentTab = ({ queryEvents, selectedQueries, handleSelectionChange }: ParentTabsProps) => {
   const [value, setValue] = React.useState(0);
@@ -33,7 +32,6 @@ const ParentTab = ({ queryEvents, selectedQueries, handleSelectionChange }: Pare
         >
           <Tab label='QUERIES' {...a11yProps(0)} />
           <Tab label='COMPONENT TREE' {...a11yProps(1)} />
-          <Tab label='SETTINGS' {...a11yProps(2)} />
         </Tabs>
       </Box>
 
@@ -51,10 +49,6 @@ const ParentTab = ({ queryEvents, selectedQueries, handleSelectionChange }: Pare
             queryEvents={queryEvents}
             selectedQueries={selectedQueries}
           />
-        </CustomTabPanel>
-
-        <CustomTabPanel value={value} index={2}>
-          <SettingsTab />
         </CustomTabPanel>
       </Box>
     </Box>
