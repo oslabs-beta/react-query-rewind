@@ -39,11 +39,14 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'          
-
       - name: Install Package dependencies
         run: |
           cd package
           npm ci
+      - name: Install linux handler for github actions
+        run: |
+          cd package
+          npm i @rollup/rollup-linux-x64-gnu
       - name: Build Package
         run: |
           cd package
