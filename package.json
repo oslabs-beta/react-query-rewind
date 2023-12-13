@@ -32,7 +32,7 @@
   "type": "module",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "types": "dist/types/types.d.ts",
+  "types": "dist/cjs/index.d.ts",
   "files": [
     "dist"
   ],

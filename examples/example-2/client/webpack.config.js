@@ -17,6 +17,13 @@ module.exports = [
     ],
     resolve: {
       extensions: [".js", ".ts", ".tsx", ".jsx"],
+      alias: {
+        react: path.resolve('./node_modules/react'),
+        'react-dom': path.resolve('./node_modules/react-dom'),
+        '@tanstack/react-query': path.resolve('./node_modules/@tanstack/react-query'),
+        // 'react-query': path.resolve('./node_modules/@tanstack/react-query'),
+        // 'query-core': path.resolve('./node_modules/@tanstack/query-core')
+      }
     },
     module: {
       rules: [

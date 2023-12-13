@@ -8,17 +8,23 @@
     "jsx": "react",
     "declaration": true,
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true
-    //     "module": "esnext", // ES modules are standard in modern JS development
-    //     "lib": ["dom", "esnext"], // Include DOM and ESNext features
-    //     "jsx": "react-jsx", // JSX support for React
-    //     "moduleResolution": "node", // Node-style module resolution
-    //     "esModuleInterop": true, // Allows default imports from modules with no default export
-    //     "strict": true, // Enable all strict type-checking options
-    //     "skipLibCheck": true, // Skip type checking for all declaration files
-    //     "forceConsistentCasingInFileNames": true, // Ensure case consistency in imports
-    //     "noEmit": true, // Does not output any files and leaves that to rollup
-    //     "sourceMap": true // Add this line to enable source maps
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true, // Enable compatibility with Babel-style module imports
+    "strict": true, // Enable all strict type-checking options
+    "noImplicitAny": true, // Ensure all variables have a type
+    "strictNullChecks": true, // Ensure null and undefined are handled correctly
+    "strictFunctionTypes": true, // Ensure function parameter types are correctly checked
+    "strictPropertyInitialization": true, // Ensure all properties of a class are initialized
+    "strictBindCallApply": true, // Strictly check the types of parameters in bind, call, and apply
+    "noImplicitThis": true, // Raise error on 'this' expressions with an implied 'any' type
+    "alwaysStrict": true, // Parse in strict mode and emit "use strict" for each source file
+    "forceConsistentCasingInFileNames": true, // Disallow inconsistently-cased references to the same file
+    "noUnusedLocals": true, // Report errors on unused locals
+    "noUnusedParameters": true, // Report errors on unused parameters
+    "noImplicitReturns": true, // Report error when not all code paths in function return a value
+    "noFallthroughCasesInSwitch": true, // Report errors for fallthrough cases in switch statement
+    "skipLibCheck": true, // Skip type checking of all declaration files (*.d.ts)
+    "sourceMap": true // Enable source maps for debugging
   },
   "include": ["src"],
   "exclude": ["node_modules", "examples", "dist"]
