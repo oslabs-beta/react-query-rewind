@@ -1,11 +1,20 @@
 {
   "posts": [
     {
-      "text": "new",
+      "text": "Blog 2",
       "liked": false,
       "comments": [],
       "createComment": false,
-      "timestamp": "1:17 PM"
+      "timestamp": "9:28 PM"
+    },
+    {
+      "text": "Blog 1",
+      "liked": false,
+      "comments": [
+        "Great job"
+      ],
+      "createComment": true,
+      "timestamp": "9:27 PM"
     }
   ]
 }

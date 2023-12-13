@@ -32,15 +32,20 @@ Download the chrome extension from ***insert url here*** in order to time travel
 # Development
 Contributions are always welcome. Please create a fork from https://github.com/oslabs-beta/react-query-rewind. To get started with the example apps:
 
-## Set-Up Example 1
+## Set-Up Examples
 **From the root directory:**
+Run with "1" or "2" depending on which example you'd like to set up
 1. `npm run install-all`
-2. `npm run link-dependencies`
+2. `npm run link-dependencies-[1/2]`
     1. Installs all peer dependencies in our package to ensure there are no duplicates
     2. Can see all packages currently linked with *`npm ls -g --depth=0 --link=tr`*    
 3. `npm run watch`
     1. Starts rollup in watch mode and creates dist folder
-4. `npm run link-package`
+4. `npm run link-package-[1/2]`
     1. Links React Query Rewind
-5. `npm run example-1`
-    1. Starts the example server with webpack 
+5. `npm run example-[1/2]`
+    1. Starts the example server with webpack. Note: this is a hot reload, but it does not always pick up changes to the npm package
+
+# Publishing
+1. `npm login` to login to the npm site. Follow the instructions to publish your npm package
+2. `npm publish`
