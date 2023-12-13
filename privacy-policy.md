@@ -4,4 +4,4 @@ React Query Rewind does not store, transmit or collect user data. All data is ke
 
 ## Contact Information
 
-For any questions or concerns regarding the privacy policy, please send us an email at react-query-rewind@googlegroups.com.
+For any questions or concerns regarding the privacy policy, please send us an email at react-query-rewind@googlegroups.com. 
