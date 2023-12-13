@@ -48,7 +48,8 @@
     "install-all": "npm install && (cd examples/example-1 && npm install) && (cd examples/example-2 && npm install) && (cd examples/example-2/client && npm install) && (cd examples/example-2/server && npm install)",
     "link-package": "npm link && (cd examples/example-1 && npm link react-query-rewind)",
     "link-dependencies": "npm link examples/example-1/node_modules/react examples/example-1/node_modules/react-dom examples/example-1/node_modules/@tanstack/react-query",
-    "unlink-package": "(cd examples/example-1 && npm unlink react-query-rewind) && npm unlink"
+    "unlink-package": "(cd examples/example-1 && npm unlink react-query-rewind) && npm unlink",
+    "website": "cd website && npm start"
   },
   "author": "",
   "license": "ISC",
