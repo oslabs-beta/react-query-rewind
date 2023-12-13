@@ -1,0 +1,20 @@
+{
+  "posts": [
+    {
+      "text": "hi",
+      "liked": false,
+      "comments": [
+        "new"
+      ],
+      "createComment": true,
+      "timestamp": "12:01 PM"
+    },
+    {
+      "text": "Blog 2",
+      "liked": true,
+      "comments": [],
+      "createComment": false,
+      "timestamp": "9:28 PM"
+    }
+  ]
+}

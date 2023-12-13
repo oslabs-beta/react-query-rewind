@@ -1,0 +1,37 @@
+{
+    "manifest_version": 3,
+    "name": "RQRewind",
+    "version": "1.0.0",
+    "description": "State management DevTools for React Query",
+    "devtools_page": "devtools.html",
+    "icons": {
+        "16": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png"
+    },
+    "browser_action": {
+        "default_icon": "icon.png"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": ["http://localhost/*"],
+            "js": ["content.js"]
+        }
+    ],
+    "permissions": [
+        "tabs",
+        "activeTab",
+        "storage",
+        "scripting"
+    ],
+    "host_permissions": ["http://localhost/*"],
+    "web_accessible_resources": [
+        {
+          "resources": ["inject.js"],
+          "matches": ["<all_urls>"]
+        }
+      ]
+}
