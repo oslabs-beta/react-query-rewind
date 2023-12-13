@@ -49,3 +49,9 @@ Run with "1" or "2" depending on which example you'd like to set up
 # Publishing
 1. `npm login` to login to the npm site. Follow the instructions to publish your npm package
 2. `npm publish`
+
+### Future Development
+- Rollup currently does not build on older macs or on Linux (we have not confirmed the issue on Windows yet)
+- Some developers on older macs need to install @rollup/rollup-darwin-x64 to get the build working
+- Github actions uses linux and as a result, our test.yml script installs @rollup/rollup-darwin-x64 to ensure the build works properly
+- Future development should ensure that builds work correclty regardless of the developer's machine and remove the installation of @rollup/rollup-darwin-x64 from the tests.yml file
