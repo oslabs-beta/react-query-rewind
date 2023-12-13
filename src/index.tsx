@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Subscription from './Subscription';
 import TimeTravel from './TimeTravel';
 
-const ReactQueryRewind = () => {
+const ReactQueryRewind: React.FC = () => {
   const [timeTravel, setTimeTravel] = useState<boolean>(false);
 
   useEffect(() => {

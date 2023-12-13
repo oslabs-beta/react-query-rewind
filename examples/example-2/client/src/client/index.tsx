@@ -6,7 +6,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { QueryClient } from '@tanstack/react-query';
 import './styles.css';
 
-import ReactQueryRewind from './linked/ReactQueryRewind';
+import ReactQueryRewind from 'react-query-rewind';
 
 const queryClient = new QueryClient({
   defaultOptions: {
