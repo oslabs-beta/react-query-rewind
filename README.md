@@ -37,7 +37,20 @@ This is an example of how to list things you need to use the software and how to
 
 # Features
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+- <b> Query States: </b> Upon opening RQRewind in Chrome Dev Tools, you will see the Queries tab open with a drop down menu listing the query keys of all the incoming queries. Select the queries that you want to monitor, make changes on the web app, and the changes of query states will be logged as reflected by the growing number above the play bar. Use the play bar to navigate to a particular state snapshot that you would like to inspect.
+<p align="center"><img src="./assets/query-states.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p> 
+
+- <b>State Diff: </b>Toggle on the Diff button to see state changes between each snapshot highlighted. Turn on the switch on top of the page to show only parts of the state that are changed. 
+
+<p align="center"><img src="./assets/state-diff.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p> 
+
+- <b>Live UI Change: </b>As you review the state change history, there is also the option to turn on the time travel mode by clicking on the clock icon button. Under time travel mode, when visiting a logged state snapshot on RQRewindl, the UI of the app will change accordingly. Turn off time travel mode for RQRewind to continue logging future state changes. 
+
+<p align="center"><img src="./assets/UI-change.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p> 
+
+- <b>Component Tree: </b> Click on the Component Tree tab and turn on the Start Profiling switch. Click on any component on the app, and view the component tree that is rendered on the dev tools panel.
+
+<p align="center"><img src="./assets/component-tree.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p> 
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
