@@ -4,7 +4,8 @@
       "text": "hi",
       "liked": true,
       "comments": [
-        "new"
+        "new",
+        "hello"
       ],
       "createComment": true,
       "timestamp": "12:01 PM"
