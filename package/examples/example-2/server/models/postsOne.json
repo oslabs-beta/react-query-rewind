@@ -2,7 +2,7 @@
   "posts": [
     {
       "text": "hi",
-      "liked": true,
+      "liked": false,
       "comments": [
         "new",
         "hello"

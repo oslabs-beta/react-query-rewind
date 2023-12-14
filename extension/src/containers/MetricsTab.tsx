@@ -64,8 +64,7 @@ const MetricsTab = ({ queryEvents }: BasicTabsProps) => {
   }, [recStat]);
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', marginTop: '1rem' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', marginTop: '1rem' }}>
         <ProfilingToggle onClick={() => setStatus()}>
           {recButton}
         </ProfilingToggle>
@@ -73,7 +72,6 @@ const MetricsTab = ({ queryEvents }: BasicTabsProps) => {
         {view === 'treeView' && (
           <ComponentTree fiberTree={idk[idk.length - 1]} />
         )}
-      </div>
     </Box>
   );
 };

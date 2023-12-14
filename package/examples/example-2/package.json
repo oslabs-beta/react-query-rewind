@@ -13,5 +13,8 @@
   "license": "ISC",
   "devDependencies": {
     "npm-run-all": "^4.1.5"
+  },
+  "dependencies": {
+    "react-query-rewind": "^1.0.1"
   }
 }
