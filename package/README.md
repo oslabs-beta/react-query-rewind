@@ -1,7 +1,9 @@
 # React Query Rewind
-Add an overview here
+See https://github.com/oslabs-beta/react-query-rewind/blob/main/README.md for a complete overview.
 
-## Installation and Set-Up
+This document details setting up the package and examples for a testing environment.
+
+## Production Installation and Set-Up
 Install the pacakage with: 
   `npm i -D react-query-rewind`
 
@@ -29,13 +31,11 @@ Download the chrome extension from ***insert url here*** in order to time travel
   );
 ```
 
-# Development
-Contributions are always welcome. Please create a fork from https://github.com/oslabs-beta/react-query-rewind. To get started with the example apps:
-
 ## Set-Up Examples
-**From the root directory:**
+**From the package directory:**
 Run with "1" or "2" depending on which example you'd like to set up
 1. `npm run install-all`
+    1. Installs all dependencies for the package and both example apps
 2. `npm run link-dependencies-1` or `npm run link-dependencies-2`
     1. Installs all peer dependencies in our package to ensure there are no duplicates
     2. Can see all packages currently linked with *`npm ls -g --depth=0 --link=tr`*    
@@ -50,7 +50,11 @@ Run with "1" or "2" depending on which example you'd like to set up
 1. `npm login` to login to the npm site. Follow the instructions to publish your npm package
 2. `npm publish`
 
-### Future Development
+# Development
+Contributions are always welcome. Please create a fork from https://github.com/oslabs-beta/react-query-rewind.
+
+
+### Future Development Needs
 - Rollup currently does not build on older macs or on Linux (we have not confirmed the issue on Windows yet)
 - Some developers on older macs need to install @rollup/rollup-darwin-x64 to get the build working
 - Github actions uses linux and as a result, our test.yml script installs @rollup/rollup-darwin-x64 to ensure the build works properly
