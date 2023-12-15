@@ -1,0 +1,58 @@
+name: Run Tests and Build
+on: 
+  pull_request:
+    branches:
+      - main
+      - dev
+  push:
+    branches:
+      - main
+      - dev
+jobs:
+  unit-testing-extension:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+      - name: Install Extension dependencies
+        run: |
+          cd extension
+          npm ci
+      - name: Build Extension
+        run: |
+          cd extension
+          npm run build
+      - name: Test Extension
+        run: |
+          cd extension
+          npm test
+  unit-testing-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'          
+      - name: Install Package dependencies
+        run: |
+          cd package
+          npm ci
+      - name: Install linux handler for github actions
+        run: |
+          cd package
+          npm i @rollup/rollup-linux-x64-gnu
+      - name: Build Package
+        run: |
+          cd package
+          npm run build
+      - name: Test Package
+        run: |
+          cd package
+          npm test
+

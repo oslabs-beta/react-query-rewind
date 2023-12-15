@@ -1,7 +1,7 @@
 <a id="readme-top"></a>
 
 <p align="center">
-  <img src="./extension/public/icon.png" alt="Logo" width="250"/>
+  <img src="./assets/icon.png" alt="Logo" width="250"/>
 </p>
 
 # Technologies
@@ -82,17 +82,6 @@ React Query Rewind introduces a powerful DevTool extension designed to work in c
 
 <p align="center"><img src="./assets/component-tree.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p>
 
-# Contributing
-
-React Query Rewind values the strength of community involvement. If you're enthusiastic about React Query, time-traveling state, or improving debugging experiences, your contributions are highly appreciated. Whether it's code enhancements, documentation improvements, or innovative feature suggestions, your engagement can play a pivotal role in shaping the future of React Query Rewind. If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
 # Contact Information
 
 Austin Cavanagh - [GitHub](https://github.com/austin-cavanagh) - [LinkedIn](https://www.linkedin.com/in/austincavanagh/) - austin.cavanagh.cs@gmail.com
@@ -115,39 +104,3 @@ Project Link: [React Query Rewind](https://github.com/oslabs-beta/react-query-re
 _MIT Link_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- TABLE OF CONTENTS -->
-<!-- <details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details> -->
-
-<!-- <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
-
-<!-- <a name="website" href="ARE WE GONNA HAVE A WEBSITE">Website</a> -->
-
-<!-- [![Contributors](https://img.shields.io/github/contributors/oslabs-beta/react-query-rewind-chrome.svg?style=for-the-badge)](https://github.com/oslabs-beta/react-query-rewind-chrome/graphs/contributors)
-[![Forks](https://img.shields.io/github/forks/oslabs-beta/react-query-rewind-chrome.svg?style=for-the-badge)](https://github.com/oslabs-beta/react-query-rewind-chrome/forks)
-[![Stargazers](https://img.shields.io/github/stars/oslabs-beta/react-query-rewind-chrome.svg?style=for-the-badge)](https://github.com/oslabs-beta/react-query-rewind-chrome/stargazers)
-[![Issues](https://img.shields.io/github/issues/oslabs-beta/react-query-rewind-chrome.svg?style=for-the-badge)](https://github.com/oslabs-beta/react-query-rewind-chrome/issues)
-[![MIT License](https://img.shields.io/github/license/oslabs-beta/react-query-rewind-chrome.svg?style=for-the-badge)](https://github.com/oslabs-beta/react-query-rewind-chrome/blob/main/LICENSE) -->
