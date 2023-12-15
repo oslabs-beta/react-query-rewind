@@ -22,10 +22,8 @@
         }
     ],
     "permissions": [
-        "tabs",
         "activeTab",
-        "storage",
-        "scripting"
+        "storage"
     ],
     "host_permissions": ["http://localhost/*"],
     "web_accessible_resources": [
