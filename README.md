@@ -1,7 +1,7 @@
 <a id="readme-top"></a>
 
 <p align="center">
-  <img src="./extension/public/icon.png" alt="Logo" width="250"/>
+  <img src="./assets/icon.png" alt="Logo" width="250"/>
 </p>
 
 # Technologies

@@ -33,10 +33,10 @@ React Query Rewind introduces a powerful DevTool extension designed to work in c
 
 ## Installation
 
-1.  Download npm package into your application.
+1.  Download npm package into your application as a dev dependency.
 
     ```sh
-    npm i react-query-rewind
+    npm i --save-dev react-query-rewind
     ```
 
 2.  Import the ReactQueryRewind component into the root of your applicaiton.
