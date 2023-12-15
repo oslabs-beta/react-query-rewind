@@ -1,42 +1,11 @@
 {
   "posts": [
     {
-      "text": "test",
-      "liked": true,
-      "comments": [],
-      "createComment": false,
-      "timestamp": "7:33 PM"
-    },
-    {
-      "text": "new",
+      "text": "First Post – Feed 3",
       "liked": false,
       "comments": [],
       "createComment": false,
-      "timestamp": "7:33 PM"
-    },
-    {
-      "text": "hi",
-      "liked": false,
-      "comments": [],
-      "createComment": false,
-      "timestamp": "7:33 PM"
-    },
-    {
-      "text": "4",
-      "liked": true,
-      "comments": [],
-      "createComment": false,
-      "timestamp": "9:57 PM"
-    },
-    {
-      "text": "2",
-      "liked": true,
-      "comments": [
-        "hello",
-        "hi"
-      ],
-      "createComment": true,
-      "timestamp": "9:57 PM"
+      "timestamp": "3:43 PM"
     }
   ]
 }
