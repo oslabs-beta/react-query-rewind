@@ -1,16 +1,29 @@
 let devToolsPort = null;
 
 const connectListener = port => {
-  // console.log('Background Connected');
+  console.log('Background Connected');
+
   if (port.name === 'devtools-panel') {
     devToolsPort = port;
+
+    // add listener for when the devtool port disconnects
+    devToolsPort.onDisconnect.addListener(() => {
+      // set devToolPort to null on disconnect
+      devToolsPort = null;
+    });
   }
 };
+
 chrome.runtime.onConnect.addListener(connectListener);
 
 const messageListener = async (newEvent, sender, sendResponse) => {
-  if (newEvent.sender === 'content script' && devToolsPort !== null) {
-    devToolsPort.postMessage({ event: newEvent.message, type: 'event' });
+  // error handling for message sending to dev tool
+  try {
+    if (newEvent.sender === 'content script' && devToolsPort !== null) {
+      devToolsPort.postMessage({ event: newEvent.message, type: 'event' });
+    }
+  } catch (error) {
+    console.error('Error sending message:', error);
   }
 
   if (newEvent.sender === 'UpdateUI') {
@@ -23,6 +36,7 @@ const messageListener = async (newEvent, sender, sendResponse) => {
       });
     });
   }
+
   if (newEvent.sender === 'TimeTravel') {
     // console.log('mesage for timetravel');
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -32,6 +46,7 @@ const messageListener = async (newEvent, sender, sendResponse) => {
       });
     });
   }
+
   return true;
 };
 
