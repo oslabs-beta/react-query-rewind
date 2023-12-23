@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  mode: 'development', // Use 'production' for production builds
+  mode: 'production', // Use 'production' for production builds
 
   entry: {
     background: './background.ts', // Your background script
@@ -39,10 +39,16 @@ module.exports = {
       chunks: ['panel'], // Include only the panel bundle
       excludeChunks: ['devtools'], // Exclude the devtools script from this HTML
     }),
+    new HtmlWebpackPlugin({
+      template: './devtools/devtools.html',
+      filename: 'devtools.html',
+      chunks: ['devtools'],
+    }),
     new CopyPlugin({
       patterns: [
         { from: 'public', to: '.' }, // Adjust if you have a different structure
         { from: 'manifest.json', to: '.' },
+        { from: 'images', to: 'images' },
         // Copy other assets like icons if needed
       ],
     }),
@@ -54,5 +60,5 @@ module.exports = {
   },
 
   // Add source map support for debugging (optional)
-  devtool: 'cheap-module-source-map',
+  // devtool: 'cheap-module-source-map',
 };
