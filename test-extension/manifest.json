@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "React Query Rewind",
+  "description": "State Management DevTool for React Query",
+  "version": "1.0",
+  "permissions": ["activeTab", "storage", "scripting", "devtools"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "dist/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["dist/content.js", "dist/inject.js"]
+    }
+  ],
+  "devtools_page": "devtools/devtools.html",
+  "icons": {
+    "16": "images/icon.png",
+    "48": "images/icon.png",
+    "128": "images/icon.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["dist/inject.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
