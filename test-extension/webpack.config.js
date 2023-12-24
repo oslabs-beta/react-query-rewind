@@ -21,9 +21,26 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
+        test: /\.(tsx?|jsx)$/,
         exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                '@babel/preset-env',
+                '@babel/preset-react',
+                '@babel/preset-typescript',
+              ],
+            },
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              compilerOptions: { noEmit: false },
+            },
+          },
+        ],
       },
       {
         test: /\.css$/,
@@ -56,8 +73,11 @@ module.exports = {
 
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.jsx'],
+    // alias: {
+    //   '@mui/styled-engine': '@mui/styled-engine-sc',
+    // },
   },
 
-  // source map support for debugging - uncomment when needed
-  // devtool: 'cheap-module-source-map',
+  // source map support for debugging (uncomment when needed)
+  devtool: 'cheap-module-source-map',
 };
