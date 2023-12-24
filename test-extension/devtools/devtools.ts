@@ -1,5 +1,5 @@
 chrome.devtools.panels.create(
-  'My Panel', // Title for the panel tab
+  'React Query Rewind', // Title for the panel tab
   'images/icon.png', // Icon for the panel tab
   'panel.html', // HTML file for the panel content
   panel => {

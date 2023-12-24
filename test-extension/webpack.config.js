@@ -3,14 +3,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  mode: 'production', // Use 'production' for production builds
+  mode: 'production',
 
   entry: {
-    background: './background.ts', // Your background script
-    content: './content_scripts/content.ts', // Your content script
-    inject: './content_scripts/inject.ts',
-    devtools: './devtools/devtools.ts', // Your devtools script
-    panel: './src/index.tsx', // Entry point for the DevTools panel React app
+    background: './background.ts', // distributes background.js
+    content: './content_scripts/content.ts', // distributes content.js
+    inject: './content_scripts/inject.ts', // distributes inject.js
+    devtools: './devtools/devtools.ts', // distributes devtools.js
+    panel: './src/index.tsx', // distributes panel.js
   },
 
   output: {
@@ -33,12 +33,14 @@ module.exports = {
   },
 
   plugins: [
+    // distributes panel.html
     new HtmlWebpackPlugin({
-      template: 'public/index.html', // Assuming this is your React app's HTML
-      filename: 'panel.html', // This will be the file loaded in the DevTools panel
-      chunks: ['panel'], // Include only the panel bundle
-      excludeChunks: ['devtools'], // Exclude the devtools script from this HTML
+      template: 'public/index.html',
+      filename: 'panel.html',
+      chunks: ['panel'],
+      excludeChunks: ['devtools'],
     }),
+    // distributes devtools.html
     new HtmlWebpackPlugin({
       template: './devtools/devtools.html',
       filename: 'devtools.html',
@@ -46,19 +48,16 @@ module.exports = {
     }),
     new CopyPlugin({
       patterns: [
-        { from: 'public', to: '.' }, // Adjust if you have a different structure
-        { from: 'manifest.json', to: '.' },
-        { from: 'images', to: 'images' },
-        // Copy other assets like icons if needed
+        { from: 'manifest.json', to: '.' }, // distributes manifest.json
+        { from: 'images', to: 'images' }, // distributes images/
       ],
     }),
-    // Add other plugins as needed.
   ],
 
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.jsx'],
   },
 
-  // Add source map support for debugging (optional)
+  // source map support for debugging - uncomment when needed
   // devtool: 'cheap-module-source-map',
 };
