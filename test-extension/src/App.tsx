@@ -18,6 +18,10 @@ function App() {
   const [queryMetrics, setQueryMetrics] = useState();
   const [selectedQueries, setSelectedQueries] = useState<string[]>([]);
 
+  useEffect(() => {
+    console.log(queryEvents);
+  }, [queryEvents]);
+
   // adds event listeners when component mounts
   useEffect(() => {
     // connects to background.js
@@ -26,7 +30,8 @@ function App() {
     // listents for messages from npm package
     port.onMessage.addListener(message => {
       if (message.type === 'event') {
-        setQueryEvents(queryEvents => [...queryEvents, message.event]);
+        console.log(message, 'app');
+        setQueryEvents(queryEvents => [...queryEvents, message.payload]);
       }
 
       if (message.type === 'metric') {

@@ -57,7 +57,7 @@ const Subscription = () => {
         // queryClient.setQueryData(['test-data'], data);
         window.postMessage(
           {
-            type: 'react-query-rewind',
+            type: 'event',
             payload: data,
           },
           '*'

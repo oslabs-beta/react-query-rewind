@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import ParentTab from './containers/ParentTab';
 import { QueryEvent } from './types';
 import MultiSelect from './components/MultiSelect';
-import saveSelectedQueryKeys from './functions/saveSelectedQueryKeys'
+import saveSelectedQueryKeys from './functions/saveSelectedQueryKeys';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { createTheme } from '@mui/material/styles';
@@ -24,9 +24,10 @@ function App() {
     let port = chrome.runtime.connect({ name: 'devtools-panel' });
 
     // listents for messages from npm package
-    port.onMessage.addListener((message) => {
+    port.onMessage.addListener(message => {
       if (message.type === 'event') {
-        setQueryEvents((queryEvents) => [...queryEvents, message.event]);
+        console.log(message);
+        setQueryEvents(queryEvents => [...queryEvents, message.event]);
       }
 
       if (message.type === 'metric') {
