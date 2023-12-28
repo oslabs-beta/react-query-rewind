@@ -5,9 +5,6 @@ import { useCommentInputChange } from '../hooks/useCommentInputChange';
 import { Post, CreateCommentParams } from '../types';
 import formatTimestamp from '../functions/formatTimestamp';
 
-// import IconButton from '@mui/material/IconButton';
-// import SendIcon from '@mui/icons-material/Send';
-
 function PostsOne() {
   const queryClient = useQueryClient();
 

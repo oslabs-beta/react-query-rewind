@@ -46,10 +46,6 @@ const App = () => {
     }
   }, [queryEvent]);
 
-  useEffect(() => {
-    console.log(queryData);
-  }, [queryData]);
-
   const handleNavClick = (screenName: string) => {
     setScreenView(screenName);
   };
