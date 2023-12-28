@@ -29,10 +29,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import PostsOne from './components/PostsOne.vue';
 import PostsTwo from './components/PostsTwo.vue';
 import PostsThree from './components/PostsThree.vue';
+
+import { useQueryClient } from '@tanstack/vue-query';
+import { formatData } from './link/formatData';
 
 const screenView = ref('Posts One');
 
@@ -52,61 +55,31 @@ const currentScreenComponent = computed(() => {
       return null;
   }
 });
+
+onMounted(() => {
+  const queryClient = useQueryClient();
+  const queryCache = queryClient.getQueryCache();
+
+  const handleQueryCacheChange = (event: any) => {
+    const data = formatData(event, queryClient);
+    if (data) {
+      console.log(data);
+      window.postMessage(
+        {
+          type: 'vue-query-rewind',
+          payload: data,
+        },
+        '*'
+      );
+    }
+  };
+
+  const unsubscribe = queryCache.subscribe(handleQueryCacheChange);
+
+  onBeforeUnmount(() => {
+    unsubscribe();
+  });
+});
 </script>
 
-<style scoped>
-.window {
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: top;
-  align-items: center;
-  background-color: #f0f0f0;
-  overflow-y: auto;
-}
-
-.nav-bar {
-  height: 6rem;
-  width: 100%;
-  background-color: #007bff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-.title {
-  font-weight: bold;
-  font-size: 2rem;
-  color: white;
-  margin-left: 2rem;
-}
-
-.nav-options {
-  display: flex;
-}
-
-.nav-option {
-  font-weight: bold;
-  font-size: 1.5rem;
-  color: white;
-  margin-right: 2rem;
-  cursor: pointer;
-}
-
-.nav-option:hover {
-  text-decoration: underline;
-  text-decoration-thickness: 0.22rem;
-  text-underline-offset: 0.3rem;
-}
-
-.nav-option.active {
-  text-decoration: underline;
-  text-decoration-thickness: 0.22rem;
-  text-underline-offset: 0.3rem;
-}
-</style>
+<style scoped></style>
