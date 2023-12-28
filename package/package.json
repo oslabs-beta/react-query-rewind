@@ -38,7 +38,7 @@
   ],
   "scripts": {
     "example-1": "cd examples/example-1 &&  npm run dev",
-    "example-2": "cd examples/example-2 && npm run example-2",
+    "example-2": "npm run link-dependencies-2 && concurrently \"npm run watch\" \"npm run link-package-2 && cd examples/example-2 && npm run example-2\"",
     "test": "jest",
     "lint": "eslint . --ext .ts,.tsx --fix",
     "build": "rollup -c",
