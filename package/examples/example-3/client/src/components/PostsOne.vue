@@ -18,7 +18,7 @@
         <span class="post-timestamp">{{ post.timestamp }}</span>
       </div>
 
-      <!-- <div class="like-comment-container">
+      <div class="like-comment-container">
         <button
           :class="`button ${post.liked ? 'red' : ''}`"
           @click="() => likePost(index)"
@@ -31,8 +31,9 @@
         <button class="button left-margin" @click="() => deletePost(index)">
           Delete
         </button>
-      </div> -->
-      <!-- <div class="comment-section" v-if="post.createComment">
+      </div>
+
+      <div class="comment-section" v-if="post.createComment">
         <form
           class="create-post-container-2"
           @submit.prevent="event => createComment(event, index)"
@@ -40,6 +41,7 @@
           <input type="text" class="input-2" v-model="commentInputs[index]" />
           <button class="button left-margin" type="submit">Send</button>
         </form>
+
         <div
           v-for="(comment, commentIndex) in post.comments"
           :key="commentIndex"
@@ -47,25 +49,23 @@
         >
           {{ `${commentIndex}) ${comment}` }}
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useQuery } from '@tanstack/vue-query';
-import { ref, onMounted } from 'vue';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/vue-query';
+import { ref, Ref } from 'vue';
 import { formatTimestamp } from '../functions/formatTimestamp';
+import { Post, CreateCommentParams } from '../types';
 
-import { Post } from '../types';
+const queryClient = useQueryClient();
 
-// Import or define types, hooks, and utility functions as needed
-// Import API functions for fetching and mutating data
+const postInput = ref<string>('');
+const commentInputs: Ref<{ [key: number]: string }> = ref({});
 
-const postInput = ref('');
-// const commentInputs = ref({});
-
-// fetch route for initial posts
+// fetch-data route to get starting posts
 const fetchPostsRoute = async () => {
   try {
     const database = 'postsOne';
@@ -91,6 +91,7 @@ const fetchPostsRoute = async () => {
   }
 };
 
+// query for fetching old posts
 const {
   data: postsArray,
   isLoading,
@@ -100,39 +101,205 @@ const {
   queryFn: fetchPostsRoute,
 });
 
-// You can use the Composition API's ref, reactive, and computed for reactivity
-// Implement createPost, likePost, deletePost, createComment, openComment, etc.
+// create-post route
+const createPostRoute = async (newPost: Post) => {
+  try {
+    const response = await fetch('http://localhost:3000/create-post', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ database: 'postsOne', newPost: newPost }),
+    });
 
+    if (!response.ok) {
+      throw new Error('Error creating post');
+    }
+
+    const updatedPostsArray = await response.json();
+    return updatedPostsArray;
+  } catch (errror) {
+    console.error('Creating post failed:', error);
+  }
+};
+
+// mutation for creating a new post
+const newPostMutation = useMutation({
+  mutationFn: createPostRoute,
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: ['posts-one'] });
+  },
+});
+
+// function that creates new post
 const createPost = (event: Event) => {
   event.preventDefault();
 
-  if (postInput.value.trim()) {
+  const postText = (postInput.value as string).trim();
+
+  if (postText) {
     const newPost = {
-      text: postInput.value,
+      text: postText,
       liked: false,
       comments: [],
       createComment: false,
       timestamp: formatTimestamp(),
     };
 
-    console.log(newPost);
-
+    newPostMutation.mutate(newPost);
     postInput.value = '';
   }
 };
 
-// Example of an onMounted lifecycle hook
-onMounted(async () => {
-  isLoading.value = true;
+// like-post route
+const likePostRoute = async (index: number) => {
   try {
-    // Perform initial data fetching
-  } catch (err) {
-    console.error('Fetching posts failed:', err);
-    error.value = err;
-  } finally {
-    isLoading.value = false;
+    const response = await fetch('http://localhost:3000/like-post', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ database: 'postsOne', index: index }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Error creating post');
+    }
+
+    const updatedPostsArray = await response.json();
+    console.log(updatedPostsArray);
+
+    return updatedPostsArray;
+  } catch (errror) {
+    console.error('Creating post failed:', error);
   }
+};
+
+// mutation for liking a post
+const likePostMutation = useMutation({
+  mutationFn: likePostRoute,
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: ['posts-one'] });
+  },
 });
+
+// function that likes post
+const likePost = (index: number) => {
+  likePostMutation.mutate(index);
+};
+
+// delete-post route
+const deletePostRoute = async (index: number) => {
+  try {
+    const response = await fetch('http://localhost:3000/delete-post', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ database: 'postsOne', index: index }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Error creating post');
+    }
+
+    const updatedPostsArray = await response.json();
+    return updatedPostsArray;
+  } catch (errror) {
+    console.error('Creating post failed:', error);
+  }
+};
+
+// mutation for deleting a post
+const deletePostMutation = useMutation({
+  mutationFn: deletePostRoute,
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: ['posts-one'] });
+  },
+});
+
+//function that deletes post
+const deletePost = (index: number) => {
+  deletePostMutation.mutate(index);
+};
+
+// open-comment route
+const openCommentRoute = async (index: number) => {
+  try {
+    const response = await fetch('http://localhost:3000/open-comment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ database: 'postsOne', index: index }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Error creating post');
+    }
+
+    const updatedPostsArray = await response.json();
+    return updatedPostsArray;
+  } catch (errror) {
+    console.error('Creating post failed:', error);
+  }
+};
+
+// mutation for opening comment
+const openCommentMutation = useMutation({
+  mutationFn: openCommentRoute,
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: ['posts-one'] });
+  },
+});
+
+// function that opens comment
+const openComment = (index: number) => {
+  openCommentMutation.mutate(index);
+};
+
+// NEW NEW NEW NEW NEW
+// create-comment route
+const createCommentRoute = async ({ index, comment }: CreateCommentParams) => {
+  try {
+    const response = await fetch('http://localhost:3000/create-comment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ database: 'postsOne', index, comment }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Error creating post');
+    }
+
+    const updatedPostsArray = await response.json();
+    return updatedPostsArray;
+  } catch (errror) {
+    console.error('Creating post failed:', error);
+  }
+};
+
+// mutation for creating a comment
+const createCommentMutation = useMutation({
+  mutationFn: createCommentRoute,
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: ['posts-one'] });
+  },
+});
+
+// function that creates comment
+const createComment = (event: Event, postIndex: number) => {
+  event.preventDefault();
+
+  const comment = commentInputs.value[postIndex];
+
+  if (comment && comment.trim()) {
+    createCommentMutation.mutate({ index: postIndex, comment: comment });
+    commentInputs.value[postIndex] = ''; // Update the comment input directly
+  }
+};
 </script>
 
 <style scoped>
@@ -183,6 +350,16 @@ onMounted(async () => {
   border-color: #0056b3;
 }
 
+.red {
+  background-color: lightcoral;
+  border: 1px solid lightcoral;
+}
+
+.button.red:hover {
+  background-color: red; /* Color when hovered */
+  border-color: red;
+}
+
 .left-margin {
   margin-left: 1rem;
 }
@@ -221,5 +398,30 @@ onMounted(async () => {
 
 .green {
   background-color: #b0c4de;
+}
+
+.like-comment-container {
+  padding: 1rem;
+}
+
+.create-post-container-2 {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+}
+
+.input-2 {
+  height: 2rem;
+  width: 20rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none; /* Removes the default focus outline */
+  margin-right: 0.8rem;
+}
+
+.input-2:focus {
+  border-color: #007bff; /* Blue border on focus */
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); /* Soft blue glow */
 }
 </style>

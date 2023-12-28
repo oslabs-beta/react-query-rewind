@@ -1,6 +1,16 @@
 {
   "posts": [
     {
+      "text": "Test",
+      "liked": false,
+      "comments": [
+        "Test",
+        "Yes"
+      ],
+      "createComment": true,
+      "timestamp": "10:31 PM"
+    },
+    {
       "text": "First Post – Feed 1",
       "liked": false,
       "comments": [],
