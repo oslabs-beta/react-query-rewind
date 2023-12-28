@@ -7,6 +7,7 @@
 
     <div v-if="isLoading">Loading...</div>
     <div v-if="error">Error loading posts</div>
+
     <div
       v-for="(post, index) in postsArray"
       :key="index"
@@ -17,7 +18,7 @@
         <span class="post-timestamp">{{ post.timestamp }}</span>
       </div>
 
-      <div class="like-comment-container">
+      <!-- <div class="like-comment-container">
         <button
           :class="`button ${post.liked ? 'red' : ''}`"
           @click="() => likePost(index)"
@@ -30,8 +31,8 @@
         <button class="button left-margin" @click="() => deletePost(index)">
           Delete
         </button>
-      </div>
-      <div class="comment-section" v-if="post.createComment">
+      </div> -->
+      <!-- <div class="comment-section" v-if="post.createComment">
         <form
           class="create-post-container-2"
           @submit.prevent="event => createComment(event, index)"
@@ -46,25 +47,59 @@
         >
           {{ `${commentIndex}) ${comment}` }}
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useQuery } from '@tanstack/vue-query';
 import { ref, onMounted } from 'vue';
 import { formatTimestamp } from '../functions/formatTimestamp';
+
+import { Post } from '../types';
 
 // Import or define types, hooks, and utility functions as needed
 // Import API functions for fetching and mutating data
 
 const postInput = ref('');
-const commentInputs = ref({});
-const postsArray = ref([]);
-const isLoading = ref(false);
-const error = ref(null);
+// const commentInputs = ref({});
 
-// Fetch posts, handle mutations, etc. Adapt the logic from your React component
+// fetch route for initial posts
+const fetchPostsRoute = async () => {
+  try {
+    const database = 'postsOne';
+    const response = await fetch(
+      `http://localhost:3000/fetch-data?database=${database}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    if (!response.ok) {
+      throw new Error('Server response was not ok');
+    }
+
+    const newPostsArray = await response.json();
+
+    return newPostsArray;
+  } catch (error) {
+    console.error('Fetching posts failed:', error);
+    throw error;
+  }
+};
+
+const {
+  data: postsArray,
+  isLoading,
+  error,
+} = useQuery<Post[]>({
+  queryKey: ['posts-one'],
+  queryFn: fetchPostsRoute,
+});
+
 // You can use the Composition API's ref, reactive, and computed for reactivity
 // Implement createPost, likePost, deletePost, createComment, openComment, etc.
 
@@ -117,46 +152,25 @@ onMounted(async () => {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-.create-post-container-2 {
-  display: flex;
-  align-items: center;
-  padding: 1rem;
-}
-
 .input {
   height: 2rem;
   width: 20rem;
   padding: 0.25rem 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
-  outline: none;
+  outline: none; /* Removes the default focus outline */
   margin-right: 0.8rem;
 }
 
 .input:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-}
-
-.input-2 {
-  height: 2rem;
-  width: 20rem;
-  padding: 0.25rem 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  outline: none;
-  margin-right: 0.8rem;
-}
-
-.input-2:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  border-color: #007bff; /* Blue border on focus */
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); /* Soft blue glow */
 }
 
 .button {
   height: 2rem;
   padding: 0 0.8rem;
-  background-color: #007bff;
+  background-color: #007bff; /* Blue background */
   border: 1px solid #007bff;
   border-radius: 4px;
   color: white;
@@ -165,14 +179,17 @@ onMounted(async () => {
 }
 
 .button:hover {
-  background-color: #0056b3;
+  background-color: #0056b3; /* Slightly darker blue on hover */
   border-color: #0056b3;
+}
+
+.left-margin {
+  margin-left: 1rem;
 }
 
 .post-container {
   height: auto;
   width: 100%;
-  background-color: blue;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -182,45 +199,27 @@ onMounted(async () => {
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-.post-text {
-  color: black;
-  padding: 1rem;
-}
-
-.like-comment-container {
-  padding: 1rem;
-}
-
-.left-margin {
-  margin-left: 1rem;
-}
-
-.red {
-  background-color: lightcoral;
-  border: 1px solid lightcoral;
-}
-
-.button.red:hover {
-  background-color: red;
-  border-color: red;
-}
-
-.green {
-  background-color: #b0c4de;
-}
-
-.blue {
-  background-color: #e2e6ea;
-}
-
 .post-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+.post-text {
+  color: black;
+  padding: 1rem;
+}
+
 .post-timestamp {
   opacity: 0.7;
   padding: 1rem;
+}
+
+.blue {
+  background-color: #e2e6ea;
+}
+
+.green {
+  background-color: #b0c4de;
 }
 </style>

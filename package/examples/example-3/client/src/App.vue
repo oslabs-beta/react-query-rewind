@@ -55,20 +55,6 @@ const currentScreenComponent = computed(() => {
 </script>
 
 <style scoped>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  border: none;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 1.1rem;
-}
-
-html {
-  overflow: hidden;
-  font-family: Arial, sans-serif;
-}
-
 .window {
   height: 100vh;
   width: 100%;
