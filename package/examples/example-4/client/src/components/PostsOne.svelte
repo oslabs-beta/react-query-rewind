@@ -1,7 +1,7 @@
 <script lang="ts">
   import { writable } from "svelte/store";
   import formatTimestamp from "../functions/formatTimestamp";
-  import type { Post, CreateCommentParams } from "../types";
+  import type { Post, CreateCommentParams, CommentInputsType } from "../types";
 
   import {
     createQuery,
@@ -9,9 +9,9 @@
     useQueryClient,
   } from "@tanstack/svelte-query";
 
-  const postInput = writable("");
+  const postInput = writable<String>("");
 
-  const commentInputs = writable({});
+  const commentInputs = writable<CommentInputsType>({});
 
   const queryClient = useQueryClient();
 
@@ -33,7 +33,7 @@
       }
 
       const newPostsArray = await response.json();
-
+      initializeCommentInputs(newPostsArray); // Initialize comment inputs here
       return newPostsArray;
     } catch (error) {
       console.error("Fetching posts failed:", error);
@@ -116,13 +116,13 @@
       const updatedPostsArray = await response.json();
 
       return updatedPostsArray;
-    } catch (errror) {
+    } catch (error) {
       console.error("Creating post failed:", error);
     }
   };
 
   // mutation for liking a post
-  const likePostMutation = useMutation({
+  const likePostMutation = createMutation({
     mutationFn: likePostRoute,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["posts-one"] });
@@ -131,7 +131,133 @@
 
   // function that likes post
   const likePost = (index: number) => {
-    likePostMutation.mutate(index);
+    $likePostMutation.mutate(index);
+  };
+
+  // delete-post route
+  const deletePostRoute = async (index: number) => {
+    try {
+      const response = await fetch("http://localhost:3000/delete-post", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ database: "postsOne", index: index }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error creating post");
+      }
+
+      const updatedPostsArray = await response.json();
+      return updatedPostsArray;
+    } catch (error) {
+      console.error("Creating post failed:", error);
+    }
+  };
+
+  // mutation for deleting a post
+  const deletePostMutation = createMutation({
+    mutationFn: deletePostRoute,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts-one"] });
+    },
+  });
+
+  //function that deletes post
+  const deletePost = (index: number) => {
+    $deletePostMutation.mutate(index);
+  };
+
+  // open-comment route
+  const openCommentRoute = async (index: number) => {
+    try {
+      const response = await fetch("http://localhost:3000/open-comment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ database: "postsOne", index: index }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error creating post");
+      }
+
+      const updatedPostsArray = await response.json();
+      console.log();
+      return updatedPostsArray;
+    } catch (error) {
+      console.error("Creating post failed:", error);
+    }
+  };
+
+  // mutation for opening comment
+  const openCommentMutation = createMutation({
+    mutationFn: openCommentRoute,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts-one"] });
+    },
+  });
+
+  // function that opens comment
+  const openComment = (index: number) => {
+    $openCommentMutation.mutate(index);
+  };
+
+  // create-comment route
+  const createCommentRoute = async ({
+    index,
+    comment,
+  }: CreateCommentParams) => {
+    try {
+      const response = await fetch("http://localhost:3000/create-comment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ database: "postsOne", index, comment }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error creating post");
+      }
+
+      const updatedPostsArray = await response.json();
+      return updatedPostsArray;
+    } catch (error) {
+      console.error("Creating post failed:", error);
+    }
+  };
+
+  // mutation for creating a comment
+  const createCommentMutation = createMutation({
+    mutationFn: createCommentRoute,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts-one"] });
+    },
+  });
+
+  // function that creates comment
+  const createComment = (event: Event, postIndex: number) => {
+    event.preventDefault();
+    let currentComments = $commentInputs;
+    const comment = currentComments[postIndex];
+
+    if (comment && comment.trim()) {
+      $createCommentMutation.mutate({ index: postIndex, comment: comment });
+      currentComments[postIndex] = ""; // Reset the comment input for this post
+      commentInputs.set(currentComments); // Update the store
+    }
+  };
+
+  // After fetching posts, initialize commentInputs for each post
+  const initializeCommentInputs = (newPostsArray: Post[]) => {
+    let initialComments: CommentInputsType = {};
+    newPostsArray.forEach((_, index) => {
+      initialComments[index] = ""; // Initialize each comment input with an empty string
+    });
+    commentInputs.set(initialComments);
   };
 </script>
 
@@ -169,26 +295,26 @@
           >
         </div>
 
-        <!-- {#if post.createComment}
-        <div class="comment-section">
-          <form
-            class="create-post-container-2"
-            on:submit|preventDefault={(event) => createComment(event, index)}
-          >
-            <input
-              type="text"
-              class="input-2"
-              bind:value={commentInputs[index]}
-            />
-            <button class="button left-margin" type="submit">Send</button>
-          </form>
-          {#each post.comments as comment, commentIndex}
-            <div key={commentIndex} class="post-text">
-              {`${commentIndex}) ${comment}`}
-            </div>
-          {/each}
-        </div>
-      {/if} -->
+        {#if post.createComment}
+          <div class="comment-section">
+            <form
+              class="create-post-container-2"
+              on:submit|preventDefault={(event) => createComment(event, index)}
+            >
+              <input
+                type="text"
+                class="input-2"
+                bind:value={$commentInputs[index]}
+              />
+              <button class="button left-margin" type="submit">Send</button>
+            </form>
+            {#each post.comments as comment, commentIndex}
+              <div class="post-text">
+                {`${commentIndex}) ${comment}`}
+              </div>
+            {/each}
+          </div>
+        {/if}
       </div>
     {/each}
   {/if}

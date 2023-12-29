@@ -118,7 +118,7 @@ const createPostRoute = async (newPost: Post) => {
 
     const updatedPostsArray = await response.json();
     return updatedPostsArray;
-  } catch (errror) {
+  } catch (error) {
     console.error('Creating post failed:', error);
   }
 };
@@ -169,7 +169,7 @@ const likePostRoute = async (index: number) => {
     const updatedPostsArray = await response.json();
 
     return updatedPostsArray;
-  } catch (errror) {
+  } catch (error) {
     console.error('Creating post failed:', error);
   }
 };
@@ -204,7 +204,7 @@ const deletePostRoute = async (index: number) => {
 
     const updatedPostsArray = await response.json();
     return updatedPostsArray;
-  } catch (errror) {
+  } catch (error) {
     console.error('Creating post failed:', error);
   }
 };
@@ -239,7 +239,7 @@ const openCommentRoute = async (index: number) => {
 
     const updatedPostsArray = await response.json();
     return updatedPostsArray;
-  } catch (errror) {
+  } catch (error) {
     console.error('Creating post failed:', error);
   }
 };
@@ -257,7 +257,6 @@ const openComment = (index: number) => {
   openCommentMutation.mutate(index);
 };
 
-// NEW NEW NEW NEW NEW
 // create-comment route
 const createCommentRoute = async ({ index, comment }: CreateCommentParams) => {
   try {
@@ -275,7 +274,7 @@ const createCommentRoute = async ({ index, comment }: CreateCommentParams) => {
 
     const updatedPostsArray = await response.json();
     return updatedPostsArray;
-  } catch (errror) {
+  } catch (error) {
     console.error('Creating post failed:', error);
   }
 };

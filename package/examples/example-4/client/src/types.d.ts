@@ -24,3 +24,5 @@ export type QueryDisplay = {
   queryKey: string;
   queryData: any;
 };
+
+export type CommentInputsType = { [index: number]: string };
