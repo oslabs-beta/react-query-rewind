@@ -18,7 +18,7 @@
   // fetch-data route to get starting posts
   const fetchPostsRoute = async () => {
     try {
-      const database = "postsOne";
+      const database = "postsThree";
       const response = await fetch(
         `http://localhost:3000/fetch-data?database=${database}`,
         {
@@ -43,7 +43,7 @@
 
   // query for fetching old posts
   const postsArray = createQuery<Post[]>({
-    queryKey: ["posts-one"],
+    queryKey: ["posts-three"],
     queryFn: fetchPostsRoute,
   });
 
@@ -55,7 +55,7 @@
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ database: "postsOne", newPost: newPost }),
+        body: JSON.stringify({ database: "postsThree", newPost: newPost }),
       });
 
       if (!response.ok) {
@@ -73,7 +73,7 @@
   const newPostMutation = createMutation({
     mutationFn: createPostRoute,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["posts-one"] });
+      queryClient.invalidateQueries({ queryKey: ["posts-three"] });
     },
   });
 
@@ -106,7 +106,7 @@
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ database: "postsOne", index: index }),
+        body: JSON.stringify({ database: "postsThree", index: index }),
       });
 
       if (!response.ok) {
@@ -125,7 +125,7 @@
   const likePostMutation = createMutation({
     mutationFn: likePostRoute,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["posts-one"] });
+      queryClient.invalidateQueries({ queryKey: ["posts-three"] });
     },
   });
 
@@ -142,7 +142,7 @@
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ database: "postsOne", index: index }),
+        body: JSON.stringify({ database: "postsThree", index: index }),
       });
 
       if (!response.ok) {
@@ -160,7 +160,7 @@
   const deletePostMutation = createMutation({
     mutationFn: deletePostRoute,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["posts-one"] });
+      queryClient.invalidateQueries({ queryKey: ["posts-three"] });
     },
   });
 
@@ -177,7 +177,7 @@
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ database: "postsOne", index: index }),
+        body: JSON.stringify({ database: "postsThree", index: index }),
       });
 
       if (!response.ok) {
@@ -196,7 +196,7 @@
   const openCommentMutation = createMutation({
     mutationFn: openCommentRoute,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["posts-one"] });
+      queryClient.invalidateQueries({ queryKey: ["posts-three"] });
     },
   });
 
@@ -216,7 +216,7 @@
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ database: "postsOne", index, comment }),
+        body: JSON.stringify({ database: "postsThree", index, comment }),
       });
 
       if (!response.ok) {
@@ -234,7 +234,7 @@
   const createCommentMutation = createMutation({
     mutationFn: createCommentRoute,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["posts-one"] });
+      queryClient.invalidateQueries({ queryKey: ["posts-three"] });
     },
   });
 
