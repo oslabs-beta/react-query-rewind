@@ -4,15 +4,16 @@
   import type { Post, CreateCommentParams } from "../types";
 
   import {
-    useQuery,
-    useMutation,
+    createQuery,
+    createMutation,
     useQueryClient,
   } from "@tanstack/svelte-query";
 
   const postInput = writable("");
-  let postInputValue = "";
 
   const commentInputs = writable({});
+
+  const queryClient = useQueryClient();
 
   // fetch-data route to get starting posts
   const fetchPostsRoute = async () => {
@@ -41,11 +42,7 @@
   };
 
   // query for fetching old posts
-  const {
-    data: postsArray,
-    isLoading,
-    error,
-  } = useQuery<Post[]>({
+  const postsArray = createQuery<Post[]>({
     queryKey: ["posts-one"],
     queryFn: fetchPostsRoute,
   });
@@ -67,13 +64,13 @@
 
       const updatedPostsArray = await response.json();
       return updatedPostsArray;
-    } catch (errror) {
+    } catch (error) {
       console.error("Creating post failed:", error);
     }
   };
 
   // mutation for creating a new post
-  const newPostMutation = useMutation({
+  const newPostMutation = createMutation({
     mutationFn: createPostRoute,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["posts-one"] });
@@ -84,7 +81,8 @@
   const createPost = (event: Event) => {
     event.preventDefault();
 
-    const postText = postInputValue.trim();
+    let currentPostInput = $postInput;
+    const postText = currentPostInput.trim();
 
     if (postText) {
       const newPost = {
@@ -95,9 +93,45 @@
         timestamp: formatTimestamp(),
       };
 
-      newPostMutation.mutate(newPost);
+      $newPostMutation.mutate(newPost);
       postInput.set("");
     }
+  };
+
+  // like-post route
+  const likePostRoute = async (index: number) => {
+    try {
+      const response = await fetch("http://localhost:3000/like-post", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ database: "postsOne", index: index }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error creating post");
+      }
+
+      const updatedPostsArray = await response.json();
+
+      return updatedPostsArray;
+    } catch (errror) {
+      console.error("Creating post failed:", error);
+    }
+  };
+
+  // mutation for liking a post
+  const likePostMutation = useMutation({
+    mutationFn: likePostRoute,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts-one"] });
+    },
+  });
+
+  // function that likes post
+  const likePost = (index: number) => {
+    likePostMutation.mutate(index);
   };
 </script>
 
@@ -107,34 +141,35 @@
     <button class="button left-margin" type="submit">Send</button>
   </form>
 
-  {#if $isLoading}
+  <!-- {#if $isLoading}
     <div>Loading...</div>
   {/if}
   {#if $error}
     <div>Error loading posts</div>
-  {/if}
+  {/if} -->
 
-  {#each $postsArray as post, index (post.id)}
-    <div class="post-container {index % 2 === 0 ? 'green' : 'blue'}">
-      <div class="post-content">
-        <span class="post-text">{post.text}</span>
-        <span class="post-timestamp">{post.timestamp}</span>
-      </div>
+  {#if $postsArray.data}
+    {#each $postsArray.data as post, index (index)}
+      <div class="post-container {index % 2 === 0 ? 'green' : 'blue'}">
+        <div class="post-content">
+          <span class="post-text">{post.text}</span>
+          <span class="post-timestamp">{post.timestamp}</span>
+        </div>
 
-      <!-- <div class="like-comment-container">
-        <button
-          class="button {post.liked ? 'red' : ''}"
-          on:click={() => likePost(index)}>Like</button
-        >
-        <button class="button left-margin" on:click={() => openComment(index)}
-          >Comment</button
-        >
-        <button class="button left-margin" on:click={() => deletePost(index)}
-          >Delete</button
-        >
-      </div> -->
+        <div class="like-comment-container">
+          <button
+            class="button {post.liked ? 'red' : ''}"
+            on:click={() => likePost(index)}>Like</button
+          >
+          <button class="button left-margin" on:click={() => openComment(index)}
+            >Comment</button
+          >
+          <button class="button left-margin" on:click={() => deletePost(index)}
+            >Delete</button
+          >
+        </div>
 
-      <!-- {#if post.createComment}
+        <!-- {#if post.createComment}
         <div class="comment-section">
           <form
             class="create-post-container-2"
@@ -154,8 +189,9 @@
           {/each}
         </div>
       {/if} -->
-    </div>
-  {/each}
+      </div>
+    {/each}
+  {/if}
 </main>
 
 <style>

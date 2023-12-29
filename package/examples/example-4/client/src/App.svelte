@@ -1,11 +1,12 @@
 <script lang="ts">
-  export let queryClient: QueryClient;
   import { QueryClientProvider, QueryClient } from "@tanstack/svelte-query";
 
   import { writable, derived } from "svelte/store";
   import PostsOne from "./components/PostsOne.svelte";
   import PostsTwo from "./components/PostsTwo.svelte";
   import PostsThree from "./components/PostsThree.svelte";
+
+  const queryClient: QueryClient = new QueryClient();
 
   // define a store for screenView
   const screenView = writable("Posts One");
