@@ -1,5 +1,5 @@
-<script>
-  </script>
+<script lang="ts">
+</script>
   
   <main>
     <h1>Posts Three</h1>

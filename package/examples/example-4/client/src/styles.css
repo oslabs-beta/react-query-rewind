@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   border: none;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 1.1rem;
 }
 
@@ -45,21 +45,22 @@ html {
   display: flex;
 }
 
-.nav-option {
+button.nav-option {
   font-weight: bold;
   font-size: 1.5rem;
   color: white;
   margin-right: 2rem;
   cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  outline: none;
+  font-family: inherit;
+  text-align: left;
 }
 
-.nav-option:hover {
-  text-decoration: underline;
-  text-decoration-thickness: 0.22rem;
-  text-underline-offset: 0.3rem;
-}
-
-.nav-option.active {
+button.nav-option:hover,
+button.nav-option.active {
   text-decoration: underline;
   text-decoration-thickness: 0.22rem;
   text-underline-offset: 0.3rem;
@@ -125,7 +126,9 @@ html {
   border-radius: 4px;
   color: white;
   cursor: pointer;
-  transition: background-color 0.3s, border-color 0.3s;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s;
 }
 
 .button:hover {
