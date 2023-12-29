@@ -18,11 +18,7 @@ function App() {
   const [queryMetrics, setQueryMetrics] = useState();
   const [selectedQueries, setSelectedQueries] = useState<string[]>([]);
 
-  useEffect(() => {
-    console.log(queryEvents);
-  }, [queryEvents]);
-
-  // adds event listeners when component mounts
+  // adds event listeners when component mountsx
   useEffect(() => {
     // connects to background.js
     let port = chrome.runtime.connect({ name: 'devtools-panel' });

@@ -1,7 +1,7 @@
 console.log('content.ts loaded');
 
 function handleMessage(event: MessageEvent) {
-  if (event.source === window && event.data?.type === 'vue-query-rewind') {
+  if (event.source === window && event.data?.type === 'event') {
     console.log(event, 'CONTENT.JS');
     chrome.runtime.sendMessage(event.data);
   }
