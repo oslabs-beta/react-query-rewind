@@ -4,15 +4,13 @@ let devToolsPort: chrome.runtime.Port | null = null;
 let contentScriptTabId: number | undefined = undefined;
 let backgroundMessageQueue: any = [];
 
-const maxRetries = 3;
-
 function messageToContentScript(
   tabId: any,
   message: any,
   retryCount: number = 0
 ) {
   chrome.tabs.sendMessage(tabId, message).catch(err => {
-    if (retryCount < maxRetries) {
+    if (retryCount < 3) {
       console.error(
         `BACKGROUND.TS: Retry ${
           retryCount + 1
@@ -34,20 +32,15 @@ function messageToContentScript(
 
 chrome.runtime.onConnect.addListener((port: chrome.runtime.Port) => {
   if (port.name === 'devtools-panel') {
+    console.log('BACKGROUND.JS: DevTool connected');
     devToolsPort = port;
 
-    // chrome.tabs.query({}, tabs => {
-    //   tabs.forEach(tab => {
-    //     console.log(tab.id);
-    //     messageToContentScript(tab.id, {
-    //       type: 'background-connected',
-    //     });
-    //   });
-    // });
-
     devToolsPort.onDisconnect.addListener(() => {
+      console.log('BACKGROUND.JS: DevTool disconnected');
       devToolsPort = null;
     });
+
+    sendDevToolMessages();
   }
 });
 
@@ -63,19 +56,21 @@ chrome.runtime.onMessage.addListener((message: any, sender, sendResponse) => {
     messageToContentScript(contentScriptTabId, {
       type: 'background-connected',
     });
-  }
-
-  if (!contentScriptTabId) {
+  } else {
     backgroundMessageQueue.push(message);
   }
 
   if (devToolsPort) {
-    console.log('BACKGROUND.TS: Sent all messages to Dev Tool');
-    backgroundMessageQueue.forEach((curMsg: any) => {
-      if (devToolsPort) {
-        devToolsPort.postMessage(curMsg);
-      }
-    });
-    backgroundMessageQueue = [];
+    sendDevToolMessages();
   }
 });
+
+const sendDevToolMessages = () => {
+  console.log('BACKGROUND.TS: Sent all messages to Dev Tool');
+  backgroundMessageQueue.forEach((curMsg: any) => {
+    if (devToolsPort) {
+      devToolsPort.postMessage(curMsg);
+    }
+  });
+  backgroundMessageQueue = [];
+};

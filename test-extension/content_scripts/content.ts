@@ -2,7 +2,7 @@ console.log('content.ts loaded');
 
 let appConnected = false;
 let backgroundConnected = false;
-let messageQueue: any = [];
+let contentMessageQueue: any = [];
 
 // handle messages from npm package
 window.addEventListener('message', handleMessage, false);
@@ -17,6 +17,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
   if (message.type === 'background-disconnected') {
     console.log('CONTENT.TS: background.ts disconnected');
+    backgroundConnected = false;
   }
 });
 
@@ -24,24 +25,29 @@ function handleMessage(event: MessageEvent) {
   if (event.source === window && event.data?.type === 'app-connected') {
     appConnected = true;
     chrome.runtime.sendMessage(event.data).catch(err => {
-      console.error('CONTENT.TS: Error sending message to background.ts:', err);
+      console.error(
+        'CONTENT.TS: Error sending connection message to background.ts:',
+        err
+      );
     });
   }
 
   if (event.source === window && event.data?.type === 'event') {
+    contentMessageQueue.push(event.data);
     if (backgroundConnected) {
-      messageQueue.push(event.data);
       sendMessages();
     }
   }
 }
 
 function sendMessages() {
-  messageQueue.forEach((msg: any) => {
-    console.log('CONTENT.TS: Sent message to background.ts');
+  contentMessageQueue.forEach((msg: any) => {
     chrome.runtime.sendMessage(msg).catch(err => {
-      console.error('CONTENT.TS: Error sending message to background.ts:', err);
+      console.error(
+        'CONTENT.TS: Error sending event message to background.ts:',
+        err
+      );
     });
   });
-  messageQueue = [];
+  contentMessageQueue = [];
 }
