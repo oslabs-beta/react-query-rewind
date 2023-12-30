@@ -2,7 +2,7 @@ import './css/styles.css';
 import React, { useState, useEffect } from 'react';
 import ParentTab from './containers/ParentTab';
 import { QueryEvent } from './types';
-import MultiSelect from './components/MultiSelect';
+// import MultiSelect from './components/MultiSelect';
 import saveSelectedQueryKeys from './functions/saveSelectedQueryKeys';
 // import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -25,13 +25,14 @@ function App() {
 
     // listents for messages from npm package
     port.onMessage.addListener(message => {
+      console.log('DEVTOOL: Recieved message from background.ts');
+
       if (message.type === 'event') {
-        console.log(message, 'app');
         setQueryEvents(queryEvents => [...queryEvents, message.payload]);
       }
 
       if (message.type === 'metric') {
-        console.log(message.metric);
+        // metrics logic
       }
     });
 
