@@ -1,4 +1,4 @@
-console.log('background.ts loaded');
+console.log('BACKGROUND.TS: Loaded');
 
 let devToolsPort: chrome.runtime.Port | null = null;
 let contentScriptTabId: number | undefined = undefined;
@@ -32,11 +32,11 @@ function messageToContentScript(
 
 chrome.runtime.onConnect.addListener((port: chrome.runtime.Port) => {
   if (port.name === 'devtools-panel') {
-    console.log('BACKGROUND.JS: DevTool connected');
+    console.log('BACKGROUND.TS: DevTool Connected');
     devToolsPort = port;
 
     devToolsPort.onDisconnect.addListener(() => {
-      console.log('BACKGROUND.JS: DevTool disconnected');
+      console.log('BACKGROUND.TS: DevTool Disconnected');
       devToolsPort = null;
     });
 
@@ -45,13 +45,12 @@ chrome.runtime.onConnect.addListener((port: chrome.runtime.Port) => {
 });
 
 chrome.runtime.onMessage.addListener((message: any, sender, sendResponse) => {
-  console.log('BACKGROUND.TS: Message from content.js');
-
   if (message.type === 'app-connected') {
-    console.log(
-      'BACKGROUND.TS: TabId saved and sent connection message to content.js'
-    );
     contentScriptTabId = sender.tab?.id;
+
+    console.log(
+      `BACKGROUND.TS: Content.js connected at tabId ${contentScriptTabId}`
+    );
 
     messageToContentScript(contentScriptTabId, {
       type: 'background-connected',
@@ -66,7 +65,6 @@ chrome.runtime.onMessage.addListener((message: any, sender, sendResponse) => {
 });
 
 const sendDevToolMessages = () => {
-  console.log('BACKGROUND.TS: Sent all messages to Dev Tool');
   backgroundMessageQueue.forEach((curMsg: any) => {
     if (devToolsPort) {
       devToolsPort.postMessage(curMsg);
