@@ -48,7 +48,10 @@ const sendMessageToBackground = (message: any, retryCount = 0) => {
         err,
         message
       );
-      setTimeout(() => messageToContentScript(message, retryCount + 1), 1000);
+      setTimeout(
+        () => messageToContentScript(message, retryCount + 1),
+        (retryCount + 1) * 2000
+      );
     } else {
       console.error(
         'CONTENT.TS: Max retries reached. Error sending message to background.ts:',
