@@ -13,13 +13,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     console.log('CONTENT.TS: Background.ts Connected');
     backgroundConnected = true;
     contentMessageQueue.forEach((message: any) => {
-      sendMessageToBackground(message);
+      messageToBackground(message);
     });
-  }
-
-  if (message.type === 'background-disconnected') {
-    console.log('CONTENT.TS: Background.ts Disconnected');
-    backgroundConnected = false;
   }
 });
 
@@ -27,18 +22,18 @@ function handleMessage(event: MessageEvent) {
   if (event.source === window && event.data?.type === 'app-connected') {
     console.log('CONTENT.TS: App Connected');
     appConnected = true;
-    sendMessageToBackground(event.data);
+    messageToBackground(event.data);
   }
 
   if (event.source === window && event.data?.type === 'event') {
     contentMessageQueue.push(event.data);
     if (backgroundConnected) {
-      sendMessageToBackground(event.data);
+      messageToBackground(event.data);
     }
   }
 }
 
-const sendMessageToBackground = (message: any, retryCount = 0) => {
+const messageToBackground = (message: any, retryCount = 0) => {
   chrome.runtime.sendMessage(message).catch(err => {
     if (retryCount < 3) {
       console.error(
@@ -49,7 +44,7 @@ const sendMessageToBackground = (message: any, retryCount = 0) => {
         message
       );
       setTimeout(
-        () => messageToContentScript(message, retryCount + 1),
+        () => messageToBackground(message, retryCount + 1),
         (retryCount + 1) * 2000
       );
     } else {

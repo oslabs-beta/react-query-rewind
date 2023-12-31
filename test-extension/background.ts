@@ -28,8 +28,16 @@ chrome.runtime.onConnect.addListener((port: chrome.runtime.Port) => {
 
 // triggered when background.js recieves messages from content.ts
 chrome.runtime.onMessage.addListener((message: any, sender) => {
+  // if connection message without tabid - update tabid and notify content.ts
+  if (message.type === 'app-connected' && tabId === undefined) {
+    tabId = sender.tab?.id;
+    console.log(`BACKGROUND.TS: Content.js Connected at TabId ${tabId}`);
+    messageToContent(tabId, {
+      type: 'background-connected',
+    });
+  }
   // if connection message with tabid already defined - refresh window
-  if (
+  else if (
     message.type === 'app-connected' &&
     tabId !== undefined &&
     sender.tab?.id
@@ -43,14 +51,6 @@ chrome.runtime.onMessage.addListener((message: any, sender) => {
       }
     });
   }
-  // if connection message without tabid - update tabid and notify content.ts
-  else if (message.type === 'app-connected' && tabId === undefined) {
-    tabId = sender.tab?.id;
-    console.log(`BACKGROUND.TS: Content.js Connected at TabId ${tabId}`);
-    messageToContentScript(tabId, {
-      type: 'background-connected',
-    });
-  }
 
   // if devtool is not connected save the message in the queue
   if (!devToolsPort && message.type !== 'app-connected') {
@@ -58,17 +58,13 @@ chrome.runtime.onMessage.addListener((message: any, sender) => {
   }
 
   // immediatly send message to devtool if connected
-  if (devToolsPort) {
+  if (devToolsPort && message.type !== 'app-connected') {
     devToolsPort.postMessage(message);
   }
 });
 
 // sends messages to content.js - retries 3 times after failed first attempt
-function messageToContentScript(
-  tabId: any,
-  message: any,
-  retryCount: number = 0
-) {
+function messageToContent(tabId: any, message: any, retryCount: number = 0) {
   chrome.tabs.sendMessage(tabId, message).catch(err => {
     if (retryCount < 3) {
       console.error(
@@ -79,7 +75,7 @@ function messageToContentScript(
         message
       );
       setTimeout(
-        () => messageToContentScript(tabId, message, retryCount + 1),
+        () => messageToContent(tabId, message, retryCount + 1),
         (retryCount + 1) * 2000
       );
     } else {
