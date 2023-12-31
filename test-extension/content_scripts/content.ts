@@ -7,17 +7,6 @@ let contentMessageQueue: any = [];
 // handle messages from npm package
 window.addEventListener('message', handleMessage, false);
 
-// handle messages from background.ts
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.type === 'background-connected') {
-    console.log('CONTENT.TS: Background.ts Connected');
-    backgroundConnected = true;
-    contentMessageQueue.forEach((message: any) => {
-      messageToBackground(message);
-    });
-  }
-});
-
 function handleMessage(event: MessageEvent) {
   if (event.source === window && event.data?.type === 'app-connected') {
     console.log('CONTENT.TS: App Connected');
@@ -56,3 +45,32 @@ const messageToBackground = (message: any, retryCount = 0) => {
     }
   });
 };
+
+// listen for messages from background.ts
+chrome.runtime.onMessage.addListener(handleMessageFromBackground);
+
+function handleMessageFromBackground(
+  message: any,
+  sender: any,
+  sendResponse: any
+) {
+  if (message.type === 'background-connected') {
+    console.log('CONTENT.TS: Background.ts Connected');
+    backgroundConnected = true;
+    contentMessageQueue.forEach((message: any) => {
+      messageToBackground(message);
+    });
+  }
+
+  if (message.type === 'time-travel') {
+    console.log('CONTENT.TS: TimeTravel Setting Changed');
+    const event = new CustomEvent('time-travel', { detail: message.payload });
+    window.dispatchEvent(event);
+  }
+
+  if (message.type === 'update-ui') {
+    console.log('CONTENT.TS: Updated UI');
+    const event = new CustomEvent('update-ui', { detail: message.payload });
+    window.dispatchEvent(event);
+  }
+}

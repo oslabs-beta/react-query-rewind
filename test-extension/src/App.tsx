@@ -2,11 +2,9 @@ import './css/styles.css';
 import React, { useState, useEffect } from 'react';
 import ParentTab from './containers/ParentTab';
 import { QueryEvent } from './types';
-// import MultiSelect from './components/MultiSelect';
 import saveSelectedQueryKeys from './functions/saveSelectedQueryKeys';
-// import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-// import { createTheme } from '@mui/material/styles';
+// import { Port } from 'chrome.runtime';
 
 type QueryMetrics = {
   // [queryKey: ]
@@ -17,11 +15,15 @@ function App() {
   const [queryEvents, setQueryEvents] = useState<QueryEvent[]>([]);
   const [queryMetrics, setQueryMetrics] = useState();
   const [selectedQueries, setSelectedQueries] = useState<string[]>([]);
+  const [devToolsPort, setDevToolsPort] = useState<chrome.runtime.Port | null>(
+    null
+  );
 
   // adds event listeners when component mountsx
   useEffect(() => {
     // connects to background.js
     let port = chrome.runtime.connect({ name: 'devtools-panel' });
+    setDevToolsPort(port);
 
     // listents for messages from npm package
     port.onMessage.addListener(message => {
@@ -73,6 +75,7 @@ function App() {
         queryEvents={queryEvents}
         selectedQueries={selectedQueries}
         handleSelectionChange={handleSelectionChange}
+        devToolsPort={devToolsPort}
       />
     </Container>
   );

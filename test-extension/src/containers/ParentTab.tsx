@@ -8,7 +8,12 @@ import a11yProps from '../functions/a11yProps';
 import MetricsTab from './MetricsTab';
 import QueriesTab from './QueriesTab';
 
-const ParentTab = ({ queryEvents, selectedQueries, handleSelectionChange }: ParentTabsProps) => {
+const ParentTab = ({
+  queryEvents,
+  selectedQueries,
+  handleSelectionChange,
+  devToolsPort,
+}: ParentTabsProps) => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -28,19 +33,22 @@ const ParentTab = ({ queryEvents, selectedQueries, handleSelectionChange }: Pare
         <Tabs
           value={value}
           onChange={handleChange}
-          aria-label='basic tabs example'
+          aria-label="basic tabs example"
         >
-          <Tab label='QUERIES' {...a11yProps(0)} />
-          <Tab label='COMPONENT TREE' {...a11yProps(1)} />
+          <Tab label="QUERIES" {...a11yProps(0)} />
+          <Tab label="COMPONENT TREE" {...a11yProps(1)} />
         </Tabs>
       </Box>
 
-      <Box sx={{ flexGrow: 1, height: 'calc(100vh - 3rem)', paddingTop: '0.5rem' }}>
+      <Box
+        sx={{ flexGrow: 1, height: 'calc(100vh - 3rem)', paddingTop: '0.5rem' }}
+      >
         <CustomTabPanel value={value} index={0}>
           <QueriesTab
             selectedQueries={selectedQueries}
             queryEvents={queryEvents}
             handleSelectionChange={handleSelectionChange}
+            devToolsPort={devToolsPort}
           />
         </CustomTabPanel>
 

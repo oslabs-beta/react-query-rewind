@@ -20,6 +20,7 @@ const QuereisTab = ({
   queryEvents,
   selectedQueries,
   handleSelectionChange,
+  devToolsPort,
 }: QueryTabProps) => {
   const [value, setValue] = React.useState(0);
 
@@ -45,20 +46,22 @@ const QuereisTab = ({
 
   // sends message to the background script whenever timeTravel changes
   useEffect(() => {
-    chrome.runtime.sendMessage({
-      sender: 'TimeTravel',
-      timeTravel: timeTravel,
-    });
+    if (devToolsPort) {
+      devToolsPort.postMessage({
+        type: 'time-travel',
+        payload: timeTravel,
+      });
+    }
   }, [timeTravel]);
 
   const currentQuery = queryDisplay[currentIndex];
 
   // sends message to the background script whenever currentIndex changes
   useEffect(() => {
-    if (currentQuery && currentQuery.length !== 0) {
-      chrome.runtime.sendMessage({
-        sender: 'UpdateUI',
-        currentQuery: queryDisplay[currentIndex],
+    if (currentQuery && currentQuery.length !== 0 && devToolsPort) {
+      devToolsPort.postMessage({
+        type: 'update-ui',
+        payload: queryDisplay[currentIndex],
       });
     }
   }, [currentIndex]);

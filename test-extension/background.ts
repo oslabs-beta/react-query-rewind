@@ -4,13 +4,14 @@ let devToolsPort: chrome.runtime.Port | null = null;
 let tabId: number | undefined = undefined;
 let backgroundMessageQueue: any = [];
 
-// triggered when dev tool starts and connects to background.ts
-chrome.runtime.onConnect.addListener((port: chrome.runtime.Port) => {
+// listen for connections from the DevTools panel
+chrome.runtime.onConnect.addListener(handleDevToolsConnection);
+
+function handleDevToolsConnection(port: chrome.runtime.Port) {
   if (port.name === 'devtools-panel') {
     console.log('BACKGROUND.TS: DevTool Connected');
     devToolsPort = port;
 
-    // when devtools connect send all messages in the queue
     backgroundMessageQueue.forEach((curMsg: any) => {
       if (devToolsPort) {
         devToolsPort.postMessage(curMsg);
@@ -18,52 +19,62 @@ chrome.runtime.onConnect.addListener((port: chrome.runtime.Port) => {
     });
     backgroundMessageQueue = [];
 
-    // notify content.ts when devtool disconnects
+    devToolsPort.onMessage.addListener(message => {
+      if (message.type === 'time-travel') {
+        console.log('BACKGROUND.TS: TimeTravel Setting Changed');
+        messageToContent(tabId, message);
+      }
+
+      if (message.type === 'update-ui') {
+        console.log('BACKGROUND.TS: Updated UI');
+        messageToContent(tabId, message);
+      }
+    });
+
     devToolsPort.onDisconnect.addListener(() => {
       console.log('BACKGROUND.TS: DevTool Disconnected');
       devToolsPort = null;
     });
   }
-});
+}
 
-// triggered when background.js recieves messages from content.ts
-chrome.runtime.onMessage.addListener((message: any, sender) => {
-  // if connection message without tabid - update tabid and notify content.ts
-  if (message.type === 'app-connected' && tabId === undefined) {
-    tabId = sender.tab?.id;
-    console.log(`BACKGROUND.TS: Content.js Connected at TabId ${tabId}`);
-    messageToContent(tabId, {
-      type: 'background-connected',
-    });
-  }
-  // if connection message with tabid already defined - refresh window
-  else if (
-    message.type === 'app-connected' &&
-    tabId !== undefined &&
-    sender.tab?.id
-  ) {
-    tabId = undefined;
-    chrome.tabs.reload(sender.tab.id, {}, () => {
-      if (chrome.runtime.lastError) {
-        console.error(
-          `Error Refreshing Tab: ${chrome.runtime.lastError.message}`
-        );
-      }
-    });
-  }
+// listen for messages from content.ts
+chrome.runtime.onMessage.addListener(handleMessageFromContent);
 
-  // if devtool is not connected save the message in the queue
-  if (!devToolsPort && message.type !== 'app-connected') {
+function handleMessageFromContent(
+  message: any,
+  sender: chrome.runtime.MessageSender
+) {
+  // handle connection messages from the app
+  if (message.type === 'app-connected') {
+    console.log('RECIEVED CONNECTION MESSAGE', message);
+
+    // if initial tabId set it and confirm connection with content.ts
+    if (tabId === undefined || tabId === sender.tab?.id) {
+      tabId = sender.tab?.id;
+      console.log(`BACKGROUND.TS: Content.ts Connected at TabId ${tabId}`);
+      messageToContent(tabId, { type: 'background-connected' });
+    }
+    // if new tabId refresh the page so data is reset
+    else if (tabId !== sender.tab?.id && typeof sender.tab?.id === 'number') {
+      tabId = sender.tab?.id;
+      console.log(`BACKGROUND.TS: New TabId Detected: ${tabId}`);
+      chrome.tabs.reload(tabId, {}, () => {
+        if (chrome.runtime.lastError) {
+          console.error(
+            `Error Refreshing Tab: ${chrome.runtime.lastError.message}`
+          );
+        }
+      });
+    }
+  } else if (devToolsPort && tabId === sender.tab?.id) {
+    devToolsPort.postMessage(message);
+  } else if (!devToolsPort && tabId === sender.tab?.id) {
     backgroundMessageQueue.push(message);
   }
+}
 
-  // immediatly send message to devtool if connected
-  if (devToolsPort && message.type !== 'app-connected') {
-    devToolsPort.postMessage(message);
-  }
-});
-
-// sends messages to content.js - retries 3 times after failed first attempt
+// function to send messages to content.js – retries 3 times after first failed attempt
 function messageToContent(tabId: any, message: any, retryCount: number = 0) {
   chrome.tabs.sendMessage(tabId, message).catch(err => {
     if (retryCount < 3) {
