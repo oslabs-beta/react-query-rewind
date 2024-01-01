@@ -1,23 +1,23 @@
 <script lang="ts">
   import { QueryClientProvider, QueryClient } from "@tanstack/svelte-query";
-
-  import { writable, derived } from "svelte/store";
+  import { writable } from "svelte/store";
   import PostsOne from "./components/PostsOne.svelte";
   import PostsTwo from "./components/PostsTwo.svelte";
   import PostsThree from "./components/PostsThree.svelte";
+  import SvelteQueryRewind from "./link/SvelteQueryRewind.svelte";
 
   const queryClient: QueryClient = new QueryClient();
 
-  // define a store for screenView
   const screenView = writable("Posts One");
 
-  // handle navigation click
   function handleNavClick(view: string) {
     screenView.set(view);
   }
 </script>
 
 <QueryClientProvider client={queryClient}>
+  <SvelteQueryRewind />
+
   <div class="window">
     <div class="nav-bar">
       <span class="title">Svelte Query Rewind</span>

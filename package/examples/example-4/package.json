@@ -1,12 +1,12 @@
 {
-  "name": "example-2",
+  "name": "example-4",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "example-2-client": "cd client &&  npm run dev",
-    "example-2-server": "cd server && npm run server",
-    "example-2": "npm-run-all --parallel example-2-server example-2-client"
+    "example-4-client": "cd client &&  npm run dev",
+    "example-4-server": "cd server && npm run server",
+    "example-4": "npm-run-all --parallel example-4-server example-4-client"
   },
   "keywords": [],
   "author": "",

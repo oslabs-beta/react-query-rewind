@@ -1,5 +1,5 @@
 {
-  "name": "example-2-server",
+  "name": "example-4-server",
   "version": "1.0.0",
   "description": "",
   "main": "dist/server.js",
@@ -19,6 +19,6 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
-    "typescript": "^5.3.2"
+    "typescript": "^5.3.3"
   }
 }
