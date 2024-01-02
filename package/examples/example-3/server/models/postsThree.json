@@ -1,0 +1,11 @@
+{
+  "posts": [
+    {
+      "text": "Feed 3 – Post 1",
+      "liked": false,
+      "comments": [],
+      "createComment": false,
+      "timestamp": "8:42 PM"
+    }
+  ]
+}
