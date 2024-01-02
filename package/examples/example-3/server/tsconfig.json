@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist", // Specifies the output directory for compiled files
+    "rootDir": "./", // Specifies the root directory of input files
+    "module": "CommonJS",
+    "target": "ES2019",
+    "moduleResolution": "Node",
+    "esModuleInterop": true
+    // Add any other compiler options as needed
+  },
+  "include": ["./**/*.ts"], // Include all TypeScript files in the project
+  "exclude": ["node_modules", "dist"] // Exclude node_modules and dist from the compilation
+}
