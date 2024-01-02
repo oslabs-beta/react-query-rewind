@@ -52,13 +52,22 @@ const QuereisTab = ({
         payload: timeTravel,
       });
     }
+
+    if (!timeTravel && queryDisplay.length > 0) {
+      setCurrentIndex(queryDisplay.length - 1);
+    }
   }, [timeTravel]);
 
   const currentQuery = queryDisplay[currentIndex];
 
   // sends message to the background script whenever currentIndex changes
   useEffect(() => {
-    if (currentQuery && currentQuery.length !== 0 && devToolsPort) {
+    if (
+      currentQuery &&
+      currentQuery.length !== 0 &&
+      devToolsPort &&
+      timeTravel
+    ) {
       devToolsPort.postMessage({
         type: 'update-ui',
         payload: queryDisplay[currentIndex],
@@ -70,7 +79,9 @@ const QuereisTab = ({
   useEffect(() => {
     const newQueryDisplay = createDisplayArray(queryEvents, selectedQueries);
     setQueryDisplay(newQueryDisplay);
-    setCurrentIndex(0);
+    const newIndex =
+      newQueryDisplay.length > 0 ? newQueryDisplay.length - 1 : 0;
+    setCurrentIndex(newIndex);
   }, [selectedQueries, queryEvents]);
 
   const handleAutoPlay = () => {
