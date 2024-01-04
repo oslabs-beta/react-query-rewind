@@ -22,8 +22,14 @@ function App() {
   // adds event listeners when component mountsx
   useEffect(() => {
     // connects to background.js
-    let port = chrome.runtime.connect({ name: 'background-devtools' });
+    let port = chrome.runtime.connect({ name: 'background-devtool' });
     setDevToolsPort(port);
+
+    // tell background.ts to inject the content script into the tab
+    port.postMessage({
+      action: 'injectContentScript',
+      tabId: chrome.devtools.inspectedWindow.tabId,
+    });
 
     // listents for messages from npm package
     port.onMessage.addListener(message => {

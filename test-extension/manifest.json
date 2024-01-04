@@ -8,12 +8,6 @@
   "background": {
     "service_worker": "background.js"
   },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["content.js", "inject.js"]
-    }
-  ],
   "devtools_page": "devtools.html",
   "icons": {
     "16": "images/icon.png",

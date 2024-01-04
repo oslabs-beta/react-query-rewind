@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { onMounted, onBeforeUnmount } from 'vue';
 import { useQueryClient } from '@tanstack/vue-query';
-import { QueryDisplay } from './types';
+// import { QueryDisplay } from './types';
+
+export type QueryDisplay = {
+  queryKey: string;
+  queryData: any;
+};
 
 const queryClient = useQueryClient();
 
