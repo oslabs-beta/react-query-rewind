@@ -1,37 +1,39 @@
 <template></template>
 
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount } from 'vue';
+import { onMounted, onBeforeUnmount, defineProps } from 'vue';
 import { useQueryClient } from '@tanstack/vue-query';
 import { formatData } from './formatData';
 
+const props = defineProps({
+  contentConnected: Boolean,
+});
+
+const queryClient = useQueryClient();
+const queryCache = queryClient.getQueryCache();
+const contentMessageQueue = [];
+
+const handleQueryCacheChange = async (event: any) => {
+  const data = formatData(event, queryClient);
+  if (!data) return;
+
+  if (!props.contentConnected) {
+    console.log('APP: Added Event To Queue');
+    contentMessageQueue.push(data);
+  } else {
+    window.postMessage(
+      {
+        framework: 'vue',
+        type: 'event',
+        payload: data,
+      },
+      '*'
+    );
+  }
+};
+
 onMounted(() => {
-  const queryClient = useQueryClient();
-  const queryCache = queryClient.getQueryCache();
-  let initialMessageSent = false;
-
-  const handleQueryCacheChange = async (event: any) => {
-    if (!initialMessageSent) {
-      await new Promise(resolve => setTimeout(resolve, 250));
-      initialMessageSent = true;
-    }
-
-    const data = formatData(event, queryClient);
-
-    if (data) {
-      window.postMessage(
-        {
-          framework: 'vue',
-          type: 'event',
-          payload: data,
-        },
-        '*'
-      );
-    }
-  };
-
   const unsubscribe = queryCache.subscribe(handleQueryCacheChange);
-
   onBeforeUnmount(() => unsubscribe());
 });
 </script>
