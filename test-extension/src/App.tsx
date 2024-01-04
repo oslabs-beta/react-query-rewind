@@ -22,7 +22,7 @@ function App() {
   // adds event listeners when component mountsx
   useEffect(() => {
     // connects to background.js
-    let port = chrome.runtime.connect({ name: 'devtools-panel' });
+    let port = chrome.runtime.connect({ name: 'background-devtools' });
     setDevToolsPort(port);
 
     // listents for messages from npm package

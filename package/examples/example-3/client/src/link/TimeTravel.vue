@@ -1,7 +1,3 @@
-<template>
-  <!-- component does not render anything -->
-</template>
-
 <script setup lang="ts">
 import { onMounted, onBeforeUnmount } from 'vue';
 import { useQueryClient } from '@tanstack/vue-query';
@@ -30,7 +26,3 @@ onMounted(() => {
   });
 });
 </script>
-
-<style scoped>
-/* component does not render anything */
-</style>

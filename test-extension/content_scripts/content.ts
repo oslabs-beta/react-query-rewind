@@ -1,76 +1,92 @@
 console.log('CONTENT.TS: Loaded');
 
 let appConnected = false;
-let backgroundConnected = false;
-let contentMessageQueue: any = [];
+let appMessageQueue: any = [];
 
-// handle messages from npm package
-window.addEventListener('message', handleMessage, false);
+// create port and connect with background.ts
+const backgroundPort = chrome.runtime.connect({ name: 'content-background' });
 
-function handleMessage(event: MessageEvent) {
-  if (event.source === window && event.data?.type === 'app-connected') {
+// handle background.ts messages - send message if connected to app otherwise add to queue
+backgroundPort.onMessage.addListener(message => {
+  if (appConnected) {
+    window.postMessage(message);
+  } else {
+    appMessageQueue.push(message);
+  }
+});
+
+// add listener to the window to handle messages from the app
+window.addEventListener('message', handleMessageFromApp, false);
+
+function handleMessageFromApp(message: MessageEvent) {
+  // initial message from the app to confirm connection
+  if (message.data?.type === 'app-connected') {
     console.log('CONTENT.TS: App Connected');
     appConnected = true;
-    messageToBackground(event.data);
+    appMessageQueue.forEach((message: any) => window.postMessage(message));
+    appMessageQueue = [];
   }
-
-  if (event.source === window && event.data?.type === 'event') {
-    contentMessageQueue.push(event.data);
-    if (backgroundConnected) {
-      messageToBackground(event.data);
-    }
+  // all other messages are send to background.ts
+  else {
+    console.log('message to background', message);
+    backgroundPort.postMessage(message);
   }
 }
 
-const messageToBackground = (message: any, retryCount = 0) => {
-  chrome.runtime.sendMessage(message).catch(err => {
-    if (retryCount < 3) {
-      console.error(
-        `CONTENT.TS: Retry ${
-          retryCount + 1
-        }: Error sending message to background.ts:`,
-        err,
-        message
-      );
-      setTimeout(
-        () => messageToBackground(message, retryCount + 1),
-        (retryCount + 1) * 2000
-      );
-    } else {
-      console.error(
-        'CONTENT.TS: Max retries reached. Error sending message to background.ts:',
-        err,
-        message
-      );
-    }
-  });
-};
+// when background.ts confirms connection this function will send it queued and new messages
+// const sendMessageToBackground = (message: any, retryCount = 0) => {
+//   chrome.runtime.sendMessage(message).catch(err => {
+//     // after a failed first attempt it will retry 3 times
+//     if (retryCount < 3) {
+//       console.error(
+//         `CONTENT.TS: Retry ${
+//           retryCount + 1
+//         }: Error sending message to background.ts:`,
+//         err,
+//         message
+//       );
+//       setTimeout(
+//         () => sendMessageToBackground(message, retryCount + 1),
+//         (retryCount + 1) * 2000
+//       );
+//     } else {
+//       console.error(
+//         'CONTENT.TS: Max retries reached. Error sending message to background.ts:',
+//         err,
+//         message
+//       );
+//     }
+//   });
+// };
 
 // listen for messages from background.ts
-chrome.runtime.onMessage.addListener(handleMessageFromBackground);
+// chrome.runtime.onMessage.addListener(handleMessageFromBackground);
 
-function handleMessageFromBackground(
-  message: any,
-  sender: any,
-  sendResponse: any
-) {
-  if (message.type === 'background-connected') {
-    console.log('CONTENT.TS: Background.ts Connected');
-    backgroundConnected = true;
-    contentMessageQueue.forEach((message: any) => {
-      messageToBackground(message);
-    });
-  }
+// function handleMessageFromBackground(
+//   message: any,
+//   sender: any,
+//   sendResponse: any
+// ) {
+//   // confirms background.ts connection and sends queued messages
+//   if (message.type === 'background-connected') {
+//     console.log('CONTENT.TS: Background.ts Connected');
+//     backgroundConnected = true;
+//     backgroundMessageQueue.forEach((message: any) => {
+//       sendMessageToBackground(message);
+//     });
+//   }
 
-  if (message.type === 'time-travel') {
-    console.log('CONTENT.TS: TimeTravel Setting Changed');
-    const event = new CustomEvent('time-travel', { detail: message.payload });
-    window.dispatchEvent(event);
-  }
+//   // turns on time travel updates in app ui
+//   if (message.type === 'time-travel') {
+//     console.log('CONTENT.TS: TimeTravel Setting Changed');
+//     const event = new CustomEvent('time-travel', { detail: message.payload });
+//     window.dispatchEvent(event);
+//   }
 
-  if (message.type === 'update-ui') {
-    console.log('CONTENT.TS: Updated UI');
-    const event = new CustomEvent('update-ui', { detail: message.payload });
-    window.dispatchEvent(event);
-  }
-}
+//   // data used to update ui with past state
+//   if (message.type === 'update-ui') {
+//     console.log('CONTENT.TS: Updated UI');
+//     const event = new CustomEvent('update-ui', { detail: message.payload });
+//     window.dispatchEvent(event);
+//   }
+// }

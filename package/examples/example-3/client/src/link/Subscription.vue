@@ -1,6 +1,4 @@
-<template>
-  <!-- component does not render anything -->
-</template>
+<template></template>
 
 <script setup lang="ts">
 import { onMounted, onBeforeUnmount } from 'vue';
@@ -19,6 +17,7 @@ onMounted(() => {
     }
 
     const data = formatData(event, queryClient);
+
     if (data) {
       window.postMessage(
         {
@@ -37,6 +36,4 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-/* component does not render anything */
-</style>
+<style scoped></style>

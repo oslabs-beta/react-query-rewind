@@ -18,14 +18,8 @@ onMounted(() => {
   window.addEventListener('time-travel', toggleTimeTravel);
 
   const sendAppConnectedMessage = async () => {
-    await new Promise(resolve => setTimeout(resolve, 125));
-    window.postMessage(
-      {
-        framework: 'vue',
-        type: 'app-connected',
-      },
-      '*'
-    );
+    await new Promise(resolve => setTimeout(resolve, 200));
+    window.postMessage({ type: 'app-connected' }, '*');
   };
 
   sendAppConnectedMessage();
@@ -42,6 +36,4 @@ export default {
 };
 </script>
 
-<style scoped>
-/* component does not render anything */
-</style>
+<style scoped></style>
