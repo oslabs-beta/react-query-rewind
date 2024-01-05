@@ -1,33 +1,30 @@
 // Generate a unique identifier for this instance
-const scriptInstanceId = Date.now() + Math.random().toString();
+// const scriptInstanceId = Date.now() + Math.random().toString();
+// console.log(scriptInstanceId);
 
 // Define a custom event for signaling cleanup
-const cleanupEvent = new CustomEvent('contentScriptCleanup', {
-  detail: { id: scriptInstanceId },
-});
-
-// Function to perform cleanup
-function cleanup(event: any) {
-  // Only cleanup if the event is for an older instance
-  if (event.detail.id !== scriptInstanceId) {
-    // Disconnect from the background page
-    backgroundPort.disconnect();
-    // Remove event listeners
-    window.removeEventListener('message', handleMessageFromApp);
-    // Reset state
-    appConnected = false;
-    appMessageQueue.length = 0;
-    console.log('Content script cleaned up.');
-  }
-}
+// const cleanupEvent = new CustomEvent('contentScriptCleanup', {
+//   detail: { id: scriptInstanceId },
+// });
 
 // Check for existing script instance and signal cleanup
-if (window.myContentScriptLoaded) {
-  window.dispatchEvent(cleanupEvent);
-} else {
-  window.myContentScriptLoaded = true;
-  // Setup listener for cleanup
-  window.addEventListener('contentScriptCleanup', cleanup);
+// if (window.myContentScriptLoaded) {
+//   console.log('new script');
+//   window.dispatchEvent(cleanupEvent);
+// } else {
+//   console.log('cleaning up');
+//   window.myContentScriptLoaded = true;
+//   // Setup listener for cleanup
+//   window.addEventListener('contentScriptCleanup', cleanup);
+// }
+
+// Function to perform cleanup of script when no longer used
+function cleanup() {
+  backgroundPort.disconnect();
+  window.removeEventListener('message', handleMessageFromApp);
+  appConnected = false;
+  appMessageQueue = [];
+  console.log('CONTENT.TS: Old content.ts cleaned up.');
 }
 
 console.log('CONTENT.TS: Loaded');
@@ -36,7 +33,6 @@ let appConnected = false;
 let appMessageQueue: any = [];
 
 // Notify app that content.ts is ready
-console.log('is this sending?');
 window.postMessage({ type: 'content-script-ready' }, '*');
 
 // Create port and connect with background.ts
@@ -53,11 +49,8 @@ backgroundPort.onMessage.addListener(message => {
 
 // Handle disconnection of the port
 backgroundPort.onDisconnect.addListener(() => {
-  console.log('Disconnected from background script');
-  appConnected = false;
-  // Optionally, handle the message queue appropriately
-  // For example, clear it or process remaining messages
-  appMessageQueue = [];
+  console.log('CONTENT.TS: Disconnected from background script');
+  cleanup();
   // Re-establish the port connection if necessary
   // backgroundPort = chrome.runtime.connect({ name: 'content-background' });
 });
@@ -73,9 +66,9 @@ function handleMessageFromApp(message: MessageEvent) {
     appMessageQueue.forEach((message: any) => window.postMessage(message));
     appMessageQueue = [];
   }
-  // All other messages are send to background.ts
+
+  // All other messages are sent to background.ts
   if (message.data?.type === 'event') {
-    console.log('message to background', message.data);
     backgroundPort.postMessage(message.data);
   }
 }

@@ -11,26 +11,24 @@ import TimeTravel from './TimeTravel.vue';
 const timeTravel = ref(false);
 const contentConnected = ref(false);
 
-const handleContentScriptReady = (event: any) => {
-  if (event.data?.type === 'content-script-ready') {
+const handleContentMessages = (message: any) => {
+  if (message.data?.type === 'content-script-ready') {
+    console.log('APP: Content.ts Connected');
     contentConnected.value = true;
-    console.log(contentConnected);
     window.postMessage({ type: 'app-connected' }, '*');
+  }
+
+  if (message.data?.type === 'time-travel') {
+    timeTravel.value = message.detail;
   }
 };
 
-const toggleTimeTravel = function (event: any) {
-  timeTravel.value = event.detail;
-};
-
 onMounted(() => {
-  window.addEventListener('content-script-ready', handleContentScriptReady);
-  window.addEventListener('time-travel', toggleTimeTravel);
+  window.addEventListener('message', handleContentMessages);
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener('content-script-ready', handleContentScriptReady);
-  window.removeEventListener('time-travel', toggleTimeTravel);
+  window.removeEventListener('message', handleContentMessages);
 });
 </script>
 

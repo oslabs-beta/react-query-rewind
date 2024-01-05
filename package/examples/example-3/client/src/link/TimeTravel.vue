@@ -10,11 +10,9 @@ export type QueryDisplay = {
 
 const queryClient = useQueryClient();
 
-onMounted(() => {
-  console.log('TIME TRAVEL MOUNTED');
-
-  const updateUi = (event: any) => {
-    const currentQuery: QueryDisplay[] = event.detail;
+const handleUpdateUi = (message: any) => {
+  if (message.data?.type === 'update-ui') {
+    const currentQuery: QueryDisplay[] = message.detail;
     currentQuery.forEach(queryState => {
       if (queryState.queryData !== '') {
         queryClient.setQueryData(
@@ -23,11 +21,14 @@ onMounted(() => {
         );
       }
     });
-  };
-  window.addEventListener('update-ui', updateUi);
+  }
+};
 
-  onBeforeUnmount(() => {
-    window.removeEventListener('update-ui', updateUi);
-  });
+onMounted(() => {
+  window.addEventListener('message', handleUpdateUi);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('message', handleUpdateUi);
 });
 </script>
