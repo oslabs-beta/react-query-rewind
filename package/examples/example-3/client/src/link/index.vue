@@ -13,7 +13,7 @@ const contentConnected = ref(false);
 
 const handleContentMessages = (message: any) => {
   if (message.data?.type === 'content-script-ready') {
-    console.log('APP: Content.ts Connected');
+    console.log('APP: Connected to content.ts');
     contentConnected.value = true;
     window.postMessage({ type: 'app-connected' }, '*');
   }
