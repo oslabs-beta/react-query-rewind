@@ -37,6 +37,11 @@ function handleContentConnection(port: chrome.runtime.Port) {
 
   // If devtool is connected send messages otherwise place in queue
   activeContentPort.onMessage.addListener(message => {
+    // The background script goes inactive after 30 seconds idle so we log every 25 seconds
+    if (message.type === 'heartbeat') {
+      console.log('Logging to keep service worker connected');
+    }
+
     if (devToolPort) {
       devToolPort.postMessage(message);
     } else {

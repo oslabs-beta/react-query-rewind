@@ -69,6 +69,7 @@
   // Function to send a heartbeat message to the background script to keep it active
   function sendHeartbeat() {
     backgroundPort?.postMessage({ type: 'heartbeat' });
+    console.log('heartbeat');
   }
 
   // Call sendHeartbeat function every 25 seconds
