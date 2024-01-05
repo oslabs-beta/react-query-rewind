@@ -38,7 +38,6 @@ function handleContentConnection(port: chrome.runtime.Port) {
   // If devtool is connected send messages otherwise place in queue
   activeContentPort.onMessage.addListener(message => {
     if (devToolPort) {
-      console.log('message to devtool', message);
       devToolPort.postMessage(message);
     } else {
       devToolMessageQueue.push(message);
