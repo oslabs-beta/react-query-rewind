@@ -6,7 +6,7 @@ module.exports = {
   clearMocks: true,
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: "tests/coverage",
+  coverageDirectory: "__tests__/coverage",
 
   // A set of global variables that need to be available in all test environments
   globals: {
