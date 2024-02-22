@@ -17,16 +17,16 @@ jobs:
           node-version: '20.7.0'
           registry-url: 'https://registry.npmjs.org/'
 
-      - name: Move to package directory
-        run: cd package
+      # Ideally we automatically update the version number in package.json
+
       - name: Install Dependencies
-        run: npm install
+        run: cd package && npm ci
 
       # If your package needs to be built (e.g., TypeScript to JavaScript), include this step
       - name: Build
-        run: npm run build
+        run: cd package && npm run build
 
       - name: Publish to NPM
-        run: npm publish
+        run: cd package && npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
