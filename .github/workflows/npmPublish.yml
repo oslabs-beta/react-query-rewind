@@ -22,7 +22,6 @@ jobs:
       - name: Install Dependencies
         run: cd package && npm ci
 
-      # If your package needs to be built (e.g., TypeScript to JavaScript), include this step
       - name: Build
         run: cd package && npm run build
 
