@@ -1,3 +1,5 @@
+<template></template>
+
 <script setup lang="ts">
 import { onMounted, onBeforeUnmount } from 'vue';
 import { useQueryClient } from '@tanstack/vue-query';
@@ -32,3 +34,5 @@ onBeforeUnmount(() => {
   window.removeEventListener('message', handleUpdateUi);
 });
 </script>
+
+<style scoped></style>

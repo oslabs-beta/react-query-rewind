@@ -39,7 +39,7 @@ function handleContentConnection(port: chrome.runtime.Port) {
   activeContentPort.onMessage.addListener(message => {
     // The background script goes inactive after 30 seconds idle so we log every 25 seconds
     if (message.type === 'heartbeat') {
-      console.log('Logging to keep service worker connected');
+      console.log('BACKGROUND.TS: Logging to keep service worker connected');
     }
 
     if (devToolPort) {
