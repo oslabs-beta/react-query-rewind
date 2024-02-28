@@ -20,7 +20,7 @@
 
   // Function to setup and initialize the background port
   function setupPort() {
-    console.log('CONTENT.TS: Connecting to background.ts');
+    console.log('CONTENT.TS: Background.ts Connected');
 
     // Connect to background script
     backgroundPort = chrome.runtime.connect({ name: 'content-background' });
@@ -28,6 +28,7 @@
     // Handle background.ts messages - send message if connected to app otherwise add to queue
     backgroundPort.onMessage.addListener(message => {
       if (appConnected) {
+        console.log('CONTENT.TS: Message to app', message);
         window.postMessage(message);
       } else {
         appMessageQueue.push(message);
@@ -35,7 +36,7 @@
     });
 
     backgroundPort.onDisconnect.addListener(() => {
-      console.log('CONTENT.TS: Disconnected from background script');
+      console.log('CONTENT.TS: Background.ts Disconnected');
       // Reset the port to trigger reconnection attempt
       backgroundPort = null;
       setupPort();
@@ -43,7 +44,7 @@
   }
 
   function sendMessageToBackground(message: any) {
-    console.log('CONTENT.TS: Message to background.ts', message.data);
+    // console.log('CONTENT.TS: Message to background.ts', message.data);
     backgroundPort?.postMessage(message.data);
   }
 
@@ -62,7 +63,7 @@
 
     // All other messages are sent to background.ts
     if (message.data?.type === 'event') {
-      console.log('CONTENT.TS: Message from App:', message);
+      // console.log('CONTENT.TS: Message from App:', message);
       sendMessageToBackground(message);
     }
   }
@@ -70,12 +71,12 @@
   // Notify app that content.ts is ready
   function establishAppConnection() {
     if (!appConnected) {
-      console.log('CONTENT.TS: Sent connection message to app');
       window.postMessage({ type: 'content-script-ready' }, '*');
     }
   }
 
-  // establishAppConnection();
+  // Send a message to the app until it sends back a confirmation message
+  // Prevents a situation where the app recieves a message before it is able to setup its event listeners
   const appConnectionInterval = setInterval(establishAppConnection, 200);
 
   // Function to send a heartbeat message to the background script to keep it active

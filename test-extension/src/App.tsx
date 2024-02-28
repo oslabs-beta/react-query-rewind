@@ -33,7 +33,7 @@ function App() {
 
     // listents for messages from npm package
     port.onMessage.addListener(message => {
-      console.log('DEVTOOL: Recieved message from background.ts');
+      console.log('DEVTOOL: Recieved message from background.ts', message);
 
       if (message.type === 'event') {
         setQueryEvents(queryEvents => [...queryEvents, message.payload]);

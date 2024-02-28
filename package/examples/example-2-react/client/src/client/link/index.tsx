@@ -36,7 +36,7 @@ function ReactQueryRewind() {
     }
 
     if (message.data?.type === 'time-travel') {
-      setTimeTravel(message.data.detail);
+      setTimeTravel(message.data.payload);
     }
   };
 
@@ -48,6 +48,10 @@ function ReactQueryRewind() {
       window.removeEventListener('message', handleContentMessages);
     };
   }, []);
+
+  useEffect(() => {
+    console.log('timeTravel', timeTravel);
+  }, [timeTravel]);
 
   return (
     <div>

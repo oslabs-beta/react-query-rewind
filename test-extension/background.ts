@@ -43,6 +43,7 @@ function handleContentConnection(port: chrome.runtime.Port) {
     }
 
     if (devToolPort) {
+      console.log('BACKGROUND.TS: Message to dev tool', message);
       devToolPort.postMessage(message);
     } else {
       devToolMessageQueue.push(message);
@@ -50,13 +51,13 @@ function handleContentConnection(port: chrome.runtime.Port) {
   });
 
   port.onDisconnect.addListener(() => {
-    console.log('BACKGROUND.TS: Content.ts Disconnected');
+    console.log('BACKGROUND.TS: Content.ts disconnected');
     activeContentPort = null;
   });
 }
 
 function handleDevToolsConnection(port: chrome.runtime.Port) {
-  console.log('BACKGROUND.TS: DevTool Connected');
+  console.log('BACKGROUND.TS: DevTool connected');
   devToolPort = port;
 
   // Send queued messages from the devtool before connection was established
@@ -68,22 +69,25 @@ function handleDevToolsConnection(port: chrome.runtime.Port) {
   // If content.ts is connected send messages otherwise place in queue
   devToolPort.onMessage.addListener(message => {
     if (message.action === 'injectContentScript' && message.tabId) {
-      console.log('Injecting Content Script Into Tab:', message.tabId);
+      console.log(
+        'BACKGROUND.TS: Injecting content script into tab:',
+        message.tabId
+      );
       chrome.scripting.executeScript({
         target: { tabId: message.tabId },
         files: ['content.js'],
       });
     } else if (activeContentPort) {
-      console.log('message to content', message);
+      console.log('BACKGROUND.TS: Message to content.ts', message);
       activeContentPort.postMessage(message);
     } else {
-      console.log('added to queue');
+      // console.log('BACKGROUND.TS: Message added to content.ts queue');
       contentMessageQueue.push(message);
     }
   });
 
   port.onDisconnect.addListener(() => {
-    console.log('BACKGROUND.TS: DevTool Disconnected');
+    console.log('BACKGROUND.TS: DevTool disconnected');
     devToolPort = null;
   });
 }
