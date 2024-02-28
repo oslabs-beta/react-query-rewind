@@ -50,8 +50,6 @@
   window.addEventListener('message', handleMessageFromApp, false);
 
   function handleMessageFromApp(message: MessageEvent) {
-    console.log('CONTENT.TS: Message from app', message.data);
-
     // Initial message from the app to confirm connection
     if (message.data?.type === 'app-connected') {
       console.log('CONTENT.TS: App Connected');
