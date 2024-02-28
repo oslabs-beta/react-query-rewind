@@ -11,7 +11,7 @@ function TimeTravel() {
 
   const handleUpdateUi = (message: MessageEvent) => {
     if (message.data?.type === 'update-ui') {
-      const currentQuery: QueryDisplay[] = message.data.detail;
+      const currentQuery: QueryDisplay[] = message.data.payload;
       currentQuery.forEach(queryState => {
         if (queryState.queryData !== '') {
           queryClient.setQueryData(
