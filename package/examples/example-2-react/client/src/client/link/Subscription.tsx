@@ -3,10 +3,10 @@ import { useQueryClient } from '@tanstack/react-query';
 import { formatData } from './formatData';
 
 type SubscriptionProps = {
-  contentConnected: boolean;
+  contentConnectedRef: React.RefObject<boolean>;
 };
 
-function Subscription({ contentConnected }: SubscriptionProps) {
+function Subscription({ contentConnectedRef }: SubscriptionProps) {
   const queryClient = useQueryClient();
   const queryCache = queryClient.getQueryCache();
   const [contentMessageQueue, setContentMessageQueue] = useState<any[]>([]);
@@ -23,23 +23,31 @@ function Subscription({ contentConnected }: SubscriptionProps) {
   };
 
   const handleQueryCacheChange = async (event: any) => {
-    const message = await formatData(event, queryClient);
+    const message = formatData(event, queryClient);
+    // console.log('Sub: message:', message);
+    // console.log('Sub: contentConnected', contentConnected);
     if (!message) return;
-    if (!contentConnected) {
+    if (!contentConnectedRef) {
       setContentMessageQueue(prevQueue => [...prevQueue, message]);
     } else {
+      console.log(message);
       sendEvent(message);
     }
   };
 
   useEffect(() => {
-    if (contentConnected) {
+    if (contentConnectedRef) {
       contentMessageQueue.forEach(sendEvent);
       setContentMessageQueue([]);
     }
-  }, [contentConnected, contentMessageQueue]);
+  }, [contentConnectedRef]);
 
   useEffect(() => {
+    console.log('Sub: contentConnectedRef', contentConnectedRef);
+  }, [contentConnectedRef]);
+
+  useEffect(() => {
+    // console.log('SUB MOUNTING');
     const unsubscribe = queryCache.subscribe(handleQueryCacheChange);
     return () => unsubscribe();
   }, []);

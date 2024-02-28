@@ -42,6 +42,7 @@
   }
 
   function sendMessageToBackground(message: any) {
+    console.log('CONTENT.TS: Message to background.ts', message.data);
     backgroundPort?.postMessage(message.data);
   }
 
@@ -49,6 +50,8 @@
   window.addEventListener('message', handleMessageFromApp, false);
 
   function handleMessageFromApp(message: MessageEvent) {
+    console.log('CONTENT.TS: Message from app', message.data);
+
     // Initial message from the app to confirm connection
     if (message.data?.type === 'app-connected') {
       console.log('CONTENT.TS: App Connected');
@@ -59,6 +62,7 @@
 
     // All other messages are sent to background.ts
     if (message.data?.type === 'event') {
+      console.log('CONTENT.TS: Message from App', message);
       sendMessageToBackground(message);
     }
   }

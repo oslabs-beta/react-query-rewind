@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Subscription from './Subscription';
 import TimeTravel from './TimeTravel';
 
 function ReactQueryRewind() {
   const [timeTravel, setTimeTravel] = useState(false);
-  const [contentConnected, setContentConnected] = useState(false);
+  // const [contentConnected, setContentConnected] = useState(false);
+  const contentConnectedRef = useRef(false); // Use useRef here
 
   const handleContentMessages = (message: MessageEvent) => {
     if (message.data?.type === 'content-script-ready') {
-      console.log('APP: Connected to content.ts');
-      setContentConnected(true);
+      // console.log('APP: Connected to content.ts');
+      // setContentConnected(true);
+      contentConnectedRef.current = true; // Directly update ref
+
       window.postMessage({ type: 'app-connected' }, '*');
     }
 
@@ -19,6 +22,8 @@ function ReactQueryRewind() {
   };
 
   useEffect(() => {
+    // console.log('RERENDERING');
+
     window.addEventListener('message', handleContentMessages);
 
     return () => {
@@ -26,12 +31,16 @@ function ReactQueryRewind() {
     };
   }, []);
 
+  // useEffect(() => {
+  //   console.log('Index: contentConnected', contentConnected);
+  // }, [contentConnected]);
+
   return (
     <div>
       {timeTravel ? (
         <TimeTravel />
       ) : (
-        <Subscription contentConnected={contentConnected} />
+        <Subscription contentConnectedRef={contentConnectedRef} />
       )}
     </div>
   );
