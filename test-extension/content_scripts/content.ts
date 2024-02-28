@@ -1,11 +1,12 @@
 // Immediatly-Invoked Function Expression (IIFE)
 (function () {
-  // Check if the content script has already been loaded
+  // Check if the content script has already been loaded into the current tab
+  // Prevents it from injecting into the same page twice if the developer opens and closes the dev tool
   if (window.myContentScriptLoaded) {
-    console.log('CONTENT.TS: Content script already loaded');
+    console.log('CONTENT.TS: Content script already injected');
     return;
   } else {
-    // Set the flag indicating the content script has been loaded
+    // Set the flag on the window to indicate the content script has already been loaded in the tab
     window.myContentScriptLoaded = true;
     console.log('CONTENT.TS: Loaded');
   }
@@ -53,6 +54,7 @@
     // Initial message from the app to confirm connection
     if (message.data?.type === 'app-connected') {
       console.log('CONTENT.TS: App Connected');
+      clearInterval(appConnectionInterval);
       appConnected = true;
       appMessageQueue.forEach((message: any) => window.postMessage(message));
       appMessageQueue = [];
@@ -60,18 +62,26 @@
 
     // All other messages are sent to background.ts
     if (message.data?.type === 'event') {
-      console.log('CONTENT.TS: Message from App', message);
+      console.log('CONTENT.TS: Message from App:', message);
       sendMessageToBackground(message);
     }
   }
 
   // Notify app that content.ts is ready
-  window.postMessage({ type: 'content-script-ready' }, '*');
+  function establishAppConnection() {
+    if (!appConnected) {
+      console.log('CONTENT.TS: Sent connection message to app');
+      window.postMessage({ type: 'content-script-ready' }, '*');
+    }
+  }
+
+  // establishAppConnection();
+  const appConnectionInterval = setInterval(establishAppConnection, 200);
 
   // Function to send a heartbeat message to the background script to keep it active
   function sendHeartbeat() {
     backgroundPort?.postMessage({ type: 'heartbeat' });
-    console.log('heartbeat');
+    // console.log('heartbeat');
   }
 
   // Call sendHeartbeat function every 25 seconds
