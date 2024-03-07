@@ -2,14 +2,14 @@
   "posts": [
     {
       "text": "test",
-      "liked": true,
+      "liked": false,
       "comments": [],
       "createComment": false,
       "timestamp": "12:08 PM"
     },
     {
       "text": "test",
-      "liked": false,
+      "liked": true,
       "comments": [
         "new"
       ],

@@ -48,7 +48,6 @@ export type JsonFormatterType = {
 export type JsonDiffType = {
   oldJson?: JsonDataType | string; // optional in case you're on first state
   currentJson: JsonDataType | string; // or string since state gets initialized to an empty string
-  queryKey: string;
   isHidden: boolean;
 };
 
