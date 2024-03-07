@@ -11,6 +11,7 @@ const TreeTab:React.FC<any> = ({treeData}) => {
   const [view, setView] = useState<string>('treeView');
   const [profilingStatus, setProfilingStatus] = useState<boolean>(false);
 
+  // Not sure what this does. What I really need is 1) profiling toggle to work and 2) ensure we only profile when the user wants us to. So we need to send a message that doesn't inject the inject.ts script until the user clicks the profiling toggle
   function sendMessageToContentScript(message: any) {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs: any) => {
       chrome.tabs.sendMessage(tabs[0].id, message);
