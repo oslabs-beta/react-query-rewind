@@ -17,7 +17,7 @@ chrome.runtime.onConnect.addListener((port) => {
 });
 
 function handleContentConnection(port: chrome.runtime.Port) {
-  console.log("BACKGROUND.TS: Content.ts Connected");
+  // console.log("BACKGROUND.TS: Content.ts Connected");
 
   // Disconnect previous content script if a new tab becomes active
   if (activeTabId !== port.sender?.tab?.id) {
@@ -78,12 +78,6 @@ function handleDevToolsConnection(port: chrome.runtime.Port) {
         target: { tabId: message.tabId },
         files: ["content.js"],
       });
-      // Inject script for component tree
-      chrome.scripting.executeScript({
-        target: { tabId: message.tabId },
-        files: ["inject.js"],
-    })
-
     } else if (activeContentPort) {
       console.log("BACKGROUND.TS: Message to content.ts", message);
       activeContentPort.postMessage(message);
@@ -98,14 +92,3 @@ function handleDevToolsConnection(port: chrome.runtime.Port) {
     devToolPort = null;
   });
 }
-
-// function handleComponentTree(port: chrome.runtime.Port) {
-//   console.log("BACKGROUND.TS: handleComponentTree invoked with port: ", port);
-//   port.onMessage.addListener((message) => {
-//     console.log('HANDLE COMPONENT TREE message: ', message);
-//     if (message.action === "injectContentScript" && message.tabId) {
-//       console.log('Attempting to inject INJECT.JS');
-
-//     }
-//   });
-// }

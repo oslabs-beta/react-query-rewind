@@ -45,7 +45,7 @@ const windowListener = event => {
     event.data.type === 'react-query-rewind'
   ) {
     // Handle the data
-    console.log('Message from the window:', event.data.payload);
+    // console.log('Message from the window:', event.data.payload);
     const message = event.data.payload;
     chrome.runtime.sendMessage({ sender: 'content script', message: message });
   }

@@ -90,10 +90,29 @@
 })();
 
 // *** Component Tree ***
+//inject script into current DOM (because content scripts run in isolation, I'm unable to inject the script like this from background.ts)
+/*
+  chrome.scripting.executeScript({
+    target: { tabId: message.tabId },
+    files: ["inject.js"],
+})
+*/
+const inject = (fileName: string) => {
+  // console.log("CONTENTSCRIPT.JS: INJECTING SCRIPT");
+  const treeScript = document.createElement('script');
+  treeScript.setAttribute('type', 'text/javascript');
+  treeScript.setAttribute('src', chrome.runtime.getURL(fileName));
+  document.body.appendChild(treeScript);
+};
+
+//invoke inject function to inject script
+inject('inject.js');
+
+// Function to send a message to the app when the component tree is ready
 window.addEventListener('message', event => {
-  console.log("message from inject.js", event.data.eventListStr);
+  // console.log("message from inject.js", event.data.eventListStr);
   if (event.data.type && event.data.type === 'EVENT_LIST') {
-    // console.log("event", event);
+    console.log("component tree sending event: ", event);
     chrome.runtime.sendMessage({
       action: event.data.type,
       data: event.data.eventListStr,
