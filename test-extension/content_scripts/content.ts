@@ -89,6 +89,19 @@
   setInterval(sendHeartbeat, 25000);
 })();
 
+// *** Component Tree ***
+window.addEventListener('message', event => {
+  console.log("message from inject.js", event.data.eventListStr);
+  if (event.data.type && event.data.type === 'EVENT_LIST') {
+    // console.log("event", event);
+    chrome.runtime.sendMessage({
+      action: event.data.type,
+      data: event.data.eventListStr,
+    });
+  }
+});
+
+
 export {};
 
 // // Function to perform cleanup of script when no longer used
@@ -103,3 +116,4 @@ export {};
 //   appMessageQueue = [];
 //   console.log('CONTENT.TS: Old content.ts cleaned up.');
 // }
+

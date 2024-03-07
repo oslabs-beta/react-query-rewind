@@ -8,7 +8,7 @@ const MetricsTab = ({ queryEvents }: BasicTabsProps) => {
   const [value, setValue] = React.useState(0);
   const [selectedQueries, setSelectedQueries] = useState<string[]>([]);
 
-  const [idk, setIdk] = useState<any[]>([]);
+  const [treeData, setTreeData] = useState<any[]>([]);
   //state for navigating between tree and charts
   const [view, setView] = useState<string>('treeView');
   //state for recording status, default to false;
@@ -31,13 +31,13 @@ const MetricsTab = ({ queryEvents }: BasicTabsProps) => {
     if (!recStat) {
       setRecButton('Start profiling');
       sendMessageToContentScript({
-        message: `Hello from popup! ${idk.length}`,
+        message: `Hello from popup! ${treeData.length}`,
       });
-      setChartData([...idk]);
+      setChartData([...treeData]);
     } else {
       setRecButton('Stop profiling');
       sendMessageToContentScript({
-        message: `Hello from popup! ${idk.length}`,
+        message: `Hello from popup! ${treeData.length}`,
       });
     }
   }, [recStat]);
@@ -49,7 +49,7 @@ const MetricsTab = ({ queryEvents }: BasicTabsProps) => {
         switch (request.action) {
           case 'EVENT_LIST':
             if (request.data) {
-              setIdk([...JSON.parse(request.data)]);
+              setTreeData([...JSON.parse(request.data)]);
             }
             break;
         }
@@ -70,7 +70,7 @@ const MetricsTab = ({ queryEvents }: BasicTabsProps) => {
         </ProfilingToggle>
         <div className='ct'></div>
         {view === 'treeView' && (
-          <ComponentTree fiberTree={idk[idk.length - 1]} />
+          <ComponentTree fiberTree={treeData[treeData.length - 1]} />
         )}
     </Box>
   );

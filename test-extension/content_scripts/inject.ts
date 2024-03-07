@@ -1,5 +1,5 @@
 //retrieve global hook and save in reactdevglobahook variable, used to interact w/react devtools
-// console.log('React Dev Tools: ', window.__REACT_DEVTOOLS_GLOBAL_HOOK__);
+console.log('INJECT.TS - React Dev Tools: ', window.__REACT_DEVTOOLS_GLOBAL_HOOK__);
 
 // Extend Window interface for TypeScript to recognize custom properties
 // Requires dummy export so that typescript treats this as a module
@@ -21,7 +21,9 @@ interface TreeNode {
   children?: TreeNode[];
 }
 
-if (window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
+if (!window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
+  window.postMessage({ type: "REACT_DEVTOOLS_NOT_DETECTED" }, "*");
+} else {
   try {
     const reactDevGlobalHook = window.__REACT_DEVTOOLS_GLOBAL_HOOK__;
     // store the parsed fiber tree info

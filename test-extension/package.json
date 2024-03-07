@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf dist && webpack --config webpack.config.js"
+    "build": "rimraf dist && webpack --config webpack.config.js",
+    "watch": "webpack --watch --config webpack.config.js"
   },
   "keywords": [],
   "author": "",
