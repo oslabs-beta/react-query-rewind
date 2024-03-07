@@ -17,7 +17,7 @@ const DiffTab = ({ queryDisplay, currentIndex }: DataTabProps) => {
     setIsHidden(!isHidden);
   };
 
-  console.log('queryDisplay: ', queryDisplay);
+  // console.log('queryDisplay: ', queryDisplay);
 
   return (
     <>

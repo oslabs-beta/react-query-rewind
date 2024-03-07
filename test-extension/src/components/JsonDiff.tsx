@@ -18,13 +18,9 @@ const JsonDiff: React.FC<JsonDiffType> = ({
       </Typography>
     );
 
-  console.log('oldJson: ', oldJson);
-  console.log('currentJson: ', currentJson);
-  console.log('jsondiffpatch: ', jsondiffpatch);
   // get comparison obj
   const delta = jsondiffpatch.diff(oldJson, currentJson);
-  // delta is undefined if the 2 objects are the exact same - not sure how I can render this
-  console.log('delta: ', delta);
+  // delta is undefined if the 2 objects are the exact same
 
   if (delta) {
     // Use library's html formatter that generates vanilla CSS
