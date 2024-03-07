@@ -10,8 +10,7 @@ const TreeTab:React.FC<any> = ({treeData}) => {
   //state for navigating between tree and charts
   const [profilingStatus, setProfilingStatus] = useState<boolean>(false);
 
-  // Not sure what this does. What I really need is 1) profiling toggle to work and 2) ensure we only profile when the user wants us to. So we need to send a message that doesn't inject the inject.ts script until the user clicks the profiling toggle
-  // Also want to send a more clear message to the content script to start/stop profiling
+  // Ideally we ensure we only profile when the user wants us to. So we need to send a message that doesn't inject the inject.ts script until the user clicks the profiling toggle
   function sendMessageToContentScript(profilingEnabled: boolean) {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs: any) => {
       console.log('tabs: ', tabs);
