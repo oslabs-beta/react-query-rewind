@@ -4,7 +4,7 @@ import { BasicTabsProps } from '../types';
 import ComponentTree from '../components/Tree';
 import ProfilingToggle from '../components/ProfilingToggle';
 
-const MetricsTab = ({ queryEvents }: BasicTabsProps) => {
+const TreeTab = ({ queryEvents }: BasicTabsProps) => {
   const [value, setValue] = React.useState(0);
   const [selectedQueries, setSelectedQueries] = useState<string[]>([]);
 
@@ -44,6 +44,7 @@ const MetricsTab = ({ queryEvents }: BasicTabsProps) => {
 
   useEffect(() => {
     const msgListener = (request: any, sender: any, sendResponse: any) => {
+      console.log('inside use effect', request);
       if (recStat) {
         console.log('inside use effect', JSON.parse(request.data));
         switch (request.action) {
@@ -76,4 +77,4 @@ const MetricsTab = ({ queryEvents }: BasicTabsProps) => {
   );
 };
 
-export default MetricsTab;
+export default TreeTab;

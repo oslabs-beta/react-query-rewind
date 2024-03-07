@@ -1,6 +1,5 @@
 //retrieve global hook and save in reactdevglobahook variable, used to interact w/react devtools
 console.log('INJECT.TS - React Dev Tools: ', window.__REACT_DEVTOOLS_GLOBAL_HOOK__);
-console.log('Window: ', window);
 
 // Extend Window interface for TypeScript to recognize custom properties
 // Requires dummy export so that typescript treats this as a module
@@ -195,26 +194,3 @@ const getReactTree = () => {
 
 // execute function
 getReactTree();
-
-// wait for page to finish loading and check if it exists (this never seems to run?) - maybe page finishes loading first
-window.addEventListener('load', () => {
-  console.log('INJECT.TS - Page loaded');
-  getReactTree();
-});
-
-// Because react dev tools may take more time to load, check every 2 seconds for the next 20 seconds
-const interval = setInterval(() => {
-  console.log('Interval running');
-  if (window.__REACT_DEVTOOLS_GLOBAL_HOOK__ && !foundTree) {
-    getReactTree();
-    foundTree = true;
-  } else if (foundTree) {
-    // clear interval after tree is found
-    clearInterval(interval);
-  }
-}, 2000);
-
-// Clear interval after 10 seconds
-setTimeout(() => {
-  clearInterval(interval);
-}, 10000);
