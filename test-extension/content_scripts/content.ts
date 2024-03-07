@@ -94,15 +94,12 @@
     if (event.data.type && event.data.type === "tree") {
       console.log("CONTENT.ts: component tree sending event: ", event);
       backgroundPort?.postMessage({type: event.data.type, data: JSON.parse(event.data.eventListStr)});
-      // chrome.runtime.sendMessage({
-      //   action: event.data.type,
-      //   data: event.data.eventListStr,
-      // });
     }
   });
 })();
 
 // *** Component Tree ***
+// * This should only happen when the user clicks the profiling toggle
 //inject script into current DOM (because content scripts run in isolation, I'm unable to inject the script like this from background.ts)
 /*
   chrome.scripting.executeScript({
