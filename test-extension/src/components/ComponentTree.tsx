@@ -67,8 +67,7 @@ function ComponentTree({ fiberTree }: ComponentTreeProps) {
         </div>
       ) : (
         <p>
-          COMPONENT TREE - if your component tree isn't rendering, make sure you
-          have React DevTools installed and try again!
+          Component Trees are currently only available for React applications. Ensure React Dev Tools are installed and running.
         </p>
       )}
     </>

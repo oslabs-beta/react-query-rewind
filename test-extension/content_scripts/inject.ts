@@ -25,7 +25,7 @@ let foundTree = false;
 const getReactTree = () => {
   if (!window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
     console.log("REACT DEVTOOLS NOT DETECTED");
-    // window.postMessage({ type: "REACT_DEVTOOLS_NOT_DETECTED" }, "*");
+    window.postMessage({ type: "REACT_DEVTOOLS_NOT_DETECTED"});
   } else {
     console.log('React Dev Tools Detected');
     try {
