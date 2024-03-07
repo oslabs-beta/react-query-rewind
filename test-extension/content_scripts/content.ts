@@ -3,12 +3,12 @@
   // Check if the content script has already been loaded into the current tab
   // Prevents it from injecting into the same page twice if the developer opens and closes the dev tool
   if (window.myContentScriptLoaded) {
-    console.log('CONTENT.TS: Content script already injected');
+    console.log("CONTENT.TS: Content script already injected");
     return;
   } else {
     // Set the flag on the window to indicate the content script has already been loaded in the tab
     window.myContentScriptLoaded = true;
-    console.log('CONTENT.TS: Loaded');
+    console.log("CONTENT.TS: Loaded");
   }
 
   let appConnected = false;
@@ -20,15 +20,15 @@
 
   // Function to setup and initialize the background port
   function setupPort() {
-    console.log('CONTENT.TS: Background.ts Connected');
+    console.log("CONTENT.TS: Background.ts Connected");
 
     // Connect to background script
-    backgroundPort = chrome.runtime.connect({ name: 'content-background' });
+    backgroundPort = chrome.runtime.connect({ name: "content-background" });
 
     // Handle background.ts messages - send message if connected to app otherwise add to queue
-    backgroundPort.onMessage.addListener(message => {
+    backgroundPort.onMessage.addListener((message) => {
       if (appConnected) {
-        console.log('CONTENT.TS: Message to app', message);
+        console.log("CONTENT.TS: Message to app", message);
         window.postMessage(message);
       } else {
         appMessageQueue.push(message);
@@ -36,7 +36,7 @@
     });
 
     backgroundPort.onDisconnect.addListener(() => {
-      console.log('CONTENT.TS: Background.ts Disconnected');
+      console.log("CONTENT.TS: Background.ts Disconnected");
       // Reset the port to trigger reconnection attempt
       backgroundPort = null;
       setupPort();
@@ -49,12 +49,12 @@
   }
 
   // Add listener to the window to handle messages from the app
-  window.addEventListener('message', handleMessageFromApp, false);
+  window.addEventListener("message", handleMessageFromApp, false);
 
   function handleMessageFromApp(message: MessageEvent) {
     // Initial message from the app to confirm connection
-    if (message.data?.type === 'app-connected') {
-      console.log('CONTENT.TS: App Connected');
+    if (message.data?.type === "app-connected") {
+      console.log("CONTENT.TS: App Connected");
       clearInterval(appConnectionInterval);
       appConnected = true;
       appMessageQueue.forEach((message: any) => window.postMessage(message));
@@ -62,7 +62,7 @@
     }
 
     // All other messages are sent to background.ts
-    if (message.data?.type === 'event') {
+    if (message.data?.type === "event") {
       // console.log('CONTENT.TS: Message from App:', message);
       sendMessageToBackground(message);
     }
@@ -71,7 +71,7 @@
   // Notify app that content.ts is ready
   function establishAppConnection() {
     if (!appConnected) {
-      window.postMessage({ type: 'content-script-ready' }, '*');
+      window.postMessage({ type: "content-script-ready" }, "*");
     }
   }
 
@@ -81,12 +81,25 @@
 
   // Function to send a heartbeat message to the background script to keep it active
   function sendHeartbeat() {
-    backgroundPort?.postMessage({ type: 'heartbeat' });
+    backgroundPort?.postMessage({ type: "heartbeat" });
     // console.log('heartbeat');
   }
 
   // Call sendHeartbeat function every 25 seconds
   setInterval(sendHeartbeat, 25000);
+
+  // Function to send a message to the app when the component tree is ready
+  window.addEventListener("message", (event) => {
+    // console.log("message from inject.js", event.data.eventListStr);
+    if (event.data.type && event.data.type === "tree") {
+      console.log("CONTENT.ts: component tree sending event: ", event);
+      backgroundPort?.postMessage({type: event.data.type, data: event.data.eventListStr});
+      // chrome.runtime.sendMessage({
+      //   action: event.data.type,
+      //   data: event.data.eventListStr,
+      // });
+    }
+  });
 })();
 
 // *** Component Tree ***
@@ -99,27 +112,14 @@
 */
 const inject = (fileName: string) => {
   // console.log("CONTENTSCRIPT.JS: INJECTING SCRIPT");
-  const treeScript = document.createElement('script');
-  treeScript.setAttribute('type', 'text/javascript');
-  treeScript.setAttribute('src', chrome.runtime.getURL(fileName));
+  const treeScript = document.createElement("script");
+  treeScript.setAttribute("type", "text/javascript");
+  treeScript.setAttribute("src", chrome.runtime.getURL(fileName));
   document.body.appendChild(treeScript);
 };
 
 //invoke inject function to inject script
-inject('inject.js');
-
-// Function to send a message to the app when the component tree is ready
-window.addEventListener('message', event => {
-  // console.log("message from inject.js", event.data.eventListStr);
-  if (event.data.type && event.data.type === 'EVENT_LIST') {
-    console.log("component tree sending event: ", event);
-    chrome.runtime.sendMessage({
-      action: event.data.type,
-      data: event.data.eventListStr,
-    });
-  }
-});
-
+inject("inject.js");
 
 export {};
 
@@ -135,4 +135,3 @@ export {};
 //   appMessageQueue = [];
 //   console.log('CONTENT.TS: Old content.ts cleaned up.');
 // }
-

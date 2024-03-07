@@ -18,6 +18,7 @@ function App() {
   const [devToolsPort, setDevToolsPort] = useState<chrome.runtime.Port | null>(
     null
   );
+  const [treeData, setTreeData] = useState<any>('');
 
   // adds event listeners when component mountsx
   useEffect(() => {
@@ -39,8 +40,9 @@ function App() {
         setQueryEvents(queryEvents => [...queryEvents, message.payload]);
       }
 
-      if (message.type === 'metric') {
-        // metrics logic
+      if (message.type === 'tree') {
+        console.log('APP.tsx: Recieved tree data', message);
+        setTreeData(message.data);
       }
     });
 
@@ -82,6 +84,7 @@ function App() {
         selectedQueries={selectedQueries}
         handleSelectionChange={handleSelectionChange}
         devToolsPort={devToolsPort}
+        treeData={treeData}
       />
     </Container>
   );

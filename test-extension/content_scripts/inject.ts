@@ -177,7 +177,7 @@ const getReactTree = () => {
           //convert eventList to string
           const eventListStr = JSON.stringify(eventList);
           //send message w/eventList string
-          window.postMessage({ type: "EVENT_LIST", eventListStr });
+          window.postMessage({ type: "tree", eventListStr });
           return onCommitFiberRoot(...args);
         };
       };

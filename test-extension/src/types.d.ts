@@ -16,6 +16,7 @@ export type ParentTabsProps = {
   selectedQueries: string[];
   handleSelectionChange: (queries: string[]) => void;
   devToolsPort: chrome.runtime.Port | null;
+  treeData: any;
 };
 
 export type QueryTabProps = {

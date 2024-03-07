@@ -13,6 +13,7 @@ const ParentTab = ({
   selectedQueries,
   handleSelectionChange,
   devToolsPort,
+  treeData
 }: ParentTabsProps) => {
   const [value, setValue] = React.useState(0);
 
@@ -54,8 +55,7 @@ const ParentTab = ({
 
         <CustomTabPanel value={value} index={1}>
           <TreeTab
-            queryEvents={queryEvents}
-            selectedQueries={selectedQueries}
+            treeData={treeData}
           />
         </CustomTabPanel>
       </Box>
