@@ -9,6 +9,7 @@ let contentMessageQueue: any = [];
 
 // Listen for connection from content.ts and devtools panel
 chrome.runtime.onConnect.addListener((port) => {
+  console.log("BACKGROUND.TS: Connection established: ", port);
   if (port.name === "content-background") {
     handleContentConnection(port);
   } else if (port.name === "background-devtool") {

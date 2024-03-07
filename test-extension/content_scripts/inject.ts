@@ -24,8 +24,8 @@ interface TreeNode {
 let foundTree = false;
 const getReactTree = () => {
   if (!window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
-    console.log("REACT DEVTOOLS NOT DETECTED");
-    window.postMessage({ type: "REACT_DEVTOOLS_NOT_DETECTED"});
+    // console.log("REACT DEVTOOLS NOT DETECTED");
+    // window.postMessage({ type: "REACT_DEVTOOLS_NOT_DETECTED"});
   } else {
     console.log('React Dev Tools Detected');
     try {
@@ -187,7 +187,7 @@ const getReactTree = () => {
         reactDevGlobalHook.onCommitFiberRoot
       );
     } catch (error) {
-      console.error("Error in inject.js: ", error);
+      // console.error("Error rendering component Tree: ", error);
     }
   }
 }

@@ -19,15 +19,16 @@ const TreeTab:React.FC<any> = ({treeData}) => {
     });
   }
 
-  const startProfiling = () => {
+  const toggleProfiling = () => {
+    console.log('toggleProfiling clicked');
     const newProfilingStatus = !profilingStatus;
     setProfilingStatus(newProfilingStatus);
-    sendMessageToContentScript(newProfilingStatus);
+    // sendMessageToContentScript(newProfilingStatus);
   }
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', marginTop: '1rem' }}>
-        <ProfilingToggle onClick={() => startProfiling}>
+        <ProfilingToggle onClick={toggleProfiling}>
           {profilingStatus ? 'Stop Profiling' : 'Start Profiling'}
         </ProfilingToggle>
         <div className='ct'></div>
