@@ -13,8 +13,9 @@ interface ComponentTreeProps {
   fiberTree: any; // Replace 'any' with the actual type of fiberTree
 }
 
-// set up a centered tree visualization
 function ComponentTree({ fiberTree }: ComponentTreeProps) {
+  
+  // set up a centered tree visualization
   const useCenteredTree = (
     defaultTranslate: { x: number; y: number } = { x: 0, y: 0 }
   ) => {
@@ -33,44 +34,7 @@ function ComponentTree({ fiberTree }: ComponentTreeProps) {
 
     return [dimensions, translate, containerRef] as const;
   };
-
   const [dimensions, translate, containerRef] = useCenteredTree();
-  const [recButton, setRecButton] = useState<string>('START PROFILING');
-  const [idk, setIdk] = useState<any[]>([]);
-  //state for navigating between tree and charts
-  //const [view, setView] = useState<string>("treeView");
-  //state for recording status, default to false;
-  const [recStat, setRecStat] = useState<boolean>(false);
-  // const [recButton, setRecButton] = useState<string>("START PROFILING");
-  const [chartData, setChartData] = useState<any[]>([]);
-
-  const setStatus = () => {
-    setRecStat((prevRecStat) => !prevRecStat);
-  };
-
-  function sendMessageToContentScript(message: any) {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs: any) => {
-      chrome.tabs.sendMessage(tabs[0].id, message);
-    });
-  }
-
-  //update recButton according to recStat
-  useEffect(() => {
-    if (!recStat) {
-      setRecButton('Start profiling');
-      sendMessageToContentScript({
-        message: `Hello from popup! ${idk.length}`,
-      });
-      setChartData([...idk]);
-    } else {
-      setRecButton('Stop profiling');
-      sendMessageToContentScript({
-        message: `Hello from popup! ${idk.length}`,
-      });
-    }
-  }, [recStat]);
-
-  const stringifiedResult = customStringify(fiberTree);
 
   return (
     <>

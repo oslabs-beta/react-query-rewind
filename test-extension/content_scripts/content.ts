@@ -93,7 +93,7 @@
     // console.log("message from inject.js", event.data.eventListStr);
     if (event.data.type && event.data.type === "tree") {
       console.log("CONTENT.ts: component tree sending event: ", event);
-      backgroundPort?.postMessage({type: event.data.type, data: event.data.eventListStr});
+      backgroundPort?.postMessage({type: event.data.type, data: JSON.parse(event.data.eventListStr)});
       // chrome.runtime.sendMessage({
       //   action: event.data.type,
       //   data: event.data.eventListStr,
