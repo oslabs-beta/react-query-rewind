@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "example-2-client": "cd client &&  npm run dev",
-    "example-2-server": "cd server && npm run server",
-    "example-2": "npm-run-all --parallel example-2-server example-2-client"
+    "react-example-install": "(cd server && npm install) && (cd client && npm install)",
+    "react-example-server": "cd server && npm run dev",
+    "react-example-client": "cd client &&  npm run dev",
+    "react-example": "npm-run-all --parallel react-example-server react-example-client"
   },
   "keywords": [],
   "author": "",

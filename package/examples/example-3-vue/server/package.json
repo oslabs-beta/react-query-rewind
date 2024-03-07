@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
-    "server": "tsc && node dist/server.js"
+    "dev": "tsc && node dist/server.js"
   },
   "keywords": [],
   "author": "",
