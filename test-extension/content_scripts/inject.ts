@@ -29,7 +29,8 @@ if (window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
     let eventList:[] = [];
     
     //recursively parse fiber tree, creates a structured object
-    const parseTree: any = (reactFiberTree: any) => {
+    type ParseTreeType = (reactFiberTree: any) => any;
+    const parseTree:ParseTreeType = (reactFiberTree: any) => {
       if (reactFiberTree === null) return null;
       else if (typeof reactFiberTree.elementType === "function") {
         // console.log("In the else if block", reactFiberTree.elementType.name);
@@ -54,7 +55,8 @@ if (window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
     };
     
     //retrieve children for given node
-    const getChildren = (tree: TreeNode) => {
+    type GetChildrenType = (tree: TreeNode|null|undefined) => TreeNode[];
+    const getChildren:GetChildrenType = (tree) => {
       const children:any[] = [];
       if (!tree) return children;
       while (tree.sibling) {
@@ -65,7 +67,8 @@ if (window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
     };
     
     //create tree structure from parsed fiber tree
-    const parseTreeInTreeStructure = (tree:TreeNode) => {
+    type ParseTreeInTreeStructureType = (tree: TreeNode | null) => any;
+    const parseTreeInTreeStructure:ParseTreeInTreeStructureType = (tree) => {
       if (!tree) return;
       let obj;
       // console.log("parsetree", tree);
@@ -77,7 +80,7 @@ if (window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
             name: tree.name,
             actualDuration: tree.actualDuration,
             selfBaseDuration: tree.selfBaseDuration,
-            children: [tree.child, ...getChildren(tree.child)].map((elem: any) =>
+            children: [tree.child, ...getChildren(tree.child)].map((elem: TreeNode) =>
               parseTreeInTreeStructure(elem)
             ),
           };
@@ -86,7 +89,7 @@ if (window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
             name: tree.name,
             actualDuration: tree.actualDuration,
             selfBaseDuration: tree.selfBaseDuration,
-            children: [...getChildren(tree.child)].map((elem) =>
+            children: [...getChildren(tree.child)].map((elem: TreeNode) =>
               parseTreeInTreeStructure(elem)
             ),
           };
@@ -98,7 +101,7 @@ if (window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
     //remove nodes w/NFC(non functional component) from child array
     const removeNFCsFromChildArray = (tree:any) => {
       if (tree.children === null) return null;
-      let parsedChildArray:[] = [];
+      let parsedChildArray:any[] = [];
       for (let i = 0; i < tree.children.length; i++) {
         const el = tree.children[i];
         if (el.name === "NFC") {
@@ -117,10 +120,10 @@ if (window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
     };
     
     //removes all nodes w/NFC from tree
-    const removeAllNFCs = (tree) => {
+    const removeAllNFCs = (tree: TreeNode) => {
       //ASSUMING THAT THE ROOT NODE OF TREE IS NOT A NFC
-      const immediateChildren = removeNFCsFromChildArray(tree);
-      const actualChildren = immediateChildren.map((child) => {
+      const immediateChildren = removeNFCsFromChildArray(tree) || [];
+      const actualChildren:any[] = immediateChildren.map((child) => {
         return {
           name: child.name,
           actualDuration: child.actualDuration,
@@ -132,7 +135,8 @@ if (window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
     };
     
     //create final, transformed tree structure
-    const final = (tree:any) => {
+    type FinalType = (tree: TreeNode) => {name: string, actualDuration: number, selfBaseDuration: number, children: any[]};
+    const final: FinalType = (tree) => {
       return {
         name: tree.name,
         actualDuration: tree.actualDuration,
@@ -148,8 +152,9 @@ if (window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
     });
     
     //create customized oncommitfiber root function, 
-    const customOnCommitFiberRoot = (onCommitFiberRoot) => {
-      return (...args) => {
+    type CustomOnCommitFiberRootType = (onCommitFiberRoot: any) => any;
+    const customOnCommitFiberRoot: CustomOnCommitFiberRootType = (onCommitFiberRoot) => {
+      return (...args: any) => {
         //extract fiberRoot from args
         const fiberRoot = args[1];
         //log info about fiberRoot
@@ -160,6 +165,7 @@ if (window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
         // console.log("this is the unparsed tree", fiberRoot.current);
         //parse tree and add to eventList
         eventList.push(
+          //@ts-ignore
           final(parseTreeInTreeStructure(parseTree(fiberRoot.current)))
         );
         //convert eventList to string
