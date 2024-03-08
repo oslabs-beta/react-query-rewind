@@ -40,6 +40,12 @@ export type SliderSectionProps = {
   isPlaying: boolean;
 };
 
+export type TreeTabProps = {
+  treeData: any[];
+  toggleProfiling: () => void;
+  profilingStatus: boolean;
+};
+
 export type JsonFormatterType = {
   jsonData: JsonDataType;
   queryKey: string;
