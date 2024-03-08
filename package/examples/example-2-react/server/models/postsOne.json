@@ -2,9 +2,12 @@
   "posts": [
     {
       "text": "First Post",
-      "liked": false,
-      "comments": [],
-      "createComment": false,
+      "liked": true,
+      "comments": [
+        "new",
+        "new"
+      ],
+      "createComment": true,
       "timestamp": "3:33 PM"
     }
   ]

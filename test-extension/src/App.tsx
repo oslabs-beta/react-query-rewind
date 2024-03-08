@@ -62,6 +62,12 @@ function App() {
     };
   }, []);
 
+  // adds event listener for when devToolsPort is disconnected
+  devToolsPort?.onDisconnect.addListener(() => {
+    console.log('DevTools port disconnected, port: ', devToolsPort);
+    // setDevToolsPort(null);
+  });
+
   // updates state for selected queries
   const handleSelectionChange = (queries: string[]) => {
     setSelectedQueries(queries);

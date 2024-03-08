@@ -24,7 +24,7 @@ module.exports = {
   testPathIgnorePatterns: [
     "/node_modules/"
   ],
-
+  
   // A map from regular expressions to module names or to arrays of module names
   // that allow to stub out resources, like images or styles with a single module
   moduleNameMapper: {
@@ -40,4 +40,7 @@ module.exports = {
 
   // Indicates whether each individual test should be reported during the run
   verbose: true,
+
+  // Paths to ignore
+  testPathIgnorePatterns: ['/node_modules/', '/coverage/'],
 };

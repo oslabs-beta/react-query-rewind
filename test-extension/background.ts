@@ -69,6 +69,9 @@ function handleDevToolsConnection(port: chrome.runtime.Port) {
 
   // If content.ts is connected send messages otherwise place in queue
   devToolPort.onMessage.addListener((message) => {
+    if (message.type === "profiling-status") {
+      console.log("BACKGROUND.TS: Profiling status", message);
+    }
     console.log('Injecting content.js into tab with message: ', message);
     if (message.action === "injectContentScript" && message.tabId) {
       console.log(

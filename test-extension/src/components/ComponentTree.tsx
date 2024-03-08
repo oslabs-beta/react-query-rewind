@@ -69,7 +69,8 @@ function ComponentTree({ fiberTree }: ComponentTreeProps) {
           <p>
             Component Trees are currently only available for React applications using React Dev Tools
           </p>
-          <p>Ensure React Dev Tools are installed and running.</p>
+          <p>Ensure React Dev Tools are installed and running</p>
+          <p>Then click in your app to re-render any component</p>
         </>
       )}
     </>

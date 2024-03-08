@@ -1,3 +1,27 @@
+  // Function to inject the script into the current tab
+  const inject = () => {
+    let isInjected = false;
+
+    return function(fileName: string) {
+      if (!isInjected) {
+        if (document.getElementById("treeScript-jkhsdfkdshdsf")) {
+          console.log('Tree script already injected');
+          return;
+        }
+        const treeScript = document.createElement("script");
+        // Adding a unique id to the script tag to prevent it from being injected multiple times because my closure isn't working for some reason (not sure if it's because of how content scripts work or something else)
+        treeScript.id = "treeScript-jkhsdfkdshdsf";
+        treeScript.setAttribute("type", "text/javascript");
+        treeScript.setAttribute("src", chrome.runtime.getURL(fileName));
+        document.body.appendChild(treeScript);
+        isInjected = true;
+        console.log('Injected tree script');
+      } else {
+        console.log('Tree script already injected');
+      }
+    }
+  };
+
 // Immediatly-Invoked Function Expression (IIFE)
 (function () {
   // Check if the content script has already been loaded into the current tab
@@ -27,8 +51,17 @@
 
     // Handle background.ts messages - send message if connected to app otherwise add to queue
     backgroundPort.onMessage.addListener((message) => {
+      console.log("CONTENT.TS: BackgroundPort.OnMessage: ", message.data?.type);
       if (appConnected) {
         console.log("CONTENT.TS: Message to app", message);
+        // Inject script to get react tree data
+        if (message.type === "profiling-status") {
+          console.log('tree script *should* be injected');
+          const scriptToInject = inject();
+          scriptToInject("inject.js");
+          // return so message isn't posted anywhere
+          return;
+        }
         window.postMessage(message);
       } else {
         appMessageQueue.push(message);
@@ -52,6 +85,7 @@
   window.addEventListener("message", handleMessageFromApp, false);
 
   function handleMessageFromApp(message: MessageEvent) {
+    console.log("CONTENT.TS: handleMessageFromApp", message.data?.type);
     // Initial message from the app to confirm connection
     if (message.data?.type === "app-connected") {
       console.log("CONTENT.TS: App Connected");
@@ -59,6 +93,16 @@
       appConnected = true;
       appMessageQueue.forEach((message: any) => window.postMessage(message));
       appMessageQueue = [];
+    }
+
+    // Send tree data to background.ts
+    if (message.data.type && message.data.type === "tree") {
+      console.log("CONTENT.ts: component tree sending event: ", message);
+      backgroundPort?.postMessage({
+        type: message.data.type,
+        data: JSON.parse(message.data.eventListStr),
+      });
+      return;
     }
 
     // All other messages are sent to background.ts
@@ -87,36 +131,7 @@
 
   // Call sendHeartbeat function every 25 seconds
   setInterval(sendHeartbeat, 25000);
-
-  // Function to send a message to the app when the component tree is ready
-  window.addEventListener("message", (event) => {
-    // console.log("message from inject.js", event.data.eventListStr);
-    if (event.data.type && event.data.type === "tree") {
-      console.log("CONTENT.ts: component tree sending event: ", event);
-      backgroundPort?.postMessage({type: event.data.type, data: JSON.parse(event.data.eventListStr)});
-    }
-  });
 })();
-
-// *** Component Tree ***
-// * This should only happen when the user clicks the profiling toggle
-//inject script into current DOM (because content scripts run in isolation, I'm unable to inject the script like this from background.ts)
-/*
-  chrome.scripting.executeScript({
-    target: { tabId: message.tabId },
-    files: ["inject.js"],
-})
-*/
-const inject = (fileName: string) => {
-  // console.log("CONTENTSCRIPT.JS: INJECTING SCRIPT");
-  const treeScript = document.createElement("script");
-  treeScript.setAttribute("type", "text/javascript");
-  treeScript.setAttribute("src", chrome.runtime.getURL(fileName));
-  document.body.appendChild(treeScript);
-};
-
-//invoke inject function to inject script
-inject("inject.js");
 
 export {};
 

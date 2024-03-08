@@ -1,6 +1,20 @@
 {
   "posts": [
     {
+      "text": "test",
+      "liked": false,
+      "comments": [],
+      "createComment": false,
+      "timestamp": "11:48 AM"
+    },
+    {
+      "text": "test",
+      "liked": false,
+      "comments": [],
+      "createComment": false,
+      "timestamp": "1:51 PM"
+    },
+    {
       "text": "hi",
       "liked": true,
       "comments": [],

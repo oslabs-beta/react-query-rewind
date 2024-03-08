@@ -1,0 +1,28 @@
+name: Publish Chrome Extension
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.7.0'
+      
+      - name: Install Dependencies
+        run: cd package && npm ci
+
+      - name: Build
+        run: cd package && npm run build
+
+    # https://developer.chrome.com/docs/webstore/using-api
+    # Challenges:
+      # Chrome Extensions go through a review so all changes to npm package need to be backward compatable because we can publish npm before the extension is approved and we don't know when the extension will be approved
+      # Not clear if we zip it like we did when we uploaded it manually. When we uploaded it manually we zipped the dist folder and uploaded just that.
+          
