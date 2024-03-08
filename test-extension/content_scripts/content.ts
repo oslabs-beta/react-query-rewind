@@ -9,7 +9,7 @@
           return;
         }
         const treeScript = document.createElement("script");
-        // Adding a unique id to the script tag to prevent it from being injected multiple times because my closure isn't working for some reason
+        // Adding a unique id to the script tag to prevent it from being injected multiple times because my closure isn't working for some reason (not sure if it's because of how content scripts work or something else)
         treeScript.id = "treeScript-jkhsdfkdshdsf";
         treeScript.setAttribute("type", "text/javascript");
         treeScript.setAttribute("src", chrome.runtime.getURL(fileName));
