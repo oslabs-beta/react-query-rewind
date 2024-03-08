@@ -1,0 +1,11 @@
+{
+  "posts": [
+    {
+      "text": "First Post",
+      "liked": false,
+      "comments": [],
+      "createComment": false,
+      "timestamp": "3:33 PM"
+    }
+  ]
+}
