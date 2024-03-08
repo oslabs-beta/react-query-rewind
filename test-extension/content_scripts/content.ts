@@ -61,6 +61,12 @@
       appMessageQueue = [];
     }
 
+  // Send tree data to background.ts
+  if (message.data.type && message.data.type === "tree") {
+    console.log("CONTENT.ts: component tree sending event: ", event);
+    backgroundPort?.postMessage({type: message.data.type, data: JSON.parse(message.data.eventListStr)});
+  }
+
     // All other messages are sent to background.ts
     if (message.data?.type === "event") {
       // console.log('CONTENT.TS: Message from App:', message);
@@ -88,35 +94,21 @@
   // Call sendHeartbeat function every 25 seconds
   setInterval(sendHeartbeat, 25000);
 
-  // Function to send a message to the app when the component tree is ready
-  window.addEventListener("message", (event) => {
-    // console.log("message from inject.js", event.data.eventListStr);
-    if (event.data.type && event.data.type === "tree") {
-      console.log("CONTENT.ts: component tree sending event: ", event);
-      backgroundPort?.postMessage({type: event.data.type, data: JSON.parse(event.data.eventListStr)});
-    }
-  });
+  // Inject script to get react tree data
+  let isInjected = false;
+  const inject = (fileName: string) => {
+    // console.log("CONTENTSCRIPT.JS: INJECTING SCRIPT");
+    const treeScript = document.createElement("script");
+    treeScript.setAttribute("type", "text/javascript");
+    treeScript.setAttribute("src", chrome.runtime.getURL(fileName));
+    document.body.appendChild(treeScript);
+    isInjected = true;
+  };
+  
+  //invoke inject function to inject script
+  if (!isInjected) inject("inject.js");
+
 })();
-
-// *** Component Tree ***
-// * This should only happen when the user clicks the profiling toggle
-//inject script into current DOM (because content scripts run in isolation, I'm unable to inject the script like this from background.ts)
-/*
-  chrome.scripting.executeScript({
-    target: { tabId: message.tabId },
-    files: ["inject.js"],
-})
-*/
-const inject = (fileName: string) => {
-  // console.log("CONTENTSCRIPT.JS: INJECTING SCRIPT");
-  const treeScript = document.createElement("script");
-  treeScript.setAttribute("type", "text/javascript");
-  treeScript.setAttribute("src", chrome.runtime.getURL(fileName));
-  document.body.appendChild(treeScript);
-};
-
-//invoke inject function to inject script
-inject("inject.js");
 
 export {};
 
