@@ -4,6 +4,7 @@
       "text": "First Post",
       "liked": true,
       "comments": [
+        "new",
         "new"
       ],
       "createComment": true,

@@ -1,12 +1,16 @@
-// Immediatly-Invoked Function Expression (IIFE)
-(function () {
   // Function to inject the script into the current tab
   const inject = () => {
     let isInjected = false;
 
     return function(fileName: string) {
       if (!isInjected) {
+        if (document.getElementById("treeScript-jkhsdfkdshdsf")) {
+          console.log('Tree script already injected');
+          return;
+        }
         const treeScript = document.createElement("script");
+        // Adding a unique id to the script tag to prevent it from being injected multiple times because my closure isn't working for some reason
+        treeScript.id = "treeScript-jkhsdfkdshdsf";
         treeScript.setAttribute("type", "text/javascript");
         treeScript.setAttribute("src", chrome.runtime.getURL(fileName));
         document.body.appendChild(treeScript);
@@ -18,6 +22,8 @@
     }
   };
 
+// Immediatly-Invoked Function Expression (IIFE)
+(function () {
   // Check if the content script has already been loaded into the current tab
   // Prevents it from injecting into the same page twice if the developer opens and closes the dev tool
   if (window.myContentScriptLoaded) {
