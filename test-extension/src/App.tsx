@@ -64,7 +64,7 @@ function App() {
 
   // adds event listener for when devToolsPort is disconnected
   devToolsPort?.onDisconnect.addListener(() => {
-    console.log('DevTools port disconnected');
+    console.log('DevTools port disconnected, port: ', devToolsPort);
     // setDevToolsPort(null);
   });
 
