@@ -182,10 +182,9 @@ const getReactTree = () => {
         };
       };
       
-      //invoke customOnCommitFiberRoot to create custom function and override w/actual one
-      reactDevGlobalHook.onCommitFiberRoot = customOnCommitFiberRoot(
-        reactDevGlobalHook.onCommitFiberRoot
-      );
+      // create custom function to listen to changes
+      reactDevGlobalHook.onCommitFiberRoot = customOnCommitFiberRoot(reactDevGlobalHook.onCommitFiberRoot);
+      
     } catch (error) {
       // console.error("Error rendering component Tree: ", error);
     }
