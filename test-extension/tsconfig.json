@@ -20,7 +20,8 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "content_scripts/**/*.ts",
-    "content_scripts/types.d.ts"
+    "content_scripts/types.d.ts",
+    "__test__"
   ],
   "exclude": ["node_modules"]
 }
