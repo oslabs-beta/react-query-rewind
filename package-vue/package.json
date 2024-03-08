@@ -37,12 +37,8 @@
     "dist"
   ],
   "scripts": {
-    "install-react-example": "cd examples/example-2-react && npm i && npm run react-example-install",
-    "react-example": "cd examples/example-2-react && npm run react-example",
-    "install-vue-example": "cd examples/example-3-vue && npm i && npm run vue-example-install",
-    "vue-example": "cd examples/example-3-vue && npm run vue-example",
-    "example-1": "cd examples/example-1 &&  npm run dev",
-    "example-2": "cd examples/example-2 && npm run example-2",
+    "install-example": "cd example && npm i && npm run install",
+    "example": "cd example && npm run example",
     "test": "jest",
     "lint": "eslint . --ext .ts,.tsx --fix",
     "build": "rollup -c",

@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "vue-example-install": "(cd server && npm install) && (cd client && npm install)",
-    "vue-example-server": "cd server && npm run dev",
-    "vue-example-client": "cd client &&  npm run dev",
-    "vue-example": "npm-run-all --parallel vue-example-server vue-example-client"
+    "install": "(cd server && npm i) && (cd client && npm i)",
+    "server": "cd server && npm run dev",
+    "client": "cd client &&  npm run dev",
+    "example": "npm-run-all --parallel server client"
   },
   "keywords": [],
   "author": "",
