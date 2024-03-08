@@ -1,5 +1,4 @@
 import React from 'react';
-import JsonFormatter from './JsonFormatter';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import jsondiffpatch from 'jsondiffpatch';
@@ -9,7 +8,6 @@ import { JsonDiffType } from '../types';
 const JsonDiff: React.FC<JsonDiffType> = ({
   oldJson,
   currentJson,
-  queryKey,
   isHidden,
 }) => {
   // handle scenario where we're on the first state - getting currentJson but not oldJson
@@ -22,8 +20,7 @@ const JsonDiff: React.FC<JsonDiffType> = ({
 
   // get comparison obj
   const delta = jsondiffpatch.diff(oldJson, currentJson);
-  // delta is undefined if the 2 objects are the exact same - not sure how I can render this
-  // console.log('delta: ', delta);
+  // delta is undefined if the 2 objects are the exact same
 
   if (delta) {
     // Use library's html formatter that generates vanilla CSS

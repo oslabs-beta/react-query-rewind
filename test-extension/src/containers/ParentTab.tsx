@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import { ParentTabsProps } from '../types';
 import CustomTabPanel from '../components/CustomTabPanel';
 import a11yProps from '../functions/a11yProps';
-import MetricsTab from './MetricsTab';
+import TreeTab from './TreeTab';
 import QueriesTab from './QueriesTab';
 
 const ParentTab = ({
@@ -13,6 +13,7 @@ const ParentTab = ({
   selectedQueries,
   handleSelectionChange,
   devToolsPort,
+  treeData
 }: ParentTabsProps) => {
   const [value, setValue] = React.useState(0);
 
@@ -53,9 +54,8 @@ const ParentTab = ({
         </CustomTabPanel>
 
         <CustomTabPanel value={value} index={1}>
-          <MetricsTab
-            queryEvents={queryEvents}
-            selectedQueries={selectedQueries}
+          <TreeTab
+            treeData={treeData}
           />
         </CustomTabPanel>
       </Box>

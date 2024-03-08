@@ -18,23 +18,31 @@ function App() {
   const [devToolsPort, setDevToolsPort] = useState<chrome.runtime.Port | null>(
     null
   );
+  const [treeData, setTreeData] = useState<any>('');
 
   // adds event listeners when component mountsx
   useEffect(() => {
     // connects to background.js
-    let port = chrome.runtime.connect({ name: 'devtools-panel' });
+    let port = chrome.runtime.connect({ name: 'background-devtool' });
     setDevToolsPort(port);
+
+    // tell background.ts to inject the content script into the tab
+    port.postMessage({
+      action: 'injectContentScript',
+      tabId: chrome.devtools.inspectedWindow.tabId,
+    });
 
     // listents for messages from npm package
     port.onMessage.addListener(message => {
-      console.log('DEVTOOL: Recieved message from background.ts');
+      console.log('DEVTOOL: Recieved message from background.ts', message);
 
       if (message.type === 'event') {
         setQueryEvents(queryEvents => [...queryEvents, message.payload]);
       }
 
-      if (message.type === 'metric') {
-        // metrics logic
+      if (message.type === 'tree') {
+        console.log('APP.tsx: Recieved tree data', message);
+        setTreeData(message.data);
       }
     });
 
@@ -76,6 +84,7 @@ function App() {
         selectedQueries={selectedQueries}
         handleSelectionChange={handleSelectionChange}
         devToolsPort={devToolsPort}
+        treeData={treeData}
       />
     </Container>
   );
