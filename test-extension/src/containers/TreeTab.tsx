@@ -8,7 +8,10 @@ const TreeTab:React.FC<TreeTabProps> = ({treeData, toggleProfiling, profilingSta
   console.log('Update tree tab');
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', marginTop: '1rem' }}>
-        <ProfilingToggle onClick={toggleProfiling}>
+        <ProfilingToggle
+          toggleProfiling={toggleProfiling}
+          profilingStatus={profilingStatus}
+        >
           {profilingStatus ? 'Stop Profiling' : 'Start Profiling'}
         </ProfilingToggle>
         <div className='ct'></div>
