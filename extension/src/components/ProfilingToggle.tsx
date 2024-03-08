@@ -55,30 +55,24 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 interface ProfilingToggleProps {
-  onClick?: () => void;
+  toggleProfiling: () => void;
+  profilingStatus: boolean;
   children?: ReactNode; // Allow children in the component
 }
 
 const ProfilingToggle: React.FC<ProfilingToggleProps> = ({
-  onClick,
+  toggleProfiling,
+  profilingStatus,
   children,
 }) => {
-  const [checked, setChecked] = useState(false);
-
-  const handleToggle = () => {
-    setChecked((prev: any) => !prev);
-    if (onClick) {
-      onClick();
-    }
-  };
 
   //   export default function ProfilingToggle() {
   return (
     <FormGroup>
       <Stack direction='row' spacing={1} alignItems='center'>
         <AntSwitch
-          checked={checked}
-          onChange={handleToggle}
+          checked={profilingStatus}
+          onChange={toggleProfiling}
           inputProps={{ 'aria-label': 'ant design' }}
         />
         <span>{children}</span>
