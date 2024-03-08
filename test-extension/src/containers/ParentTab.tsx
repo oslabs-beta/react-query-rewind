@@ -56,6 +56,7 @@ const ParentTab = ({
         <CustomTabPanel value={value} index={1}>
           <TreeTab
             treeData={treeData}
+            devToolsPort={devToolsPort}
           />
         </CustomTabPanel>
       </Box>
