@@ -17,6 +17,8 @@ const DiffTab = ({ queryDisplay, currentIndex }: DataTabProps) => {
     setIsHidden(!isHidden);
   };
 
+  // console.log('queryDisplay: ', queryDisplay);
+
   return (
     <>
       <FormControlLabel
@@ -35,7 +37,6 @@ const DiffTab = ({ queryDisplay, currentIndex }: DataTabProps) => {
               </Typography>
               <JsonDiff
                 key={queryState.queryKey}
-                queryKey={queryState.queryKey}
                 currentJson={queryState.queryData}
                 isHidden={isHidden}
                 oldJson={

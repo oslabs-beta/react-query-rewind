@@ -2,11 +2,9 @@ import './css/styles.css';
 import React, { useState, useEffect } from 'react';
 import ParentTab from './containers/ParentTab';
 import { QueryEvent } from './types';
-import MultiSelect from './components/MultiSelect';
-import saveSelectedQueryKeys from './functions/saveSelectedQueryKeys'
-import Box from '@mui/material/Box';
+import saveSelectedQueryKeys from './functions/saveSelectedQueryKeys';
 import Container from '@mui/material/Container';
-import { createTheme } from '@mui/material/styles';
+// import { Port } from 'chrome.runtime';
 
 type QueryMetrics = {
   // [queryKey: ]
@@ -17,20 +15,34 @@ function App() {
   const [queryEvents, setQueryEvents] = useState<QueryEvent[]>([]);
   const [queryMetrics, setQueryMetrics] = useState();
   const [selectedQueries, setSelectedQueries] = useState<string[]>([]);
+  const [devToolsPort, setDevToolsPort] = useState<chrome.runtime.Port | null>(
+    null
+  );
+  const [treeData, setTreeData] = useState<any>('');
 
-  // adds event listeners when component mounts
+  // adds event listeners when component mountsx
   useEffect(() => {
     // connects to background.js
-    let port = chrome.runtime.connect({ name: 'devtools-panel' });
+    let port = chrome.runtime.connect({ name: 'background-devtool' });
+    setDevToolsPort(port);
+
+    // tell background.ts to inject the content script into the tab
+    port.postMessage({
+      action: 'injectContentScript',
+      tabId: chrome.devtools.inspectedWindow.tabId,
+    });
 
     // listents for messages from npm package
-    port.onMessage.addListener((message) => {
+    port.onMessage.addListener(message => {
+      console.log('DEVTOOL: Recieved message from background.ts', message);
+
       if (message.type === 'event') {
-        setQueryEvents((queryEvents) => [...queryEvents, message.event]);
+        setQueryEvents(queryEvents => [...queryEvents, message.payload]);
       }
 
-      if (message.type === 'metric') {
-        console.log(message.metric);
+      if (message.type === 'tree') {
+        console.log('APP.tsx: Recieved tree data', message);
+        setTreeData(message.data);
       }
     });
 
@@ -49,6 +61,12 @@ function App() {
       chrome.devtools.network.onNavigated.removeListener(windowReloaded);
     };
   }, []);
+
+  // adds event listener for when devToolsPort is disconnected
+  devToolsPort?.onDisconnect.addListener(() => {
+    console.log('DevTools port disconnected, port: ', devToolsPort);
+    // setDevToolsPort(null);
+  });
 
   // updates state for selected queries
   const handleSelectionChange = (queries: string[]) => {
@@ -71,6 +89,8 @@ function App() {
         queryEvents={queryEvents}
         selectedQueries={selectedQueries}
         handleSelectionChange={handleSelectionChange}
+        devToolsPort={devToolsPort}
+        treeData={treeData}
       />
     </Container>
   );
