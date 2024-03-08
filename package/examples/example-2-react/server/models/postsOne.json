@@ -3,8 +3,10 @@
     {
       "text": "First Post",
       "liked": true,
-      "comments": [],
-      "createComment": false,
+      "comments": [
+        "new"
+      ],
+      "createComment": true,
       "timestamp": "3:33 PM"
     }
   ]
