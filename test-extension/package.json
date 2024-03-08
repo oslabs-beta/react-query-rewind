@@ -6,7 +6,9 @@
   "scripts": {
     "build": "rimraf dist && webpack --config webpack.config.js",
     "watch": "webpack --watch --config webpack.config.js",
-    "test": "jest"
+    "test": "jest",
+    "test-watch": "jest --watch",
+    "test-coverage": "jest --coverage"
   },
   "keywords": [],
   "author": "",
