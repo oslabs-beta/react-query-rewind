@@ -6,15 +6,18 @@ module.exports = [
     entry: './src/index.tsx',
     mode: 'development',
     target: 'web',
+
     output: {
       path: path.resolve(__dirname, 'dist/client'),
       filename: 'client_bundle.js',
     },
+
     plugins: [
       new HtmlWebpackPlugin({
         template: './src/index.html',
       }),
     ],
+
     resolve: {
       extensions: ['.js', '.ts', '.tsx', '.jsx'],
       alias: {
@@ -27,6 +30,7 @@ module.exports = [
         // 'query-core': path.resolve('./node_modules/@tanstack/query-core')
       },
     },
+
     module: {
       rules: [
         {
@@ -58,6 +62,17 @@ module.exports = [
           type: 'asset/resource',
         },
       ],
+    },
+
+    devServer: {
+      historyApiFallback: true,
+      proxy: {
+        '/api': 'http://localhost:3000',
+      },
+      static: {
+        directory: path.join(__dirname, 'dist/client'),
+      },
+      hot: true,
     },
   },
 ];

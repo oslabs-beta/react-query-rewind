@@ -1,16 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import './styles.css';
 
 // import ReactQueryRewind from 'react-query-rewind';
 import ReactQueryRewind from './link';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import {
+  Navigate,
+  RouterProvider,
+  createBrowserRouter,
+} from 'react-router-dom';
 import Layout from './components/Layout';
-import PostsOne from './components/PostsOne';
-import Test from './components/Test';
+import FeedOne from './components/FeedOne';
+import Feed from './components/Feed';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,12 +28,10 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
-    // errorElement: <ErrorPage />,
     children: [
-      {
-        path: 'contacts/:contactId',
-        element: <Test />,
-      },
+      // replace '/' with '/feed-one' on load
+      { index: true, element: <Navigate to="/feed-one" replace /> },
+      { path: 'feed-one', element: <Feed /> },
     ],
   },
 ]);
@@ -38,8 +39,6 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <QueryClientProvider client={queryClient}>
     <RouterProvider router={router} />
-
-    {/* <App /> */}
     <ReactQueryRewind />
   </QueryClientProvider>
 );

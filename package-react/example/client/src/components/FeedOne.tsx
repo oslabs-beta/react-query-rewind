@@ -8,7 +8,7 @@ import formatTimestamp from '../functions/formatTimestamp';
 // import IconButton from '@mui/material/IconButton';
 // import SendIcon from '@mui/icons-material/Send';
 
-function PostsOne() {
+export default function FeedOne() {
   const queryClient = useQueryClient();
 
   const { postInput, setPostInput, postInputChange } = usePostInputChange();
@@ -331,5 +331,3 @@ function PostsOne() {
     </>
   );
 }
-
-export default PostsOne;
