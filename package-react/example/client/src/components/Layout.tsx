@@ -84,9 +84,7 @@ export default function Layout() {
           </div>
         </div>
       </nav>
-      <div className="mx-auto flex min-h-screen max-w-7xl flex-col sm:px-6 lg:px-8">
-        <Outlet />
-      </div>
+      <Outlet />
     </div>
   );
 }
