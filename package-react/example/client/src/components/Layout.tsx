@@ -4,7 +4,7 @@ import { Link, Outlet } from 'react-router-dom';
 export default function Layout() {
   return (
     <div className="mx-auto flex min-h-screen w-full flex-col bg-white">
-      <nav className="border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700 border-b-1 border-gray-300 shadow w-full">
+      <nav className="border-gray-200 dark:bg-gray-800 dark:border-gray-700 border-b-1 border-gray-300 shadow w-full bg-gray-50">
         <div className="max-w-screen-lg flex flex-wrap items-center justify-between mx-auto p-4">
           <a
             href="#"
