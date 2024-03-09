@@ -45,13 +45,9 @@
     "watch": "rollup -c -w",
     "prepublishOnly": "npm run build",
     "clean": "rm -rf dist",
-    "link-package-1": "npm link && (cd examples/example-1 && npm link react-query-rewind)",
-    "link-dependencies-1": "npm link examples/example-1/node_modules/react examples/example-1/node_modules/react-dom examples/example-1/node_modules/@tanstack/react-query",
-    "unlink-package-1": "(cd examples/example-1 && npm unlink react-query-rewind) && npm unlink",
-    "link-package-2": "npm link && (cd examples/example-2/client && npm link react-query-rewind)",
-    "link-dependencies-2": "npm link examples/example-2/client/node_modules/react examples/example-2/client/node_modules/react-dom examples/example-2/client/node_modules/@tanstack/react-query",
-    "unlink-package-2": "(cd examples/example-2/client && npm unlink react-query-rewind) && npm unlink",
-    "website": "cd website && npm start"
+    "link-package": "npm link && (cd example/client && npm link react-query-rewind)",
+    "link-dependencies": "npm link example//client/node_modules/react examples/example-2/client/node_modules/react-dom example/client/node_modules/@tanstack/react-query",
+    "unlink-package": "(cd example/client && npm unlink react-query-rewind) && npm unlink"
   },
   "license": "MIT",
   "peerDependencies": {
