@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
+/* * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -25,7 +25,7 @@ html {
   align-items: center;
   background-color: #f0f0f0;
   overflow-y: auto;
-}
+} */
 
 .nav-bar {
   height: 6rem;

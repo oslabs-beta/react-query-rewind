@@ -7,6 +7,10 @@ import './styles.css';
 
 // import ReactQueryRewind from 'react-query-rewind';
 import ReactQueryRewind from './link';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import Layout from './components/Layout';
+import PostsOne from './components/PostsOne';
+import Test from './components/Test';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,9 +21,25 @@ const queryClient = new QueryClient({
   },
 });
 
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    // errorElement: <ErrorPage />,
+    children: [
+      {
+        path: 'contacts/:contactId',
+        element: <Test />,
+      },
+    ],
+  },
+]);
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <QueryClientProvider client={queryClient}>
-    <App />
+    <RouterProvider router={router} />
+
+    {/* <App /> */}
     <ReactQueryRewind />
   </QueryClientProvider>
 );
