@@ -1,13 +1,14 @@
 name: Run Tests and Build
 on: 
+  # Updated to only run on pull requests to dev because all pushed to main will go through dev
   pull_request:
     branches:
-      - main
+      # - main
       - dev
-  push:
-    branches:
-      - main
-      - dev
+  # push:
+  #   branches:
+  #     - main
+  #     - dev
 jobs:
   unit-testing-extension:
     runs-on: ubuntu-latest
