@@ -1,7 +1,13 @@
 import { XMarkIcon } from '@heroicons/react/20/solid';
-import React from 'react';
+import React, { FormEvent } from 'react';
 
 export default function Feed() {
+  const createComment = (event: FormEvent) => {
+    event.preventDefault();
+
+    console.log('Create Comment');
+  };
+
   const deleteComment = () => {
     console.log('Delete Comment');
   };
@@ -29,7 +35,7 @@ export default function Feed() {
           </div>
 
           {/* Create Comment */}
-          <form className="">
+          <form className="" onSubmit={createComment}>
             <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
               <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
                 <label htmlFor="comment" className="sr-only">
@@ -135,6 +141,37 @@ export default function Feed() {
                   Reply
                 </button>
               </div>
+
+              {/* Reply Area */}
+              <form className="pt-6">
+                <label htmlFor="chat" className="sr-only">
+                  Your reply
+                </label>
+                <div className="flex items-center py-2 rounded-lg bg-gray-50 dark:bg-gray-700">
+                  <textarea
+                    id="chat"
+                    rows={1}
+                    className="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Add a reply..."
+                  ></textarea>
+                  {/* Reply Send Button */}
+                  <button
+                    type="submit"
+                    className="group inline-flex justify-center py-2 pl-6 text-blue-600 rounded-full cursor-pointer dark:text-blue-500 hover:text-blue-800 dark:hover:text-blue-600"
+                  >
+                    <svg
+                      className="w-6 h-6 rotate-90 rtl:-rotate-90"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor"
+                      viewBox="0 0 18 20"
+                    >
+                      <path d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" />
+                    </svg>
+                    <span className="sr-only">Send message</span>
+                  </button>
+                </div>
+              </form>
             </article>
 
             {/* Reply */}
@@ -205,29 +242,6 @@ export default function Feed() {
               <p className="text-gray-500 dark:text-gray-400">
                 Much appreciated! Glad you liked it ☺️
               </p>
-              {/* <div className="flex items-center mt-4 space-x-4">
-              <button
-                type="button"
-                className="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium"
-              >
-                <svg
-                  className="mr-1.5 w-3.5 h-3.5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 18"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"
-                  />
-                </svg>
-                Reply
-              </button>
-            </div> */}
             </article>
           </div>
         </div>
