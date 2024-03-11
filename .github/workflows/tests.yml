@@ -31,7 +31,7 @@ jobs:
         run: |
           cd extension
           npm test
-  unit-testing-package:
+  unit-testing-package-react:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -42,18 +42,18 @@ jobs:
           cache: 'npm'          
       - name: Install Package dependencies
         run: |
-          cd package
+          cd package-react
           npm ci
       - name: Install linux handler for github actions
         run: |
-          cd package
+          cd package-react
           npm i @rollup/rollup-linux-x64-gnu
       - name: Build Package
         run: |
-          cd package
+          cd package-react
           npm run build
       - name: Test Package
         run: |
-          cd package
+          cd package-react
           npm test
 
