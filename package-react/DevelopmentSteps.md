@@ -33,7 +33,6 @@ Download the chrome extension from ***insert url here*** in order to time travel
 
 ## Set-Up Examples
 **From the package-react directory:**
-Run `npm run package`. This will execute, in order:
 1. `npm run install-example`
     1. Installs all dependencies for the package and both example apps
 2. `npm run link-dependencies`

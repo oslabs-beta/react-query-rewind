@@ -1,14 +1,18 @@
 import React, { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { QueryDisplay } from './types';
 
-const TimeTravel = () => {
+export type QueryDisplay = {
+  queryKey: string;
+  queryData: any;
+};
+
+function TimeTravel() {
   const queryClient = useQueryClient();
 
-  useEffect(() => {
-    const listener = (event: CustomEvent) => {
-      const currentQuery: QueryDisplay[] = event.detail.currentQuery;
-      currentQuery.forEach((queryState) => {
+  const handleUpdateUi = (message: MessageEvent) => {
+    if (message.data?.type === 'update-ui') {
+      const currentQuery: QueryDisplay[] = message.data.payload;
+      currentQuery.forEach(queryState => {
         if (queryState.queryData !== '') {
           queryClient.setQueryData(
             [queryState.queryKey.slice(2, -2)],
@@ -16,12 +20,18 @@ const TimeTravel = () => {
           );
         }
       });
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('message', handleUpdateUi);
+
+    return () => {
+      window.removeEventListener('message', handleUpdateUi);
     };
-    window.addEventListener('UpdateUI', listener);
-    return () => window.removeEventListener('UpdateUI', listener);
   }, []);
 
-  return <></>;
-};
+  return <div>TimeTravel Component</div>;
+}
 
 export default TimeTravel;
