@@ -1,27 +1,31 @@
 {
   "posts": [
     {
-      "text": "a",
+      "text": "t",
       "liked": false,
       "comments": [],
-      "createComment": false,
-      "timestamp": "5:19 PM"
+      "createComment": true,
+      "timestamp": "Mar 10, 2024"
     },
     {
-      "text": "a",
-      "liked": false,
-      "comments": [],
-      "createComment": false,
-      "timestamp": "5:19 PM"
-    },
-    {
-      "text": "First",
+      "text": "Test",
       "liked": false,
       "comments": [
-        "hm"
+        "Test",
+        "gdfgdsfg",
+        "gsdfgsdf",
+        "hm",
+        "first"
       ],
       "createComment": false,
-      "timestamp": "4:30 PM"
+      "timestamp": "Mar 10, 2024"
+    },
+    {
+      "text": "Replace min-width-lock with the appropriate Tailwind CSS class if you are using Tailwind CSS. Tailwind provides utilities for setting minimum width, e.g., min-w-[500px] for a minimum w",
+      "liked": false,
+      "comments": [],
+      "createComment": false,
+      "timestamp": "Mar 10, 2024"
     }
   ]
 }

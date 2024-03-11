@@ -7,7 +7,7 @@ export const useCommentInputChange = () => {
 
   const commentInputChange = (
     index: number,
-    event: ChangeEvent<HTMLInputElement>
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setCommentInputs({ ...commentInputs, [index]: event.target.value });
   };

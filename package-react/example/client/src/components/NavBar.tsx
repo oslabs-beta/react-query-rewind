@@ -69,7 +69,7 @@ export default function NavBar() {
           </ul>
         </div>
 
-        {/* <ToggleThemeButton /> */}
+        <ToggleThemeButton />
       </div>
     </nav>
   );

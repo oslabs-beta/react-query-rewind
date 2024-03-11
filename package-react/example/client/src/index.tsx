@@ -14,7 +14,6 @@ import {
 import Layout from './components/Layout';
 import FeedOne from './components/FeedOne';
 import Feed from './components/Feed';
-import ToggleThemeButton from './components/ToggleThemeButton';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,7 +31,7 @@ const router = createBrowserRouter([
     children: [
       // replace '/' with '/feed-one' on load
       { index: true, element: <Navigate to="/feed-one" replace /> },
-      { path: 'feed-one', element: <ToggleThemeButton /> },
+      { path: 'feed-one', element: <Feed /> },
     ],
   },
 ]);
