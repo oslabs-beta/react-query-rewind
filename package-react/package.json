@@ -47,7 +47,8 @@
     "clean": "rm -rf dist",
     "link-package": "npm link && (cd example/client && npm link react-query-rewind)",
     "link-dependencies": "npm link example//client/node_modules/react examples/example-2/client/node_modules/react-dom example/client/node_modules/@tanstack/react-query",
-    "unlink-package": "(cd example/client && npm unlink react-query-rewind) && npm unlink"
+    "unlink-package": "(cd example/client && npm unlink react-query-rewind) && npm unlink",
+    "package": "npm run install-example && npm run link-dependencies && npm run watch && npm run link-package && npm run example"
   },
   "license": "MIT",
   "peerDependencies": {
