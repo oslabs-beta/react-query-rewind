@@ -1,9 +1,9 @@
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import React, { FormEvent, useRef, useState } from 'react';
-import { CreateCommentParams, Post } from '../types';
-import { usePostInputChange } from '../hooks/usePostInputChange';
+import React, { FormEvent, useState } from 'react';
+import { CreateCommentParams, Comment } from '../types';
 import { useCommentInputChange } from '../hooks/useCommentInputChange';
+import { useReplyInputChange } from '../hooks/useReplyInputChange';
 import formatTimestamp from '../functions/formatTimestamp';
 
 export default function Technology() {
@@ -11,12 +11,14 @@ export default function Technology() {
 
   const [openReplyArea, setOpenReplyArea] = useState<null | number>(null);
 
-  const { postInput, setPostInput, postInputChange } = usePostInputChange();
-  const { commentInputs, setCommentInputs, commentInputChange } =
+  const { commentInput, setCommentInput, commentInputChange } =
     useCommentInputChange();
 
-  // fetch-data route to get starting posts
-  const fetchPostsRoute = async () => {
+  const { replyInputs, setReplyInputs, replyInputChange } =
+    useReplyInputChange();
+
+  // fetch-data route to get starting comments
+  const fetchDataRoute = async () => {
     try {
       const database = 'postsOne';
       const response = await fetch(
@@ -32,157 +34,151 @@ export default function Technology() {
         throw new Error('Server response was not ok');
       }
 
-      const newPostsArray = await response.json();
+      const newCommentsArray = await response.json();
 
-      return newPostsArray;
+      return newCommentsArray;
     } catch (error) {
-      console.error('Fetching posts failed:', error);
+      console.error('Fetching comments array failed:', error);
     }
   };
 
-  // query for fetching old posts
+  // query for fetching old comments
   const {
-    data: postsArray,
+    data: commentsArray,
     isLoading,
     error,
-  } = useQuery<Post[]>({
+  } = useQuery<Comment[]>({
     queryKey: ['posts-one'],
-    queryFn: fetchPostsRoute,
+    queryFn: fetchDataRoute,
   });
 
-  // REFACTORING FUNCTIONS START
-  // REFACTORING FUNCTIONS START
-  // REFACTORING FUNCTIONS START
-
-  // create-post route
-  const createPostRoute = async (newPost: Post) => {
+  // create-comment route
+  const createCommentRoute = async (newComment: Comment) => {
     try {
-      const response = await fetch('http://localhost:3000/create-post', {
+      const response = await fetch('http://localhost:3000/create-comment', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ database: 'postsOne', newPost: newPost }),
+        body: JSON.stringify({ database: 'postsOne', newComment: newComment }),
       });
 
       if (!response.ok) {
-        throw new Error('Error creating post');
+        throw new Error('Error creating comment');
       }
 
-      const updatedPostsArray = await response.json();
-      return updatedPostsArray;
+      const updatedCommentsArray = await response.json();
+      return updatedCommentsArray;
     } catch (errror) {
-      console.error('Creating post failed:', error);
+      console.error('Creating comment failed:', error);
     }
   };
 
-  // mutation for creating a new post
-  const newPostMutation = useMutation({
-    mutationFn: createPostRoute,
+  // mutation for creating a new comment
+  const newCommentMutation = useMutation({
+    mutationFn: createCommentRoute,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['posts-one'] });
     },
   });
 
-  // function that creates new post
+  // function that creates new comment
   const createComment = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!postInput.trim()) return;
+    if (!commentInput.trim()) return;
 
-    const newPost: Post = {
-      text: postInput,
+    const newComment: Comment = {
+      text: commentInput,
       liked: false,
-      comments: [],
+      replies: [],
       createComment: false,
       timestamp: formatTimestamp(),
       username: 'Guest',
       picture: 'https://flowbite.com/docs/images/people/profile-picture-5.jpg',
     };
 
-    newPostMutation.mutate(newPost);
-    setPostInput('');
+    newCommentMutation.mutate(newComment);
+    setCommentInput('');
   };
 
-  // REFACTORING FUNCTIONS END
-  // REFACTORING FUNCTIONS END
-  // REFACTORING FUNCTIONS END
-
-  // like-post route
-  const likePostRoute = async (index: number) => {
+  // like-comment route
+  const likeCommentRoute = async (commentIndex: number) => {
     try {
-      const response = await fetch('http://localhost:3000/like-post', {
+      const response = await fetch('http://localhost:3000/like-comment', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ database: 'postsOne', index: index }),
+        body: JSON.stringify({
+          database: 'postsOne',
+          commentIndex: commentIndex,
+        }),
       });
 
       if (!response.ok) {
-        throw new Error('Error creating post');
+        throw new Error('Error liking a comment');
       }
 
-      const updatedPostsArray = await response.json();
-      return updatedPostsArray;
-    } catch (errror) {
-      console.error('Creating post failed:', error);
+      const updatedCommentsArray = await response.json();
+      return updatedCommentsArray;
+    } catch (err) {
+      console.error('Error liking a comment', error);
     }
   };
 
-  // mutation for liking a post
-  const likePostMutation = useMutation({
-    mutationFn: likePostRoute,
+  // mutation for liking a comment
+  const likeCommentMutation = useMutation({
+    mutationFn: likeCommentRoute,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['posts-one'] });
     },
   });
 
-  // function that likes post
-  const toggleLikeComment = (index: number) => {
-    likePostMutation.mutate(index);
+  // function that likes comment
+  const toggleLikeComment = (commentIndex: number) => {
+    likeCommentMutation.mutate(commentIndex);
   };
 
-  // delete-post route
-  const deletePostRoute = async (index: number) => {
+  // delete-comment route
+  const deleteCommentRoute = async (commentIndex: number) => {
     try {
-      const response = await fetch('http://localhost:3000/delete-post', {
+      const response = await fetch('http://localhost:3000/delete-comment', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ database: 'postsOne', index: index }),
+        body: JSON.stringify({
+          database: 'postsOne',
+          commentIndex: commentIndex,
+        }),
       });
 
       if (!response.ok) {
-        throw new Error('Error creating post');
+        throw new Error('Error deleting comment');
       }
 
-      const updatedPostsArray = await response.json();
-      return updatedPostsArray;
-    } catch (errror) {
-      console.error('Creating post failed:', error);
+      const updatedCommentsArray = await response.json();
+      return updatedCommentsArray;
+    } catch (err) {
+      console.error('Error deleting comment', err);
     }
   };
 
-  // mutation for deleting a post
-  const deletePostMutation = useMutation({
-    mutationFn: deletePostRoute,
+  // mutation for deleting a comment
+  const deleteCommentMutation = useMutation({
+    mutationFn: deleteCommentRoute,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['posts-one'] });
     },
   });
 
-  //function that deletes post
+  //function that deletes comment
   const deleteComment = (index: number) => {
-    deletePostMutation.mutate(index);
+    deleteCommentMutation.mutate(index);
   };
-
-  // START START START
-  // START START START
-  // START START START
 
   // delete-reply route
-  const deleteReplyRoute = async ({ index, replyIndex }) => {
+  const deleteReplyRoute = async ({ commentIndex, replyIndex }) => {
     try {
       const response = await fetch('http://localhost:3000/delete-reply', {
         method: 'POST',
@@ -191,17 +187,17 @@ export default function Technology() {
         },
         body: JSON.stringify({
           database: 'postsOne',
-          index: index,
+          commentIndex: commentIndex,
           replyIndex: replyIndex,
         }),
       });
 
       if (!response.ok) {
-        throw new Error('Error creating post');
+        throw new Error('Error deleting reply');
       }
 
-      const updatedPostsArray = await response.json();
-      return updatedPostsArray;
+      const updatedCommentsArray = await response.json();
+      return updatedCommentsArray;
     } catch (err) {
       console.error('Deleting reply failed:', err);
     }
@@ -216,42 +212,38 @@ export default function Technology() {
   });
 
   //function that deletes reply
-  const deleteReply = (index: number, replyIndex: number) => {
-    deleteReplyMutation.mutate({ index, replyIndex });
+  const deleteReply = (commentIndex: number, replyIndex: number) => {
+    deleteReplyMutation.mutate({ commentIndex, replyIndex });
   };
 
-  // END END END
-  // END END END
-  // END END END
-
-  // create-comment route
-  const createCommentRoute = async ({
-    index,
-    comment,
+  // create-reply route
+  const createReplyRoute = async ({
+    commentIndex,
+    reply,
   }: CreateCommentParams) => {
     try {
-      const response = await fetch('http://localhost:3000/create-comment', {
+      const response = await fetch('http://localhost:3000/create-reply', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ database: 'postsOne', index, comment }),
+        body: JSON.stringify({ database: 'postsOne', commentIndex, reply }),
       });
 
       if (!response.ok) {
-        throw new Error('Error creating post');
+        throw new Error('Error creating a reply');
       }
 
-      const updatedPostsArray = await response.json();
-      return updatedPostsArray;
-    } catch (errror) {
-      console.error('Creating post failed:', error);
+      const updatedCommentsArray = await response.json();
+      return updatedCommentsArray;
+    } catch (err) {
+      console.error('Error creating a reply:', err);
     }
   };
 
   // mutation for creating a comment
-  const createCommentMutation = useMutation({
-    mutationFn: createCommentRoute,
+  const createReplyMutation = useMutation({
+    mutationFn: createReplyRoute,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['posts-one'] });
     },
@@ -260,51 +252,65 @@ export default function Technology() {
   // function that creates comment
   const createReply = (
     event: FormEvent<HTMLFormElement>,
-    postIndex: number
+    commentIndex: number
   ) => {
     event.preventDefault();
 
-    const comment = commentInputs[postIndex];
+    const replyInput = replyInputs[commentIndex];
 
-    if (comment && comment.trim()) {
-      createCommentMutation.mutate({ index: postIndex, comment: comment });
-      setCommentInputs({ ...commentInputs, [postIndex]: '' });
+    const newReply = {
+      text: replyInput,
+      timestamp: 'Mar 10, 2024',
+      username: 'Guest',
+      picture: 'https://flowbite.com/docs/images/people/profile-picture-5.jpg',
+    };
+
+    if (replyInput && replyInput.trim()) {
+      createReplyMutation.mutate({
+        commentIndex: commentIndex,
+        reply: newReply,
+      });
+      setReplyInputs({ ...replyInputs, [commentIndex]: '' });
     }
   };
+
+  // REFACTORING FUNCTIONS START
+  // REFACTORING FUNCTIONS START
+  // REFACTORING FUNCTIONS START
 
   // open-comment route
-  const openCommentRoute = async (index: number) => {
-    try {
-      const response = await fetch('http://localhost:3000/open-comment', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ database: 'postsOne', index: index }),
-      });
+  // const openCommentRoute = async (index: number) => {
+  //   try {
+  //     const response = await fetch('http://localhost:3000/open-comment', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ database: 'postsOne', index: index }),
+  //     });
 
-      if (!response.ok) {
-        throw new Error('Error creating post');
-      }
+  //     if (!response.ok) {
+  //       throw new Error('Error creating post');
+  //     }
 
-      const updatedPostsArray = await response.json();
-      return updatedPostsArray;
-    } catch (errror) {
-      console.error('Creating post failed:', error);
-    }
-  };
+  //     const updatedPostsArray = await response.json();
+  //     return updatedPostsArray;
+  //   } catch (errror) {
+  //     console.error('Creating post failed:', error);
+  //   }
+  // };
 
   // mutation for opening comment
-  const openCommentMutation = useMutation({
-    mutationFn: openCommentRoute,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['posts-one'] });
-    },
-  });
+  // const openCommentMutation = useMutation({
+  //   mutationFn: openCommentRoute,
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries({ queryKey: ['posts-one'] });
+  //   },
+  // });
 
   // function that opens comment
   const toggleReplyInput = (index: any) => {
-    openCommentMutation.mutate(index);
+    // openCommentMutation.mutate(index);
 
     if (openReplyArea === index) {
       setOpenReplyArea(null);
@@ -313,11 +319,9 @@ export default function Technology() {
     }
   };
 
-  console.log(postsArray);
-
-  if (postsArray) {
-    console.log(postsArray[0].comments[0]?.text);
-  }
+  // REFACTORING FUNCTIONS END
+  // REFACTORING FUNCTIONS END
+  // REFACTORING FUNCTIONS END
 
   return (
     <main className="flex w-full flex-1 flex-col items-center justify-top px-6 py-6 sm:p-6">
@@ -336,8 +340,8 @@ export default function Technology() {
                     rows={4}
                     className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
                     placeholder="What's on your mind..."
-                    value={postInput}
-                    onChange={postInputChange}
+                    value={commentInput}
+                    onChange={commentInputChange}
                   />
                 </div>
                 <div className="flex items-center justify-end px-3 py-2 border-t dark:border-gray-600">
@@ -352,10 +356,10 @@ export default function Technology() {
             </form>
 
             {isLoading && <div>Loading...</div>}
-            {error && <div>Error loading posts</div>}
+            {error && <div>Error loading comments</div>}
 
-            {postsArray &&
-              postsArray.map((comment, commentIndex) => {
+            {commentsArray &&
+              commentsArray.map((comment, commentIndex) => {
                 return (
                   <div className="flex flex-col" key={commentIndex}>
                     {/* Comment */}
@@ -455,9 +459,9 @@ export default function Technology() {
                               rows={1}
                               className="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-0 focus:border-gray-300 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                               placeholder="Add a reply..."
-                              value={commentInputs[commentIndex] || ''}
+                              value={replyInputs[commentIndex] || ''}
                               onChange={event =>
-                                commentInputChange(commentIndex, event)
+                                replyInputChange(commentIndex, event)
                               }
                             ></textarea>
                             {/* Reply Send Button */}
@@ -482,57 +486,55 @@ export default function Technology() {
                     </article>
 
                     {/* Reply */}
-                    {comment.comments.length > 0 && (
+                    {comment.replies.length > 0 && (
                       <div className="flex flex-col space-y-6 pt-6">
-                        {[...comment.comments]
-                          .reverse()
-                          .map((reply, replyIndex) => {
-                            return (
-                              <article
-                                className="p-6 ml-6 lg:ml-12 text-base bg-gray-50 rounded-lg dark:bg-gray-700"
-                                key={replyIndex}
-                              >
-                                <footer className="flex justify-between items-center mb-2">
-                                  <div className="flex items-center">
-                                    <div className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
-                                      <img
-                                        className="mr-2 w-6 h-6 rounded-full"
-                                        src={reply.picture}
-                                        alt={reply.username}
-                                      />
-                                      <span>{reply.username}</span>
-                                    </div>
-                                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                                      <time
-                                        dateTime="2022-02-12"
-                                        title="February 12th, 2022"
-                                      >
-                                        {reply.timestamp}
-                                      </time>
-                                    </p>
+                        {comment.replies.map((reply, replyIndex) => {
+                          return (
+                            <article
+                              className="p-6 ml-6 lg:ml-12 text-base bg-gray-50 rounded-lg dark:bg-gray-700"
+                              key={replyIndex}
+                            >
+                              <footer className="flex justify-between items-center mb-2">
+                                <div className="flex items-center">
+                                  <div className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
+                                    <img
+                                      className="mr-2 w-6 h-6 rounded-full"
+                                      src={reply.picture}
+                                      alt={reply.username}
+                                    />
+                                    <span>{reply.username}</span>
                                   </div>
+                                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    <time
+                                      dateTime="2022-02-12"
+                                      title="February 12th, 2022"
+                                    >
+                                      {reply.timestamp}
+                                    </time>
+                                  </p>
+                                </div>
 
-                                  <button
-                                    id="dropdownComment1Button"
-                                    onClick={() =>
-                                      deleteReply(commentIndex, replyIndex)
-                                    }
-                                    data-dropdown-toggle="dropdownComment1"
-                                    className="inline-flex items-center p-1 text-sm font-medium text-center text-gray-500 dark:text-gray-400 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-                                    type="button"
-                                  >
-                                    <XMarkIcon className="h-5  w-5" />
-                                    <span className="sr-only">
-                                      Comment settings
-                                    </span>
-                                  </button>
-                                </footer>
-                                <p className="text-gray-500 dark:text-gray-400">
-                                  {reply.text}
-                                </p>
-                              </article>
-                            );
-                          })}
+                                <button
+                                  id="dropdownComment1Button"
+                                  onClick={() =>
+                                    deleteReply(commentIndex, replyIndex)
+                                  }
+                                  data-dropdown-toggle="dropdownComment1"
+                                  className="inline-flex items-center p-1 text-sm font-medium text-center text-gray-500 dark:text-gray-400 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                                  type="button"
+                                >
+                                  <XMarkIcon className="h-5  w-5" />
+                                  <span className="sr-only">
+                                    Comment settings
+                                  </span>
+                                </button>
+                              </footer>
+                              <p className="text-gray-500 dark:text-gray-400">
+                                {reply.text}
+                              </p>
+                            </article>
+                          );
+                        })}
                       </div>
                     )}
                   </div>

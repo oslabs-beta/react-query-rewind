@@ -1,10 +1,65 @@
 {
   "posts": [
     {
+      "text": "Test",
+      "liked": false,
+      "replies": [
+        {
+          "text": "Test",
+          "timestamp": "Mar 10, 2024",
+          "username": "Guest",
+          "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+        },
+        {
+          "text": "hm",
+          "timestamp": "Mar 10, 2024",
+          "username": "Guest",
+          "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+        },
+        {
+          "text": "hm",
+          "timestamp": "Mar 10, 2024",
+          "username": "Guest",
+          "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+        }
+      ],
+      "createComment": true,
+      "timestamp": "Mar 11, 2024",
+      "username": "Guest",
+      "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+    },
+    {
+      "text": "test",
+      "liked": false,
+      "createComment": false,
+      "timestamp": "Mar 10, 2024",
+      "username": "Michael Gough",
+      "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg",
+      "replies": []
+    },
+    {
+      "text": "um",
+      "liked": false,
+      "replies": [],
+      "createComment": false,
+      "timestamp": "Mar 11, 2024",
+      "username": "Guest",
+      "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+    },
+    {
+      "text": "ugh",
+      "liked": false,
+      "replies": [],
+      "createComment": false,
+      "timestamp": "Mar 11, 2024",
+      "username": "Guest",
+      "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+    },
+    {
       "text": "Is it still working?",
       "liked": false,
-      "comments": [],
-      "createComment": false,
+      "replies": [],
+      "createComment": true,
       "timestamp": "Mar 11, 2024",
       "username": "Guest",
       "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
@@ -12,7 +67,7 @@
     {
       "text": "Testing",
       "liked": false,
-      "comments": [],
+      "replies": [],
       "createComment": false,
       "timestamp": "Mar 11, 2024",
       "username": "Guest",
@@ -21,8 +76,15 @@
     {
       "text": "It's working!",
       "liked": false,
-      "comments": [],
-      "createComment": false,
+      "replies": [
+        {
+          "text": "tst",
+          "timestamp": "Mar 10, 2024",
+          "username": "Guest",
+          "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+        }
+      ],
+      "createComment": true,
       "timestamp": "Mar 11, 2024",
       "username": "Guest",
       "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
@@ -30,7 +92,7 @@
     {
       "text": "Test",
       "liked": false,
-      "comments": [],
+      "replies": [],
       "createComment": false,
       "timestamp": "Mar 11, 2024",
       "username": "Guest",
@@ -43,25 +105,12 @@
       "timestamp": "Mar 10, 2024",
       "username": "Michael Gough",
       "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg",
-      "comments": [
-        {
-          "text": "Testing Testing",
-          "timestamp": "Mar 10, 2024",
-          "username": "Michael Gough",
-          "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-        },
-        {
-          "text": "Testing Testing",
-          "timestamp": "Mar 10, 2024",
-          "username": "Michael Gough",
-          "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-        }
-      ]
+      "replies": []
     },
     {
       "text": "Replace min-width-lock with the appropriate Tailwind CSS class if you are using Tailwind CSS. Tailwind provides utilities for setting minimum width, e.g., min-w-[500px] for a minimum w",
       "liked": true,
-      "comments": [],
+      "replies": [],
       "createComment": false,
       "timestamp": "Mar 10, 2024",
       "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg",

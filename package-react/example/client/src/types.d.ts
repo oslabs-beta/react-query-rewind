@@ -5,10 +5,10 @@ export type Reply = {
   picture: string;
 };
 
-export type Post = {
+export type Comment = {
   text: string;
   liked: boolean;
-  comments: Reply[];
+  replies: Reply[];
   createComment: boolean;
   timestamp: string;
   username: string;
@@ -16,8 +16,8 @@ export type Post = {
 };
 
 export type CreateCommentParams = {
-  index: number;
-  comment: string;
+  commentIndex: number;
+  reply: Reply;
 };
 
 declare global {

@@ -1,9 +1,9 @@
-import { Post } from '../types';
+import { Comment } from '../types';
 
 export const openComment = (
-  postsArray: Post[],
+  postsArray: Comment[],
   index: number,
-  setPostsArray: React.Dispatch<React.SetStateAction<Post[]>>
+  setPostsArray: React.Dispatch<React.SetStateAction<Comment[]>>
 ): void => {
   const updatedPosts = postsArray.map((post, curIndex) => ({
     ...post,

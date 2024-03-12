@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import PostsOne from './components/FeedOne';
-import PostsTwo from './components/PostsTwo';
-import PostsThree from './components/PostsThree';
+// import PostsOne from './components/FeedOne';
+// import PostsTwo from './components/PostsTwo';
+// import PostsThree from './components/PostsThree';
 // import ChromeComponent from './components/ChromeComponent';
 import { useQuery, QueryKey } from '@tanstack/react-query';
 
