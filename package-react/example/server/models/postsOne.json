@@ -1,6 +1,15 @@
 {
   "posts": [
     {
+      "text": "new",
+      "liked": true,
+      "comments": [
+        "yes"
+      ],
+      "createComment": true,
+      "timestamp": "5:11 PM"
+    },
+    {
       "text": "First Post",
       "liked": true,
       "comments": [

@@ -32,18 +32,21 @@ Download the chrome extension from ***insert url here*** in order to time travel
 ```
 
 ## Set-Up Examples
-**From the package directory:**
-Run with "1" or "2" depending on which example you'd like to set up
-1. `npm run install-all`
-    1. Installs all dependencies for the package and both example apps
-2. `npm run link-dependencies-1` or `npm run link-dependencies-2`
+**From the package-react directory:**
+Execute `package-setup-1` to run:
+1. `npm i`
+    1. Installs all dependencies for the package
+1. `npm run install-example`
+    1. Installs all dependencies for the example app
+2. `npm run link-dependencies`
     1. Installs all peer dependencies in our package to ensure there are no duplicates
     2. Can see all packages currently linked with *`npm ls -g --depth=0 --link=tr`*    
 3. `npm run watch`
     1. Starts rollup in watch mode and creates dist folder
-4. `npm run link-package-1` *or* `npm run link-package-2`
+In a new shell (still in the package-react directory), execute `package-setup-2` to run:
+1. `npm run link-package`
     1. Links React Query Rewind
-5. `npm run example-1` *or* `npm run example-2`
+2. `npm run example`
     1. Starts the example server with webpack. Note: this is a hot reload, but it does not always pick up changes to the npm package
 
 # Publishing

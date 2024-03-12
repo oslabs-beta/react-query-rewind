@@ -1,13 +1,14 @@
 name: Run Tests and Build
 on: 
+  # Updated to only run on pull requests to dev because all pushed to main will go through dev
   pull_request:
     branches:
-      - main
+      # - main
       - dev
-  push:
-    branches:
-      - main
-      - dev
+  # push:
+  #   branches:
+  #     - main
+  #     - dev
 jobs:
   unit-testing-extension:
     runs-on: ubuntu-latest
@@ -30,7 +31,7 @@ jobs:
         run: |
           cd extension
           npm test
-  unit-testing-package:
+  unit-testing-package-react:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -41,18 +42,18 @@ jobs:
           cache: 'npm'          
       - name: Install Package dependencies
         run: |
-          cd package
+          cd package-react
           npm ci
       - name: Install linux handler for github actions
         run: |
-          cd package
+          cd package-react
           npm i @rollup/rollup-linux-x64-gnu
       - name: Build Package
         run: |
-          cd package
+          cd package-react
           npm run build
       - name: Test Package
         run: |
-          cd package
+          cd package-react
           npm test
 

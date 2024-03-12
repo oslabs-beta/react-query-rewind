@@ -2,7 +2,8 @@ name: Publish Chrome Extension
 on:
   push:
     branches:
-      - main
+      - OTHER
+      # This will need to be changed - just making a random branch for now so that it doesn't flag the main branch
 
 jobs:
   build-and-publish:

@@ -5,8 +5,8 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import './styles.css';
 
-// import ReactQueryRewind from 'react-query-rewind';
-import ReactQueryRewind from './link';
+import ReactQueryRewind from 'react-query-rewind';
+// import ReactQueryRewind from './link';
 
 const queryClient = new QueryClient({
   defaultOptions: {
