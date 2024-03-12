@@ -1,57 +1,32 @@
 import express from 'express';
 import fs from 'fs/promises';
 import path from 'path';
-import commentsController from './controllers/commentsController';
+import controller from './controllers/controller';
 
 const router = express.Router();
 
-router.get('/fetch-data', commentsController.fetchData, async (req, res) => {
+router.get('/fetch-data', controller.fetchData, async (req, res) => {
   res.status(200).json(res.locals.fetchData);
 });
 
-router.post(
-  '/create-comment',
-  commentsController.createComment,
-  async (req, res) => {
-    res.status(201).json(res.locals.createComment);
-  }
-);
+router.post('/create-comment', controller.createComment, async (req, res) => {
+  res.status(201).json(res.locals.createComment);
+});
 
-router.post(
-  '/like-comment',
-  commentsController.likeComment,
-  async (req, res) => {
-    res.status(201).json(res.locals.likeComment);
-  }
-);
+router.post('/like-comment', controller.likeComment, async (req, res) => {
+  res.status(201).json(res.locals.likeComment);
+});
 
-router.post(
-  '/delete-comment',
-  commentsController.deleteComment,
-  async (req, res) => {
-    res.status(201).json(res.locals.deleteComment);
-  }
-);
+router.post('/delete-comment', controller.deleteComment, async (req, res) => {
+  res.status(201).json(res.locals.deleteComment);
+});
 
-router.post(
-  '/delete-reply',
-  commentsController.deleteReply,
-  async (req, res) => {
-    res.status(201).json(res.locals.deleteReply);
-  }
-);
+router.post('/delete-reply', controller.deleteReply, async (req, res) => {
+  res.status(201).json(res.locals.deleteReply);
+});
 
-router.post(
-  '/create-reply',
-  commentsController.createReply,
-  async (req, res) => {
-    res.status(201).json(res.locals.createReply);
-  }
-);
-
-// open comment
-// router.post('/open-comment', postsController.openComment, async (req, res) => {
-//   res.status(201).json(res.locals.openComment);
-// });
+router.post('/create-reply', controller.createReply, async (req, res) => {
+  res.status(201).json(res.locals.createReply);
+});
 
 export default router;

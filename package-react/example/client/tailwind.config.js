@@ -8,6 +8,8 @@ module.exports = {
         110: '27.5rem',
         120: '30rem',
         130: '32.5rem',
+        150: '37.5rem',
+        160: '40rem',
       },
       colors: {
         // Adds primary color configuration

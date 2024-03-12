@@ -1,6 +1,6 @@
+import React, { FormEvent, useState } from 'react';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import React, { FormEvent, useState } from 'react';
 import { CreateCommentParams, Comment } from '../types';
 import { useCommentInputChange } from '../hooks/useCommentInputChange';
 import { useReplyInputChange } from '../hooks/useReplyInputChange';
@@ -10,17 +10,15 @@ export default function Technology() {
   const queryClient = useQueryClient();
 
   const [openReplyArea, setOpenReplyArea] = useState<null | number>(null);
-
   const { commentInput, setCommentInput, commentInputChange } =
     useCommentInputChange();
-
   const { replyInputs, setReplyInputs, replyInputChange } =
     useReplyInputChange();
 
   // fetch-data route to get starting comments
   const fetchDataRoute = async () => {
     try {
-      const database = 'postsOne';
+      const database = 'technology';
       const response = await fetch(
         `http://localhost:3000/fetch-data?database=${database}`,
         {
@@ -48,7 +46,7 @@ export default function Technology() {
     isLoading,
     error,
   } = useQuery<Comment[]>({
-    queryKey: ['posts-one'],
+    queryKey: ['technology'],
     queryFn: fetchDataRoute,
   });
 
@@ -60,7 +58,10 @@ export default function Technology() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ database: 'postsOne', newComment: newComment }),
+        body: JSON.stringify({
+          database: 'technology',
+          newComment: newComment,
+        }),
       });
 
       if (!response.ok) {
@@ -78,7 +79,7 @@ export default function Technology() {
   const newCommentMutation = useMutation({
     mutationFn: createCommentRoute,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['posts-one'] });
+      queryClient.invalidateQueries({ queryKey: ['technology'] });
     },
   });
 
@@ -94,7 +95,7 @@ export default function Technology() {
       createComment: false,
       timestamp: formatTimestamp(),
       username: 'Guest',
-      picture: 'https://flowbite.com/docs/images/people/profile-picture-5.jpg',
+      picture: 'guest',
     };
 
     newCommentMutation.mutate(newComment);
@@ -110,7 +111,7 @@ export default function Technology() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          database: 'postsOne',
+          database: 'technology',
           commentIndex: commentIndex,
         }),
       });
@@ -130,7 +131,7 @@ export default function Technology() {
   const likeCommentMutation = useMutation({
     mutationFn: likeCommentRoute,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['posts-one'] });
+      queryClient.invalidateQueries({ queryKey: ['technology'] });
     },
   });
 
@@ -148,7 +149,7 @@ export default function Technology() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          database: 'postsOne',
+          database: 'technology',
           commentIndex: commentIndex,
         }),
       });
@@ -168,7 +169,7 @@ export default function Technology() {
   const deleteCommentMutation = useMutation({
     mutationFn: deleteCommentRoute,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['posts-one'] });
+      queryClient.invalidateQueries({ queryKey: ['technology'] });
     },
   });
 
@@ -186,7 +187,7 @@ export default function Technology() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          database: 'postsOne',
+          database: 'technology',
           commentIndex: commentIndex,
           replyIndex: replyIndex,
         }),
@@ -207,7 +208,7 @@ export default function Technology() {
   const deleteReplyMutation = useMutation({
     mutationFn: deleteReplyRoute,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['posts-one'] });
+      queryClient.invalidateQueries({ queryKey: ['technology'] });
     },
   });
 
@@ -227,7 +228,7 @@ export default function Technology() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ database: 'postsOne', commentIndex, reply }),
+        body: JSON.stringify({ database: 'technology', commentIndex, reply }),
       });
 
       if (!response.ok) {
@@ -245,7 +246,7 @@ export default function Technology() {
   const createReplyMutation = useMutation({
     mutationFn: createReplyRoute,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['posts-one'] });
+      queryClient.invalidateQueries({ queryKey: ['technology'] });
     },
   });
 
@@ -260,9 +261,9 @@ export default function Technology() {
 
     const newReply = {
       text: replyInput,
-      timestamp: 'Mar 10, 2024',
+      timestamp: formatTimestamp(),
       username: 'Guest',
-      picture: 'https://flowbite.com/docs/images/people/profile-picture-5.jpg',
+      picture: 'guest',
     };
 
     if (replyInput && replyInput.trim()) {
@@ -271,47 +272,12 @@ export default function Technology() {
         reply: newReply,
       });
       setReplyInputs({ ...replyInputs, [commentIndex]: '' });
+      setOpenReplyArea(null);
     }
   };
 
-  // REFACTORING FUNCTIONS START
-  // REFACTORING FUNCTIONS START
-  // REFACTORING FUNCTIONS START
-
-  // open-comment route
-  // const openCommentRoute = async (index: number) => {
-  //   try {
-  //     const response = await fetch('http://localhost:3000/open-comment', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ database: 'postsOne', index: index }),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error('Error creating post');
-  //     }
-
-  //     const updatedPostsArray = await response.json();
-  //     return updatedPostsArray;
-  //   } catch (errror) {
-  //     console.error('Creating post failed:', error);
-  //   }
-  // };
-
-  // mutation for opening comment
-  // const openCommentMutation = useMutation({
-  //   mutationFn: openCommentRoute,
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries({ queryKey: ['posts-one'] });
-  //   },
-  // });
-
   // function that opens comment
   const toggleReplyInput = (index: any) => {
-    // openCommentMutation.mutate(index);
-
     if (openReplyArea === index) {
       setOpenReplyArea(null);
     } else {
@@ -319,14 +285,10 @@ export default function Technology() {
     }
   };
 
-  // REFACTORING FUNCTIONS END
-  // REFACTORING FUNCTIONS END
-  // REFACTORING FUNCTIONS END
-
   return (
     <main className="flex w-full flex-1 flex-col items-center justify-top px-6 py-6 sm:p-6">
       <section className="bg-white dark:bg-gray-900 antialiased">
-        <div className="max-w-2xl mx-auto px-4">
+        <div className="max-w-2xl w-150 mx-auto px-4">
           <div className="flex flex-col space-y-6">
             {/* Create Comment */}
             <form className="" onSubmit={createComment}>
@@ -339,7 +301,7 @@ export default function Technology() {
                     id="comment"
                     rows={4}
                     className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
-                    placeholder="What's on your mind..."
+                    placeholder="What do you think?"
                     value={commentInput}
                     onChange={commentInputChange}
                   />
@@ -366,14 +328,35 @@ export default function Technology() {
                     <article className="p-6 text-base bg-gray-50 rounded-lg dark:bg-gray-700">
                       <footer className="flex justify-between items-center mb-2">
                         <div className="flex items-center">
-                          <div className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
-                            <img
-                              className="mr-2 w-6 h-6 rounded-full"
-                              src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
-                              alt="Michael Gough"
-                            />
-                            <span>{comment.username}</span>
-                          </div>
+                          {comment.picture !== 'guest' ? (
+                            <div className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
+                              <img
+                                className="mr-2 w-6 h-6 rounded-full"
+                                src={comment.picture}
+                                alt={comment.username}
+                              />
+                              <span>{comment.username}</span>
+                            </div>
+                          ) : (
+                            <div className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
+                              <div className="relative w-6 h-6 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 mr-3">
+                                <svg
+                                  className="absolute w-8 h-8 text-gray-400 -left-1 -top-0.4"
+                                  fill="currentColor"
+                                  viewBox="0 0 20 20"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                    clipRule="evenodd"
+                                  ></path>
+                                </svg>
+                              </div>
+                              <span>{comment.username}</span>
+                            </div>
+                          )}
+
                           <p className="text-sm text-gray-600 dark:text-gray-400">
                             <time
                               dateTime="2022-02-08"
@@ -410,7 +393,6 @@ export default function Technology() {
                             className="w-3.5 h-3.5 mr-0.5"
                             aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg"
-                            //   fill="currentColor"
                             fill={comment.liked ? 'red' : 'currentColor'}
                             viewBox="0 0 24 24"
                           >
@@ -496,14 +478,34 @@ export default function Technology() {
                             >
                               <footer className="flex justify-between items-center mb-2">
                                 <div className="flex items-center">
-                                  <div className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
-                                    <img
-                                      className="mr-2 w-6 h-6 rounded-full"
-                                      src={reply.picture}
-                                      alt={reply.username}
-                                    />
-                                    <span>{reply.username}</span>
-                                  </div>
+                                  {reply.picture !== 'guest' ? (
+                                    <div className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
+                                      <img
+                                        className="mr-2 w-6 h-6 rounded-full"
+                                        src={reply.picture}
+                                        alt={reply.username}
+                                      />
+                                      <span>{reply.username}</span>
+                                    </div>
+                                  ) : (
+                                    <div className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
+                                      <div className="relative w-6 h-6 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 mr-3">
+                                        <svg
+                                          className="absolute w-8 h-8 text-gray-400 -left-1 -top-0.4"
+                                          fill="currentColor"
+                                          viewBox="0 0 20 20"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                          <path
+                                            fillRule="evenodd"
+                                            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                            clipRule="evenodd"
+                                          ></path>
+                                        </svg>
+                                      </div>
+                                      <span>{reply.username}</span>
+                                    </div>
+                                  )}
                                   <p className="text-sm text-gray-600 dark:text-gray-400">
                                     <time
                                       dateTime="2022-02-12"
