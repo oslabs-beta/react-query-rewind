@@ -12,8 +12,9 @@ import {
   createBrowserRouter,
 } from 'react-router-dom';
 import Layout from './components/Layout';
-import FeedOne from './components/FeedOne';
-import Feed from './components/Feed';
+import Finance from './components/Finance';
+import Sports from './components/Sports';
+import Technology from './components/Technology';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,9 +30,14 @@ const router = createBrowserRouter([
     path: '/',
     element: <Layout />,
     children: [
-      // replace '/' with '/feed-one' on load
-      { index: true, element: <Navigate to="/feed-one" replace /> },
-      { path: 'feed-one', element: <Feed /> },
+      // replace '/' with '/technology-discussion' on load
+      {
+        index: true,
+        element: <Navigate to="/technology-discussion" replace />,
+      },
+      { path: 'technology-discussion', element: <Technology /> },
+      { path: 'finance-discussion', element: <Finance /> },
+      { path: 'sports-discussion', element: <Sports /> },
     ],
   },
 ]);

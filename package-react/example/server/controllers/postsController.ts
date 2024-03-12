@@ -15,6 +15,11 @@ type PostsController = {
     res: Response,
     next: NextFunction
   ) => Promise<void>;
+  deleteReply: (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => Promise<void>;
   createComment: (
     req: Request,
     res: Response,
@@ -91,6 +96,32 @@ const postsController: PostsController = {
   },
 
   deletePost: async (req, res, next) => {
+    try {
+      const { database, index } = req.body;
+      const postIndex = parseInt(index, 10);
+
+      const dbPath = path.join(__dirname, `../../models/${database}.json`);
+      const data = await fs.readFile(dbPath, 'utf8');
+      const db = JSON.parse(data);
+
+      const updatedPostsArray = db.posts.filter((_, curIndex) => {
+        return curIndex !== postIndex;
+      });
+
+      db.posts = updatedPostsArray;
+
+      await fs.writeFile(dbPath, JSON.stringify(db, null, 2), 'utf8');
+
+      res.locals.deletePost = db.posts;
+
+      next();
+    } catch (err) {
+      console.error('Error updating database.json:', err);
+      res.status(500).send('Error saving data');
+    }
+  },
+
+  deleteReply: async (req, res, next) => {
     try {
       const { database, index } = req.body;
       const postIndex = parseInt(index, 10);

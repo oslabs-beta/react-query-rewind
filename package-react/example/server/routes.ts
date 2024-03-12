@@ -25,6 +25,11 @@ router.post('/delete-post', postsController.deletePost, async (req, res) => {
   res.status(201).json(res.locals.deletePost);
 });
 
+// delete reply
+router.post('/delete-reply', postsController.deleteReply, async (req, res) => {
+  res.status(201).json(res.locals.deletePost);
+});
+
 // create commment
 router.post(
   '/create-comment',

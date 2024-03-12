@@ -3,9 +3,34 @@
     {
       "text": "test",
       "liked": false,
+      "createComment": false,
+      "timestamp": "Mar 10, 2024",
+      "username": "Michael Gough",
+      "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg",
+      "comments": [
+        {
+          "text": "Testing Testing",
+          "timestamp": "Mar 10, 2024",
+          "username": "Michael Gough",
+          "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+        },
+        {
+          "text": "Testing Testing",
+          "timestamp": "Mar 10, 2024",
+          "username": "Michael Gough",
+          "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+        }
+      ]
+    },
+
+    {
+      "text": "Replace min-width-lock with the appropriate Tailwind CSS class if you are using Tailwind CSS. Tailwind provides utilities for setting minimum width, e.g., min-w-[500px] for a minimum w",
+      "liked": true,
       "comments": [],
       "createComment": false,
-      "timestamp": "12:12 PM"
+      "timestamp": "Mar 10, 2024",
+      "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg",
+      "username": "Michael Gough"
     }
   ]
 }

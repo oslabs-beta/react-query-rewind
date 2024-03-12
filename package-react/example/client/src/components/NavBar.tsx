@@ -1,75 +1,75 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import ToggleThemeButton from './ToggleThemeButton';
 
 export default function NavBar() {
+  const setActiveClass = ({ isActive }) =>
+    isActive
+      ? 'block py-2 px-3 md:p-0 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent'
+      : 'block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent';
+
   return (
-    <nav className="border-gray-200 dark:bg-gray-800 dark:border-gray-700 border-b-1 border-gray-300 shadow w-full bg-gray-50">
-      <div className="max-w-screen-lg flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
-          <img
-            src="https://flowbite.com/docs/images/logo.svg"
-            className="h-8"
-            alt="Flowbite Logo"
-          />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            Blog
-          </span>
-        </a>
-        <button
-          data-collapse-toggle="navbar-solid-bg"
-          type="button"
-          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-          aria-controls="navbar-solid-bg"
-          aria-expanded="false"
-        >
-          <span className="sr-only">Open main menu</span>
+    <nav className="border-gray-200 dark:bg-gray-800 dark:border-gray-700 border-b-1 border-gray-300 shadow dark:shadow-dark-custom w-full bg-gray-50">
+      <div className="max-w-screen-lg flex items-center justify-between mx-auto">
+        <a href="#" className="flex items-center space-x-4 rtl:space-x-reverse">
           <svg
-            className="w-5 h-5"
-            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 17 14"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="w-8 h-8 text-blue-700"
           >
             <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M1 1h15M1 7h15M1 13h15"
+              fillRule="evenodd"
+              d="M4.848 2.771A49.144 49.144 0 0 1 12 2.25c2.43 0 4.817.178 7.152.52 1.978.292 3.348 2.024 3.348 3.97v6.02c0 1.946-1.37 3.678-3.348 3.97a48.901 48.901 0 0 1-3.476.383.39.39 0 0 0-.297.17l-2.755 4.133a.75.75 0 0 1-1.248 0l-2.755-4.133a.39.39 0 0 0-.297-.17 48.9 48.9 0 0 1-3.476-.384c-1.978-.29-3.348-2.024-3.348-3.97V6.741c0-1.946 1.37-3.68 3.348-3.97ZM6.75 8.25a.75.75 0 0 1 .75-.75h9a.75.75 0 0 1 0 1.5h-9a.75.75 0 0 1-.75-.75Zm.75 2.25a.75.75 0 0 0 0 1.5H12a.75.75 0 0 0 0-1.5H7.5Z"
+              clipRule="evenodd"
             />
           </svg>
-        </button>
-        <div className="hidden w-full md:block md:w-auto" id="navbar-solid-bg">
+
+          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+            DiscussDock
+          </span>
+        </a>
+
+        {/* Right */}
+        <div
+          className="flex items-center justify-end p-4 space-x-8"
+          id="navbar-solid-bg"
+        >
           <ul className="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700">
             <li>
-              <Link
-                to="/feed-one"
-                className="block py-2 px-3 md:p-0 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent"
+              <NavLink
+                to="/technology-discussion"
+                className={setActiveClass}
+                // className="block py-2 px-3 md:p-0 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent"
               >
-                Feed One
-              </Link>
+                Technology
+              </NavLink>
             </li>
             <li>
-              <Link
-                to="/feed-two"
-                className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+              <NavLink
+                to="/finance-discussion"
+                className={setActiveClass}
+                // className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
               >
-                Feed Two
-              </Link>
+                Finance
+              </NavLink>
             </li>
             <li>
-              <Link
-                to="/feed-three"
-                className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+              <NavLink
+                to="/sports-discussion"
+                className={setActiveClass}
+                // className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
               >
-                Feed Three
-              </Link>
+                Sports
+              </NavLink>
             </li>
           </ul>
-        </div>
 
-        <ToggleThemeButton />
+          {/* Divider */}
+          <span className="h-6 w-px bg-gray-300 dark:bg-gray-600 mx-2"></span>
+
+          <ToggleThemeButton />
+        </div>
       </div>
     </nav>
   );

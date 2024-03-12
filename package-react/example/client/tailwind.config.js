@@ -60,6 +60,11 @@ module.exports = {
           'Noto Color Emoji',
         ],
       },
+      // Shadow for the bottom of the nav bar during dark mode
+      boxShadow: {
+        'dark-custom':
+          '0 1px 2px -1px rgba(255, 255, 255, 0.05), 0 1px 2px -2px rgba(255, 255, 255, 0.05)',
+      },
     },
   },
   plugins: [

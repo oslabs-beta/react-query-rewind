@@ -1,9 +1,18 @@
+export type Reply = {
+  text: string;
+  timestamp: string;
+  username: string;
+  picture: string;
+};
+
 export type Post = {
   text: string;
   liked: boolean;
-  comments: string[];
+  comments: Reply[];
   createComment: boolean;
   timestamp: string;
+  username: string;
+  picture: string;
 };
 
 export type CreateCommentParams = {

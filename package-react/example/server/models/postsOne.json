@@ -1,21 +1,71 @@
 {
   "posts": [
     {
+      "text": "Is it still working?",
+      "liked": false,
+      "comments": [],
+      "createComment": false,
+      "timestamp": "Mar 11, 2024",
+      "username": "Guest",
+      "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+    },
+    {
+      "text": "Testing",
+      "liked": false,
+      "comments": [],
+      "createComment": false,
+      "timestamp": "Mar 11, 2024",
+      "username": "Guest",
+      "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+    },
+    {
+      "text": "It's working!",
+      "liked": false,
+      "comments": [],
+      "createComment": false,
+      "timestamp": "Mar 11, 2024",
+      "username": "Guest",
+      "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+    },
+    {
+      "text": "Test",
+      "liked": false,
+      "comments": [],
+      "createComment": false,
+      "timestamp": "Mar 11, 2024",
+      "username": "Guest",
+      "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+    },
+    {
       "text": "test",
       "liked": false,
-      "comments": [
-        "Test",
-        "trest"
-      ],
       "createComment": false,
-      "timestamp": "Mar 10, 2024"
+      "timestamp": "Mar 10, 2024",
+      "username": "Michael Gough",
+      "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg",
+      "comments": [
+        {
+          "text": "Testing Testing",
+          "timestamp": "Mar 10, 2024",
+          "username": "Michael Gough",
+          "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+        },
+        {
+          "text": "Testing Testing",
+          "timestamp": "Mar 10, 2024",
+          "username": "Michael Gough",
+          "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+        }
+      ]
     },
     {
       "text": "Replace min-width-lock with the appropriate Tailwind CSS class if you are using Tailwind CSS. Tailwind provides utilities for setting minimum width, e.g., min-w-[500px] for a minimum w",
       "liked": true,
       "comments": [],
       "createComment": false,
-      "timestamp": "Mar 10, 2024"
+      "timestamp": "Mar 10, 2024",
+      "picture": "https://flowbite.com/docs/images/people/profile-picture-5.jpg",
+      "username": "Michael Gough"
     }
   ]
 }

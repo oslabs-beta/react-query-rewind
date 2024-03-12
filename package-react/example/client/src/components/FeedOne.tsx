@@ -5,9 +5,6 @@ import { useCommentInputChange } from '../hooks/useCommentInputChange';
 import { Post, CreateCommentParams } from '../types';
 import formatTimestamp from '../functions/formatTimestamp';
 
-// import IconButton from '@mui/material/IconButton';
-// import SendIcon from '@mui/icons-material/Send';
-
 export default function FeedOne() {
   const queryClient = useQueryClient();
 
@@ -15,7 +12,7 @@ export default function FeedOne() {
   const { commentInputs, setCommentInputs, commentInputChange } =
     useCommentInputChange();
 
-  // fetch-data route to get starting posts
+  // fetch-data route to get starting comments
   const fetchPostsRoute = async () => {
     try {
       const database = 'postsOne';
@@ -91,6 +88,8 @@ export default function FeedOne() {
         comments: [],
         createComment: false,
         timestamp: formatTimestamp(),
+        username: '',
+        picture: '',
       };
 
       newPostMutation.mutate(newPost);

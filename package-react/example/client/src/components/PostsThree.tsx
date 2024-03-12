@@ -88,6 +88,8 @@ function PostsThree() {
         comments: [],
         createComment: false,
         timestamp: formatTimestamp(),
+        username: '',
+        picture: '',
       };
 
       newPostMutation.mutate(newPost);
