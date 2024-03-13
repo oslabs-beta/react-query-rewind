@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.sun {
+  transform: scale(0);
+  opacity: 0;
+}
+
+.input-class:checked ~ .sun {
+  transform: scale(1) rotate(360deg);
+  opacity: 1;
+}
+
+.moon {
+  opacity: 1;
+}
+
+.input-class:checked ~ .moon {
+  transform: rotate(360deg) scale(0);
+  opacity: 0;
+}

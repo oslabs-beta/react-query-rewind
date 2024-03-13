@@ -3,11 +3,11 @@
     "allowUnreachableCode": false,
     "exactOptionalPropertyTypes": true,
     "noFallthroughCasesInSwitch": true,
-    // "noImplicitThis": true,
-    // "noUnusedLocals": true,
-    // "noUnusedParameters": true,
-    // "noImplicitAny": true,
-    // "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
     "alwaysStrict": true,
     "strictBindCallApply": true,
     "strictFunctionTypes": true,
@@ -20,6 +20,5 @@
     "isolatedModules": true
   },
   "include": ["src/**/**/*"],
-  "exclude": ["node_modules"],
-  "plugins": ["@tailwindcss/forms"]
+  "exclude": ["node_modules"]
 }
