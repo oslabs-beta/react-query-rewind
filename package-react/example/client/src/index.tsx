@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import './styles.css';
 
-// import ReactQueryRewind from 'react-query-rewind';
+import ReactQueryRewind from 'react-query-rewind';
 // import ReactQueryRewind from './link';
-import ReactQueryRewind from '../../../src/index';
+// import ReactQueryRewind from '../../../src/index';
 
 import {
   Navigate,

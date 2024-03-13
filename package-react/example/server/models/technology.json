@@ -1,7 +1,7 @@
 [
   {
     "text": "Agree on the dev experience. Also, for those looking to optimize their app's performance, React Query's automatic data fetching on window refocus or network reconnect is a neat feature. Reduces the need for manual refetching and ensures data is always fresh.",
-    "liked": true,
+    "liked": false,
     "createComment": false,
     "timestamp": "Mar 4, 2024",
     "username": "Marcus Holloway",
