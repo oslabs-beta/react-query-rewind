@@ -21,7 +21,7 @@ function Subscription({ handleMessages }: SubscriptionProps) {
     return () => unsubscribe();
   }, []);
 
-  return <div>Subscription Component</div>;
+  return <></>;
 }
 
 export default Subscription;
