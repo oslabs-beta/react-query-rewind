@@ -31,7 +31,7 @@ function TimeTravel() {
     };
   }, []);
 
-  return <div>TimeTravel Component</div>;
+  return <></>;
 }
 
 export default TimeTravel;

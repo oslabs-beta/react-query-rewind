@@ -2,32 +2,36 @@ import fs from 'fs/promises';
 import path from 'path';
 import { Request, Response, NextFunction } from 'express';
 
-type PostsController = {
+type ControllerType = {
   fetchData: (req: Request, res: Response, next: NextFunction) => Promise<void>;
-  createPost: (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) => Promise<void>;
-  likePost: (req: Request, res: Response, next: NextFunction) => Promise<void>;
-  deletePost: (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) => Promise<void>;
   createComment: (
     req: Request,
     res: Response,
     next: NextFunction
   ) => Promise<void>;
-  openComment: (
+  createReply: (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => Promise<void>;
+  likeComment: (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => Promise<void>;
+  deleteComment: (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => Promise<void>;
+  deleteReply: (
     req: Request,
     res: Response,
     next: NextFunction
   ) => Promise<void>;
 };
 
-const postsController: PostsController = {
+const controller: ControllerType = {
   fetchData: async (req, res, next) => {
     try {
       const database = req.query.database;
@@ -38,7 +42,7 @@ const postsController: PostsController = {
       );
       const db = JSON.parse(data);
 
-      res.locals.fetchData = db.posts;
+      res.locals.fetchData = db;
 
       next();
     } catch (err) {
@@ -47,89 +51,19 @@ const postsController: PostsController = {
     }
   },
 
-  createPost: async (req, res, next) => {
-    try {
-      const { newPost, database } = req.body;
-
-      const dbPath = path.join(__dirname, `../../models/${database}.json`);
-      const data = await fs.readFile(dbPath, 'utf8');
-      const db = JSON.parse(data);
-
-      db.posts.unshift(newPost);
-
-      await fs.writeFile(dbPath, JSON.stringify(db, null, 2), 'utf8');
-
-      res.locals.createPost = db.posts;
-
-      next();
-    } catch (err) {
-      console.error('Error updating database.json:', err);
-      res.status(500).send('Error saving data');
-    }
-  },
-
-  likePost: async (req, res, next) => {
-    try {
-      const { database, index } = req.body;
-      const postIndex = parseInt(index, 10);
-
-      const dbPath = path.join(__dirname, `../../models/${database}.json`);
-      const data = await fs.readFile(dbPath, 'utf8');
-      const db = JSON.parse(data);
-
-      db.posts[postIndex].liked = !db.posts[postIndex].liked;
-
-      await fs.writeFile(dbPath, JSON.stringify(db, null, 2), 'utf8');
-
-      res.locals.likePost = db.posts;
-
-      next();
-    } catch (err) {
-      console.error('Error updating database.json:', err);
-      res.status(500).send('Error saving data');
-    }
-  },
-
-  deletePost: async (req, res, next) => {
-    try {
-      const { database, index } = req.body;
-      const postIndex = parseInt(index, 10);
-
-      const dbPath = path.join(__dirname, `../../models/${database}.json`);
-      const data = await fs.readFile(dbPath, 'utf8');
-      const db = JSON.parse(data);
-
-      const updatedPostsArray = db.posts.filter((_, curIndex) => {
-        return curIndex !== postIndex;
-      });
-
-      db.posts = updatedPostsArray;
-
-      await fs.writeFile(dbPath, JSON.stringify(db, null, 2), 'utf8');
-
-      res.locals.deletePost = db.posts;
-
-      next();
-    } catch (err) {
-      console.error('Error updating database.json:', err);
-      res.status(500).send('Error saving data');
-    }
-  },
-
   createComment: async (req, res, next) => {
     try {
-      const { database, index, comment } = req.body;
-      const postIndex = parseInt(index, 10);
+      const { database, newComment } = req.body;
 
       const dbPath = path.join(__dirname, `../../models/${database}.json`);
       const data = await fs.readFile(dbPath, 'utf8');
       const db = JSON.parse(data);
 
-      db.posts[postIndex].comments.push(comment);
+      db.unshift(newComment);
 
       await fs.writeFile(dbPath, JSON.stringify(db, null, 2), 'utf8');
 
-      res.locals.createComment = db.posts;
+      res.locals.createComment = db;
 
       next();
     } catch (err) {
@@ -138,20 +72,98 @@ const postsController: PostsController = {
     }
   },
 
-  openComment: async (req, res, next) => {
+  createReply: async (req, res, next) => {
     try {
-      const { database, index } = req.body;
-      const postIndex = parseInt(index, 10);
+      const { database, commentIndex, reply } = req.body;
+      const commentIndexInt = parseInt(commentIndex, 10);
 
       const dbPath = path.join(__dirname, `../../models/${database}.json`);
       const data = await fs.readFile(dbPath, 'utf8');
       const db = JSON.parse(data);
 
-      db.posts[postIndex].createComment = !db.posts[postIndex].createComment;
+      db[commentIndexInt].replies.push(reply);
 
       await fs.writeFile(dbPath, JSON.stringify(db, null, 2), 'utf8');
 
-      res.locals.openComment = db.posts;
+      res.locals.createReply = db;
+
+      next();
+    } catch (err) {
+      console.error('Error updating database.json:', err);
+      res.status(500).send('Error saving data');
+    }
+  },
+
+  likeComment: async (req, res, next) => {
+    try {
+      const { database, commentIndex } = req.body;
+      const commentIndexInt = parseInt(commentIndex, 10);
+
+      const dbPath = path.join(__dirname, `../../models/${database}.json`);
+      const data = await fs.readFile(dbPath, 'utf8');
+      const db = JSON.parse(data);
+
+      db[commentIndexInt].liked = !db[commentIndexInt].liked;
+
+      await fs.writeFile(dbPath, JSON.stringify(db, null, 2), 'utf8');
+
+      res.locals.likeComment = db;
+
+      next();
+    } catch (err) {
+      console.error('Error liking a comment', err);
+      res.status(500).send('Error liking a comment');
+    }
+  },
+
+  deleteComment: async (req, res, next) => {
+    try {
+      const { database, commentIndex } = req.body;
+      const commentIndexInt = parseInt(commentIndex, 10);
+
+      const dbPath = path.join(__dirname, `../../models/${database}.json`);
+      const data = await fs.readFile(dbPath, 'utf8');
+      let db = JSON.parse(data);
+
+      const updatedCommentsArray = db.filter((_, curIndex) => {
+        return curIndex !== commentIndexInt;
+      });
+
+      db = updatedCommentsArray;
+
+      await fs.writeFile(dbPath, JSON.stringify(db, null, 2), 'utf8');
+
+      res.locals.deleteComment = db;
+
+      next();
+    } catch (err) {
+      console.error('Error updating database.json:', err);
+      res.status(500).send('Error saving data');
+    }
+  },
+
+  deleteReply: async (req, res, next) => {
+    try {
+      const { database, commentIndex, replyIndex } = req.body;
+      const commentIndexInt = parseInt(commentIndex, 10);
+      const replyIndexInt = parseInt(replyIndex, 10);
+
+      const dbPath = path.join(__dirname, `../../models/${database}.json`);
+      const data = await fs.readFile(dbPath, 'utf8');
+      const db = JSON.parse(data);
+
+      const targetComment = db[commentIndexInt];
+
+      if (targetComment && targetComment.replies) {
+        const updatedReplies = targetComment.replies.filter(
+          (_, curIndex) => curIndex !== replyIndexInt
+        );
+        targetComment.replies = updatedReplies;
+      }
+
+      await fs.writeFile(dbPath, JSON.stringify(db, null, 2), 'utf8');
+
+      res.locals.deleteReply = db;
 
       next();
     } catch (err) {
@@ -161,4 +173,4 @@ const postsController: PostsController = {
   },
 };
 
-export default postsController;
+export default controller;

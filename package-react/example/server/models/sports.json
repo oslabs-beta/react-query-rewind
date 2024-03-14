@@ -1,0 +1,56 @@
+[
+  {
+    "text": "Can't believe the 49ers pulled off that comeback! Their defense in the second half was incredible.",
+    "liked": false,
+    "createComment": false,
+    "timestamp": "Mar 10, 2024",
+    "username": "Marcus Holloway",
+    "picture": "https://flowbite.com/docs/images/people/profile-picture-1.jpg",
+    "replies": [
+      {
+        "text": "Absolutely, Marcus! That interception in the 4th quarter was a game-changer. Kudos to the 49ers' coaching staff for those adjustments.",
+        "timestamp": "Mar 10, 2024",
+        "username": "Samuel Drake",
+        "picture": "https://flowbite.com/docs/images/people/profile-picture-2.jpg"
+      }
+    ]
+  },
+  {
+    "text": "The Chiefs' offense was on fire in the first half though. Mahomes to Hill for that 75-yard touchdown was a thing of beauty.",
+    "liked": false,
+    "createComment": false,
+    "timestamp": "Mar 10, 2024",
+    "username": "Elena Fisher",
+    "picture": "https://flowbite.com/docs/images/people/profile-picture-4.jpg",
+    "replies": [
+      {
+        "text": "True, Elena. That connection is always lethal. But the 49ers' defense stepped up when it mattered most. Super Bowl games like this are why I love football.",
+        "timestamp": "Mar 10, 2024",
+        "username": "Marcus Holloway",
+        "picture": "https://flowbite.com/docs/images/people/profile-picture-1.jpg"
+      },
+      {
+        "text": "Agreed on all points. Both teams played their hearts out. This will go down as one of the most memorable Super Bowls for sure.",
+        "timestamp": "Mar 10, 2024",
+        "username": "Samuel Drake",
+        "picture": "https://flowbite.com/docs/images/people/profile-picture-2.jpg"
+      }
+    ]
+  },
+  {
+    "text": "Anyone else think the MVP award should have gone to the 49ers' linebacker? His performance tonight was outstanding.",
+    "liked": false,
+    "createComment": false,
+    "timestamp": "Mar 10, 2024",
+    "username": "Samuel Drake",
+    "picture": "https://flowbite.com/docs/images/people/profile-picture-2.jpg",
+    "replies": [
+      {
+        "text": "Definitely, Samuel. His tackles and that critical sack in the 3rd quarter were pivotal. Totally deserved MVP in my book.",
+        "timestamp": "Mar 10, 2024",
+        "username": "Elena Fisher",
+        "picture": "https://flowbite.com/docs/images/people/profile-picture-4.jpg"
+      }
+    ]
+  }
+]

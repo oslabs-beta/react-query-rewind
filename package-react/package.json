@@ -50,7 +50,6 @@
     "unlink-package": "(cd example/client && npm unlink react-query-rewind) && npm unlink",
     "package-setup-1": "npm i && npm run install-example && npm run link-dependencies && npm run watch",
     "package-setup-2": "npm run link-package && npm run example"
-
   },
   "license": "MIT",
   "peerDependencies": {

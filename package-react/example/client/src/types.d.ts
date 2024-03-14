@@ -1,14 +1,23 @@
-export type Post = {
+export type Reply = {
+  text: string;
+  timestamp: string;
+  username: string;
+  picture: string;
+};
+
+export type Comment = {
   text: string;
   liked: boolean;
-  comments: string[];
+  replies: Reply[];
   createComment: boolean;
   timestamp: string;
+  username: string;
+  picture: string;
 };
 
 export type CreateCommentParams = {
-  index: number;
-  comment: string;
+  commentIndex: number;
+  reply: Reply;
 };
 
 declare global {

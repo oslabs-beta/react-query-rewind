@@ -1,42 +1,32 @@
 import express from 'express';
 import fs from 'fs/promises';
 import path from 'path';
-import postsController from './controllers/postsController';
+import controller from './controllers/controller';
 
 const router = express.Router();
 
-// fetching starting data
-router.get('/fetch-data', postsController.fetchData, async (req, res) => {
+router.get('/fetch-data', controller.fetchData, async (req, res) => {
   res.status(200).json(res.locals.fetchData);
 });
 
-// create post
-router.post('/create-post', postsController.createPost, async (req, res) => {
-  res.status(201).json(res.locals.createPost);
+router.post('/create-comment', controller.createComment, async (req, res) => {
+  res.status(201).json(res.locals.createComment);
 });
 
-// like post
-router.post('/like-post', postsController.likePost, async (req, res) => {
-  res.status(201).json(res.locals.likePost);
+router.post('/like-comment', controller.likeComment, async (req, res) => {
+  res.status(201).json(res.locals.likeComment);
 });
 
-// delete post
-router.post('/delete-post', postsController.deletePost, async (req, res) => {
-  res.status(201).json(res.locals.deletePost);
+router.post('/delete-comment', controller.deleteComment, async (req, res) => {
+  res.status(201).json(res.locals.deleteComment);
 });
 
-// create commment
-router.post(
-  '/create-comment',
-  postsController.createComment,
-  async (req, res) => {
-    res.status(201).json(res.locals.createComment);
-  }
-);
+router.post('/delete-reply', controller.deleteReply, async (req, res) => {
+  res.status(201).json(res.locals.deleteReply);
+});
 
-// open comment
-router.post('/open-comment', postsController.openComment, async (req, res) => {
-  res.status(201).json(res.locals.openComment);
+router.post('/create-reply', controller.createReply, async (req, res) => {
+  res.status(201).json(res.locals.createReply);
 });
 
 export default router;
