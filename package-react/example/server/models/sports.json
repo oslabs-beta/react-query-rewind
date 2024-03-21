@@ -1,7 +1,7 @@
 [
   {
     "text": "Can't believe the 49ers pulled off that comeback! Their defense in the second half was incredible.",
-    "liked": false,
+    "liked": true,
     "createComment": false,
     "timestamp": "Mar 10, 2024",
     "username": "Marcus Holloway",
@@ -12,6 +12,12 @@
         "timestamp": "Mar 10, 2024",
         "username": "Samuel Drake",
         "picture": "https://flowbite.com/docs/images/people/profile-picture-2.jpg"
+      },
+      {
+        "text": "yeah!\n",
+        "timestamp": "Mar 20, 2024",
+        "username": "Guest",
+        "picture": "guest"
       }
     ]
   },
