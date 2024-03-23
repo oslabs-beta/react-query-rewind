@@ -44,7 +44,7 @@ React Query Rewind introduces a powerful DevTool extension designed to work in c
     _picture of importing the component_
 
     ```javascript
-    import ReactQueryRewind from 'react-query-rewind';
+    import ReactQueryRewind from "react-query-rewind";
     ```
 
 3.  Place ReactQueryRewind next to the root of your application inside the QueryClientProvider component.
@@ -80,7 +80,7 @@ React Query Rewind introduces a powerful DevTool extension designed to work in c
 
 - <b>Component Tree: </b> Click on the Component Tree tab and turn on the Start Profiling switch. Click on any component on the app, and view the component tree that is rendered on the dev tools panel.
 
-<p align="center"><img src="./assets/component-tree.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p>
+<p align="center"><img src="https://i.imgur.com/qa5UJTW.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p>
 
 # Contributing
 
