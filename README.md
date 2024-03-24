@@ -111,43 +111,6 @@ Rui Fan - [GitHub](https://github.com/ruifan-IU) - [LinkedIn](https://www.linked
 Project Link: [React Query Rewind](https://github.com/oslabs-beta/react-query-rewind-chrome)
 
 # License
-
-_MIT Link_
+[MIT](https://www.mit.edu/~amini/LICENSE.md)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- TABLE OF CONTENTS -->
-<!-- <details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details> -->
-
-<!-- <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
-
-<!-- <a name="website" href="ARE WE GONNA HAVE A WEBSITE">Website</a> -->
-
-<!-- [![Contributors](https://img.shields.io/github/contributors/oslabs-beta/react-query-rewind-chrome.svg?style=for-the-badge)](https://github.com/oslabs-beta/react-query-rewind-chrome/graphs/contributors)
-[![Forks](https://img.shields.io/github/forks/oslabs-beta/react-query-rewind-chrome.svg?style=for-the-badge)](https://github.com/oslabs-beta/react-query-rewind-chrome/forks)
-[![Stargazers](https://img.shields.io/github/stars/oslabs-beta/react-query-rewind-chrome.svg?style=for-the-badge)](https://github.com/oslabs-beta/react-query-rewind-chrome/stargazers)
-[![Issues](https://img.shields.io/github/issues/oslabs-beta/react-query-rewind-chrome.svg?style=for-the-badge)](https://github.com/oslabs-beta/react-query-rewind-chrome/issues)
-[![MIT License](https://img.shields.io/github/license/oslabs-beta/react-query-rewind-chrome.svg?style=for-the-badge)](https://github.com/oslabs-beta/react-query-rewind-chrome/blob/main/LICENSE) -->
