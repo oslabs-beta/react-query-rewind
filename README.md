@@ -61,22 +61,22 @@ React Query Rewind introduces a powerful DevTool extension designed to work in c
 4.  Open the Chrome DevTool Extension and start coding!
 
        <p align="left">
-      <img src="./assets/chrome-devtool.png" alt="Component Placement" width="600"/>
+      <img src="https://i.imgur.com/xTEPI20.png" alt="Component Placement" width="600"/>
     </p>
 
 # Features
 
 - <b>Query States: </b>Upon opening RQRewind in Chrome Dev Tools, you will see the Queries tab open with a drop down menu listing the query keys of all the incoming queries. Select the queries that you want to monitor, make changes on the web app, and the changes of query states will be logged as reflected by the growing number above the play bar. Use the play bar to navigate to a particular state snapshot that you would like to inspect.
 
-<p align="center"><img src="./assets/query-states.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p>
+<p align="center"><img src="https://i.imgur.com/g8KrqAg.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p>
 
 - <b>State Diff: </b>Toggle on the Diff button to see state changes between each snapshot highlighted. Turn on the switch on top of the page to show only parts of the state that are changed.
 
-<p align="center"><img src="https://i.imgur.com/77RQZ5i.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p>
+<p align="center"><img src="https://i.imgur.com/a8KAgXZ.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p>
 
 - <b>Live UI Change: </b>As you review the state change history, there is also the option to turn on the time travel mode by clicking on the clock icon button. Under time travel mode, when visiting a logged state snapshot on RQRewindl, the UI of the app will change accordingly. Turn off time travel mode for RQRewind to continue logging future state changes.
 
-<p align="center"><img src="./assets/UI-change.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p>
+<p align="center"><img src="https://i.imgur.com/AZ3QGuf.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p>
 
 - <b>Component Tree: </b> Click on the Component Tree tab and turn on the Start Profiling switch. Click on any component on the app, and view the component tree that is rendered on the dev tools panel.
 
