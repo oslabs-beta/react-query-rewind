@@ -29,7 +29,7 @@ function ReactQueryRewind() {
 
   const handleContentMessages = (message: MessageEvent) => {
     if (message.data?.type === 'content-script-ready') {
-      console.log('APP: Content.ts connected');
+      // console.log('APP: Content.ts connected');
       contentConnectedRef.current = true;
       window.postMessage({ type: 'app-connected' }, '*');
       sendContentMessageQueue();
@@ -41,17 +41,13 @@ function ReactQueryRewind() {
   };
 
   useEffect(() => {
-    console.log('APP: Mounting Event Listeners');
+    // console.log('APP: Mounting Event Listeners');
     window.addEventListener('message', handleContentMessages);
 
     return () => {
       window.removeEventListener('message', handleContentMessages);
     };
   }, []);
-
-  useEffect(() => {
-    console.log('timeTravel', timeTravel);
-  }, [timeTravel]);
 
   return (
     <div>
