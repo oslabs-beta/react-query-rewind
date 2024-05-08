@@ -3,7 +3,7 @@
   "name": "React Query Rewind",
   "description": "State Management DevTool for React Query",
   "version": "1.0",
-  "permissions": ["activeTab", "storage"],
+  "permissions": ["activeTab", "storage", "scripting"],
   "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "background.js"
