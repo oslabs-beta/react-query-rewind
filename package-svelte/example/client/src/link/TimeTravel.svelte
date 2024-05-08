@@ -6,7 +6,7 @@
   const queryClient = useQueryClient();
 
   onMount(() => {
-    console.log("TIME TRAVEL MOUNTED");
+    // console.log("TIME TRAVEL MOUNTED");
 
     const updateUi = (event: any) => {
       const currentQuery: QueryDisplay[] = event.detail;

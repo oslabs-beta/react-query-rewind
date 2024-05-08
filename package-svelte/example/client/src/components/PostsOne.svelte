@@ -185,7 +185,6 @@
       }
 
       const updatedPostsArray = await response.json();
-      console.log();
       return updatedPostsArray;
     } catch (error) {
       console.error("Creating post failed:", error);

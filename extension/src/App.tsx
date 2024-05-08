@@ -34,14 +34,14 @@ function App() {
 
     // listents for messages from npm package
     port.onMessage.addListener(message => {
-      console.log('DEVTOOL: Recieved message from background.ts', message);
+      // console.log('DEVTOOL: Recieved message from background.ts', message);
 
       if (message.type === 'event') {
         setQueryEvents(queryEvents => [...queryEvents, message.payload]);
       }
 
       if (message.type === 'tree') {
-        console.log('APP.tsx: Recieved tree data', message);
+        // console.log('APP.tsx: Recieved tree data', message);
         setTreeData(message.data);
       }
     });
@@ -64,7 +64,7 @@ function App() {
 
   // adds event listener for when devToolsPort is disconnected
   devToolsPort?.onDisconnect.addListener(() => {
-    console.log('DevTools port disconnected, port: ', devToolsPort);
+    // console.log('DevTools port disconnected, port: ', devToolsPort);
     // setDevToolsPort(null);
   });
 

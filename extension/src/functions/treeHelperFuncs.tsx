@@ -22,7 +22,7 @@ export const customStringify = (v: any): string => {
 
 export const saveJSON = (data: any, saveAs: string): void => {
   let stringified = JSON.stringify(data, null, 2);
-  let blob = new Blob([stringified], { type: "application/json" });
+  let blob = new Blob([stringified], { type: 'application/json' });
   let url = URL.createObjectURL(blob);
 
   let a = document.createElement('a');
@@ -35,22 +35,20 @@ export const saveJSON = (data: any, saveAs: string): void => {
 };
 
 export const sendData = (stringifiedResult: string): void => {
-  console.log("clicked on send data and this is what will be sent", stringifiedResult);
-  fetch("http://localhost:3000/saveData", {
+  // console.log("clicked on send data and this is what will be sent", stringifiedResult);
+  fetch('http://localhost:3000/saveData', {
     method: 'POST',
     headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
-    body: stringifiedResult
-  }).then((response) => {
+    body: stringifiedResult,
+  }).then(response => {
     // check the response object for result
-    console.log('response from backend', response);
+    // console.log('response from backend', response);
     // ...
   });
 };
-
-
 
 // export const customStringify = (v) => {
 //     const cache = new Set();
@@ -75,10 +73,10 @@ export const sendData = (stringifiedResult: string): void => {
 //   };
 
 // export const saveJSON = (data, saveAs) => {
-//     let stringified = JSON.stringify(data, null, 2); 
+//     let stringified = JSON.stringify(data, null, 2);
 //     let blob = new Blob([stringified], {type: "application/json"});
 //     let url = URL.createObjectURL(blob);
-    
+
 //     let a = document.createElement('a');
 //     a.download = saveAs + '.json';
 //     a.href = url;
@@ -86,7 +84,7 @@ export const sendData = (stringifiedResult: string): void => {
 //     document.body.appendChild(a);
 //     a.click();
 //     document.querySelector('#' + a.id).remove();
-//   } 
+//   }
 
 // export const sendData = (stringifiedResult) =>{
 //     console.log("clicked on send data and this is what will be sent", stringifiedResult)
@@ -103,4 +101,3 @@ export const sendData = (stringifiedResult: string): void => {
 //       // ...
 //   });
 //   }
-  
