@@ -10,7 +10,7 @@ export default function NavBar() {
 
   return (
     <nav className="border-gray-200 dark:bg-gray-800 dark:border-gray-700 border-b-1 border-gray-300 shadow dark:shadow-dark-custom w-full bg-gray-50">
-      <div className="max-w-screen-lg flex items-center justify-between mx-auto">
+      <div className="max-w-screen-lg flex items-center justify-between mx-auto ml-4">
         <a href="#" className="flex items-center space-x-4 rtl:space-x-reverse">
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -44,7 +44,7 @@ React Query Rewind introduces a powerful DevTool extension designed to work in c
     _picture of importing the component_
 
     ```javascript
-    import ReactQueryRewind from 'react-query-rewind';
+    import ReactQueryRewind from "react-query-rewind";
     ```
 
 3.  Place ReactQueryRewind next to the root of your application inside the QueryClientProvider component.
@@ -61,26 +61,26 @@ React Query Rewind introduces a powerful DevTool extension designed to work in c
 4.  Open the Chrome DevTool Extension and start coding!
 
        <p align="left">
-      <img src="./assets/chrome-devtool.png" alt="Component Placement" width="600"/>
+      <img src="https://i.imgur.com/xTEPI20.png" alt="Component Placement" width="600"/>
     </p>
 
 # Features
 
 - <b>Query States: </b>Upon opening RQRewind in Chrome Dev Tools, you will see the Queries tab open with a drop down menu listing the query keys of all the incoming queries. Select the queries that you want to monitor, make changes on the web app, and the changes of query states will be logged as reflected by the growing number above the play bar. Use the play bar to navigate to a particular state snapshot that you would like to inspect.
 
-<p align="center"><img src="./assets/query-states.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p>
+<p align="center"><img src="https://i.imgur.com/g8KrqAg.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p>
 
 - <b>State Diff: </b>Toggle on the Diff button to see state changes between each snapshot highlighted. Turn on the switch on top of the page to show only parts of the state that are changed.
 
-<p align="center"><img src="./assets/state-diff.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p>
+<p align="center"><img src="https://i.imgur.com/a8KAgXZ.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p>
 
 - <b>Live UI Change: </b>As you review the state change history, there is also the option to turn on the time travel mode by clicking on the clock icon button. Under time travel mode, when visiting a logged state snapshot on RQRewindl, the UI of the app will change accordingly. Turn off time travel mode for RQRewind to continue logging future state changes.
 
-<p align="center"><img src="./assets/UI-change.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p>
+<p align="center"><img src="https://i.imgur.com/AZ3QGuf.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p>
 
 - <b>Component Tree: </b> Click on the Component Tree tab and turn on the Start Profiling switch. Click on any component on the app, and view the component tree that is rendered on the dev tools panel.
 
-<p align="center"><img src="./assets/component-tree.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p>
+<p align="center"><img src="https://i.imgur.com/qa5UJTW.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p>
 
 # Contributing
 
@@ -111,43 +111,6 @@ Rui Fan - [GitHub](https://github.com/ruifan-IU) - [LinkedIn](https://www.linked
 Project Link: [React Query Rewind](https://github.com/oslabs-beta/react-query-rewind-chrome)
 
 # License
-
-_MIT Link_
+[MIT](https://www.mit.edu/~amini/LICENSE.md)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- TABLE OF CONTENTS -->
-<!-- <details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details> -->
-
-<!-- <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
-
-<!-- <a name="website" href="ARE WE GONNA HAVE A WEBSITE">Website</a> -->
-
-<!-- [![Contributors](https://img.shields.io/github/contributors/oslabs-beta/react-query-rewind-chrome.svg?style=for-the-badge)](https://github.com/oslabs-beta/react-query-rewind-chrome/graphs/contributors)
-[![Forks](https://img.shields.io/github/forks/oslabs-beta/react-query-rewind-chrome.svg?style=for-the-badge)](https://github.com/oslabs-beta/react-query-rewind-chrome/forks)
-[![Stargazers](https://img.shields.io/github/stars/oslabs-beta/react-query-rewind-chrome.svg?style=for-the-badge)](https://github.com/oslabs-beta/react-query-rewind-chrome/stargazers)
-[![Issues](https://img.shields.io/github/issues/oslabs-beta/react-query-rewind-chrome.svg?style=for-the-badge)](https://github.com/oslabs-beta/react-query-rewind-chrome/issues)
-[![MIT License](https://img.shields.io/github/license/oslabs-beta/react-query-rewind-chrome.svg?style=for-the-badge)](https://github.com/oslabs-beta/react-query-rewind-chrome/blob/main/LICENSE) -->
