@@ -13,7 +13,7 @@ const contentConnected = ref(false);
 
 const handleContentMessages = (message: any) => {
   if (message.data?.type === 'content-script-ready') {
-    console.log('APP: Connected to content.ts');
+    // console.log('APP: Connected to content.ts');
     contentConnected.value = true;
     window.postMessage({ type: 'app-connected' }, '*');
   }
@@ -24,7 +24,7 @@ const handleContentMessages = (message: any) => {
 };
 
 onMounted(() => {
-  console.log('APP: Mounting Event Listeners');
+  // console.log('APP: Mounting Event Listeners');
   window.addEventListener('message', handleContentMessages);
 });
 

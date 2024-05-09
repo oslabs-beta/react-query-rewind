@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
-import { ParentTabsProps } from "../types";
-import CustomTabPanel from "../components/CustomTabPanel";
-import a11yProps from "../functions/a11yProps";
-import TreeTab from "./TreeTab";
-import QueriesTab from "./QueriesTab";
+import React, { useEffect, useState } from 'react';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import { ParentTabsProps } from '../types';
+import CustomTabPanel from '../components/CustomTabPanel';
+import a11yProps from '../functions/a11yProps';
+import TreeTab from './TreeTab';
+import QueriesTab from './QueriesTab';
 
 const ParentTab = ({
   queryEvents,
@@ -28,13 +28,13 @@ const ParentTab = ({
     // only send message if devToolsPort is available and profiling is enabled
     if (devToolsPort && profilingEnabled) {
       devToolsPort.postMessage({
-        type: "profiling-status",
+        type: 'profiling-status',
         payload: profilingEnabled,
       });
     }
   }
   const toggleProfiling = () => {
-    console.log("toggleProfiling clicked");
+    // console.log("toggleProfiling clicked");
     const newProfilingStatus = !profilingStatus;
     setProfilingStatus(newProfilingStatus);
     sendMessageToContentScript(newProfilingStatus);
@@ -43,13 +43,13 @@ const ParentTab = ({
   return (
     <Box
       sx={{
-        width: "100%",
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
+        width: '100%',
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
       }}
     >
-      <Box sx={{ borderBottom: 1, borderColor: "divider", height: "3rem" }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider', height: '3rem' }}>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -61,7 +61,7 @@ const ParentTab = ({
       </Box>
 
       <Box
-        sx={{ flexGrow: 1, height: "calc(100vh - 3rem)", paddingTop: "0.5rem" }}
+        sx={{ flexGrow: 1, height: 'calc(100vh - 3rem)', paddingTop: '0.5rem' }}
       >
         <CustomTabPanel value={value} index={0}>
           <QueriesTab

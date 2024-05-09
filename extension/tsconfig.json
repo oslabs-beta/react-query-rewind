@@ -21,7 +21,9 @@
     "src/**/*.tsx",
     "content_scripts/**/*.ts",
     "content_scripts/types.d.ts",
-    "__test__"
+    "__test__",
+    "background.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "types": ["chrome"]
 }
