@@ -6,7 +6,7 @@ module.exports = {
   clearMocks: true,
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: "tests/coverage",
+  coverageDirectory: "__tests__/coverage",
 
   // A set of global variables that need to be available in all test environments
   globals: {
@@ -24,7 +24,7 @@ module.exports = {
   testPathIgnorePatterns: [
     "/node_modules/"
   ],
-
+  
   // A map from regular expressions to module names or to arrays of module names
   // that allow to stub out resources, like images or styles with a single module
   moduleNameMapper: {
@@ -40,4 +40,7 @@ module.exports = {
 
   // Indicates whether each individual test should be reported during the run
   verbose: true,
+
+  // Paths to ignore
+  testPathIgnorePatterns: ['/node_modules/', '/coverage/'],
 };

@@ -1,0 +1,367 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DiffTab Component renders JsonDiff component with correct props based on isHidden state 1`] = `
+<DocumentFragment>
+  <label
+    class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-1yyhvac-MuiFormControlLabel-root"
+  >
+    <span
+      class="MuiSwitch-root MuiSwitch-sizeMedium css-julti5-MuiSwitch-root"
+    >
+      <span
+        class="MuiButtonBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary PrivateSwitchBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase"
+      >
+        <input
+          class="PrivateSwitchBase-input MuiSwitch-input css-1m9pwf3"
+          type="checkbox"
+        />
+        <span
+          class="MuiSwitch-thumb css-jsexje-MuiSwitch-thumb"
+        />
+        <span
+          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+        />
+      </span>
+      <span
+        class="MuiSwitch-track css-1yjjitx-MuiSwitch-track"
+      />
+    </span>
+    <span
+      class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-ahj2mt-MuiTypography-root"
+    >
+      Hide Unchanged Properties 
+    </span>
+  </label>
+  <div
+    class="data"
+  >
+    <h6
+      class="MuiTypography-root MuiTypography-h6 css-6zgmsr-MuiTypography-root"
+    >
+      Query 1
+    </h6>
+    <div
+      class="json-diff-container "
+    >
+      <div
+        class="MuiContainer-root MuiContainer-maxWidthLg css-1oqqzyl-MuiContainer-root"
+      >
+        <div>
+          <div
+            class="jsondiffpatch-delta jsondiffpatch-modified"
+          >
+            <div
+              class="jsondiffpatch-value jsondiffpatch-left-value"
+            >
+              <pre>
+                null
+              </pre>
+            </div>
+            <div
+              class="jsondiffpatch-value jsondiffpatch-right-value"
+            >
+              <pre>
+                {
+  "some": "different data"
+}
+              </pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`DiffTab Component renders JsonDiff component with correct props based on isHidden state 2`] = `
+<DocumentFragment>
+  <label
+    class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-1yyhvac-MuiFormControlLabel-root"
+  >
+    <span
+      class="MuiSwitch-root MuiSwitch-sizeMedium css-julti5-MuiSwitch-root"
+    >
+      <span
+        class="MuiButtonBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary Mui-checked PrivateSwitchBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary Mui-checked Mui-checked css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase"
+      >
+        <input
+          class="PrivateSwitchBase-input MuiSwitch-input css-1m9pwf3"
+          type="checkbox"
+        />
+        <span
+          class="MuiSwitch-thumb css-jsexje-MuiSwitch-thumb"
+        />
+        <span
+          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+        />
+      </span>
+      <span
+        class="MuiSwitch-track css-1yjjitx-MuiSwitch-track"
+      />
+    </span>
+    <span
+      class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-ahj2mt-MuiTypography-root"
+    >
+      Show Unchanged Properties 
+    </span>
+  </label>
+  <div
+    class="data"
+  >
+    <h6
+      class="MuiTypography-root MuiTypography-h6 css-6zgmsr-MuiTypography-root"
+    >
+      Query 1
+    </h6>
+    <div
+      class="json-diff-container jsondiffpatch-unchanged-hidden"
+    >
+      <div
+        class="MuiContainer-root MuiContainer-maxWidthLg css-1oqqzyl-MuiContainer-root"
+      >
+        <div>
+          <div
+            class="jsondiffpatch-delta jsondiffpatch-modified"
+          >
+            <div
+              class="jsondiffpatch-value jsondiffpatch-left-value"
+            >
+              <pre>
+                null
+              </pre>
+            </div>
+            <div
+              class="jsondiffpatch-value jsondiffpatch-right-value"
+            >
+              <pre>
+                {
+  "some": "different data"
+}
+              </pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`DiffTab Component renders correctly with initial state 1`] = `
+<DocumentFragment>
+  <label
+    class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-1yyhvac-MuiFormControlLabel-root"
+  >
+    <span
+      class="MuiSwitch-root MuiSwitch-sizeMedium css-julti5-MuiSwitch-root"
+    >
+      <span
+        class="MuiButtonBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary PrivateSwitchBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase"
+      >
+        <input
+          class="PrivateSwitchBase-input MuiSwitch-input css-1m9pwf3"
+          type="checkbox"
+        />
+        <span
+          class="MuiSwitch-thumb css-jsexje-MuiSwitch-thumb"
+        />
+        <span
+          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+        />
+      </span>
+      <span
+        class="MuiSwitch-track css-1yjjitx-MuiSwitch-track"
+      />
+    </span>
+    <span
+      class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-ahj2mt-MuiTypography-root"
+    >
+      Hide Unchanged Properties 
+    </span>
+  </label>
+  <div
+    class="data"
+  >
+    <h6
+      class="MuiTypography-root MuiTypography-h6 css-6zgmsr-MuiTypography-root"
+    >
+      Query 1
+    </h6>
+    <div
+      class="json-diff-container "
+    >
+      <div
+        class="MuiContainer-root MuiContainer-maxWidthLg css-1oqqzyl-MuiContainer-root"
+      >
+        <div>
+          <div
+            class="jsondiffpatch-delta jsondiffpatch-modified"
+          >
+            <div
+              class="jsondiffpatch-value jsondiffpatch-left-value"
+            >
+              <pre>
+                null
+              </pre>
+            </div>
+            <div
+              class="jsondiffpatch-value jsondiffpatch-right-value"
+            >
+              <pre>
+                {
+  "some": "data"
+}
+              </pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h6
+      class="MuiTypography-root MuiTypography-h6 css-6zgmsr-MuiTypography-root"
+    >
+      Query 2
+    </h6>
+    <div
+      class="json-diff-container "
+    >
+      <div
+        class="MuiContainer-root MuiContainer-maxWidthLg css-1oqqzyl-MuiContainer-root"
+      >
+        <div>
+          <div
+            class="jsondiffpatch-delta jsondiffpatch-modified"
+          >
+            <div
+              class="jsondiffpatch-value jsondiffpatch-left-value"
+            >
+              <pre>
+                null
+              </pre>
+            </div>
+            <div
+              class="jsondiffpatch-value jsondiffpatch-right-value"
+            >
+              <pre>
+                {
+  "more": "data"
+}
+              </pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`DiffTab Component toggles isHidden state on switch toggle 1`] = `
+<DocumentFragment>
+  <label
+    class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-1yyhvac-MuiFormControlLabel-root"
+  >
+    <span
+      class="MuiSwitch-root MuiSwitch-sizeMedium css-julti5-MuiSwitch-root"
+    >
+      <span
+        class="MuiButtonBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary Mui-checked PrivateSwitchBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary Mui-checked Mui-checked css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase"
+      >
+        <input
+          class="PrivateSwitchBase-input MuiSwitch-input css-1m9pwf3"
+          type="checkbox"
+        />
+        <span
+          class="MuiSwitch-thumb css-jsexje-MuiSwitch-thumb"
+        />
+        <span
+          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+        />
+      </span>
+      <span
+        class="MuiSwitch-track css-1yjjitx-MuiSwitch-track"
+      />
+    </span>
+    <span
+      class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-ahj2mt-MuiTypography-root"
+    >
+      Show Unchanged Properties 
+    </span>
+  </label>
+  <div
+    class="data"
+  >
+    <h6
+      class="MuiTypography-root MuiTypography-h6 css-6zgmsr-MuiTypography-root"
+    >
+      Query 1
+    </h6>
+    <div
+      class="json-diff-container jsondiffpatch-unchanged-hidden"
+    >
+      <div
+        class="MuiContainer-root MuiContainer-maxWidthLg css-1oqqzyl-MuiContainer-root"
+      >
+        <div>
+          <div
+            class="jsondiffpatch-delta jsondiffpatch-modified"
+          >
+            <div
+              class="jsondiffpatch-value jsondiffpatch-left-value"
+            >
+              <pre>
+                null
+              </pre>
+            </div>
+            <div
+              class="jsondiffpatch-value jsondiffpatch-right-value"
+            >
+              <pre>
+                {
+  "some": "data"
+}
+              </pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h6
+      class="MuiTypography-root MuiTypography-h6 css-6zgmsr-MuiTypography-root"
+    >
+      Query 2
+    </h6>
+    <div
+      class="json-diff-container jsondiffpatch-unchanged-hidden"
+    >
+      <div
+        class="MuiContainer-root MuiContainer-maxWidthLg css-1oqqzyl-MuiContainer-root"
+      >
+        <div>
+          <div
+            class="jsondiffpatch-delta jsondiffpatch-modified"
+          >
+            <div
+              class="jsondiffpatch-value jsondiffpatch-left-value"
+            >
+              <pre>
+                null
+              </pre>
+            </div>
+            <div
+              class="jsondiffpatch-value jsondiffpatch-right-value"
+            >
+              <pre>
+                {
+  "more": "data"
+}
+              </pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

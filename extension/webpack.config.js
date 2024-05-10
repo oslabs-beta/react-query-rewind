@@ -1,97 +1,83 @@
-const path = require("path");
-const HTMLPlugin = require("html-webpack-plugin");
-const CopyPlugin = require("copy-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
+module.exports = {
+  mode: 'production',
 
-const config = {
-    entry: {
-        index: "./src/index.tsx"
-    },
-    module: {
-        rules: [
-            {
-                test: /\.jsx?/,
-                exclude: /node_modules/,
-                loader: 'babel-loader',
-                options: {
-                   presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
-                 },
-              },
-            {
-                test: /\.tsx?$/,
-                use: [
-                    {
-                        loader: "ts-loader",
-                        options: {
-                            compilerOptions: { noEmit: false },
-                        }
-                    }],
-                exclude: /node_modules/,
+  entry: {
+    background: './background.ts', // distributes background.js
+    content: './content_scripts/content.ts', // distributes content.js
+    inject: './content_scripts/inject.ts', // distributes inject.js
+    devtools: './devtools/devtools.ts', // distributes devtools.js
+    panel: './src/index.tsx', // distributes panel.js
+  },
+
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].js',
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.(tsx?|jsx)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                '@babel/preset-env',
+                '@babel/preset-react',
+                '@babel/preset-typescript',
+              ],
             },
-            {
-                exclude: /node_modules/,
-                test: /\.css$/i,
-                use: [
-                    "style-loader",
-                    "css-loader"
-                ]
-
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              compilerOptions: { noEmit: false },
             },
+          },
         ],
-    },
-    plugins: [
-        new CopyPlugin({
-            patterns: [
-                { from: "./public", to: "./" }
-            ],
-        }),
-        ...getHtmlPlugins(["index"]),
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
     ],
-    resolve: {
-        extensions: [".tsx", ".ts", ".js", ".jsx"],
-        alias: {
-                 '@mui/styled-engine': '@mui/styled-engine-sc'
-              },
-    },
-    output: {
-        path: path.join(__dirname, "build"),
-        filename: "[name].js",
-    },
+  },
+
+  plugins: [
+    // distributes panel.html
+    new HtmlWebpackPlugin({
+      template: 'public/index.html',
+      filename: 'panel.html',
+      chunks: ['panel'],
+      excludeChunks: ['devtools'],
+    }),
+    // distributes devtools.html
+    new HtmlWebpackPlugin({
+      template: './devtools/devtools.html',
+      filename: 'devtools.html',
+      chunks: ['devtools'],
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: 'manifest.json', to: '.' }, // distributes manifest.json
+        { from: 'images', to: 'images' }, // distributes images/
+      ],
+    }),
+  ],
+
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js', '.jsx'],
+    // alias: {
+    //   '@mui/styled-engine': '@mui/styled-engine-sc',
+    // },
+  },
+
+  // source map support for debugging (uncomment when needed)
+  devtool: 'cheap-module-source-map',
 };
-
-function getHtmlPlugins(chunks) {
-    return chunks.map(
-        (chunk) =>
-            new HTMLPlugin({
-                title: "React extension",
-                filename: `${chunk}.html`,
-                chunks: [chunk],
-            })
-    );
-}
-// Production config
-if (process.env.NODE_ENV !== 'development') {
-    config.mode = "production"
-    config.output = {
-        path: path.join(__dirname, "build"),
-        filename: "[name].js",
-    }
-    // config.plugins.push(new BomPlugin(true))
-}
-
-// Development config
-if (process.env.NODE_ENV === 'development') {
-    config.mode = "development"
-    config.output = {
-        path: path.join(__dirname, "dev"),
-        filename: "[name].js",
-    }
-    config.devServer = {
-        static: path.join(__dirname, 'dev'), // The root directory for the dev server to serve files from
-        port: 3000, // Specify the port. Default is 8080 if not specified
-        open: true, // Open the browser after server had been started
-        hot: true, // Enable webpack's Hot Module Replacement feature
-    }
-}
-
-module.exports = config;

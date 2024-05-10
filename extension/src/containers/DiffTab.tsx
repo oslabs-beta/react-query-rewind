@@ -1,12 +1,12 @@
-import Typography from '@mui/material/Typography';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import React, { useState } from 'react';
+import Typography from "@mui/material/Typography";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import React, { useState } from "react";
 
-import JsonDiff from '../components/JsonDiff';
+import JsonDiff from "../components/JsonDiff";
 
-import { DataTabProps } from '../types';
+import { DataTabProps } from "../types";
 
 const DiffTab = ({ queryDisplay, currentIndex }: DataTabProps) => {
   // state to determine if unchanged are hidden or closed
@@ -17,25 +17,25 @@ const DiffTab = ({ queryDisplay, currentIndex }: DataTabProps) => {
     setIsHidden(!isHidden);
   };
 
+  // console.log('queryDisplay: ', queryDisplay);
+
   return (
     <>
       <FormControlLabel
-        sx={{ color: 'primary.main', marginLeft: 0 }}
+        sx={{ color: "primary.main", marginLeft: 0 }}
         control={
           <Switch checked={isHidden} onChange={toggleChangedProperties} />
         }
-        label={`${isHidden ? 'Show' : 'Hide'} Unchanged Properties `}
+        label={`${isHidden ? "Show" : "Hide"} Unchanged Properties `}
       />
       {queryDisplay.length > 0 && queryDisplay[currentIndex] && (
-        <div className='data'>
+        <div className="data">
           {queryDisplay[currentIndex].map((queryState, i) => (
-            <>
-              <Typography variant='h6' sx={{ color: 'secondary.main' }}>
+            <React.Fragment key={queryState.queryKey}>
+              <Typography variant="h6" sx={{ color: "secondary.main" }}>
                 {queryState.queryKey}
               </Typography>
               <JsonDiff
-                key={queryState.queryKey}
-                queryKey={queryState.queryKey}
                 currentJson={queryState.queryData}
                 isHidden={isHidden}
                 oldJson={
@@ -46,7 +46,7 @@ const DiffTab = ({ queryDisplay, currentIndex }: DataTabProps) => {
                     : null
                 }
               />
-            </>
+            </React.Fragment>
           ))}
         </div>
       )}

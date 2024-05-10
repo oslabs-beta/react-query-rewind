@@ -1,31 +1,29 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
     "jsx": "react-jsx",
-    "paths": {
-        "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"]
-        }
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    // "paths": {
+    //   "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"]
+    // },
+    "resolveJsonModule": true,
+    "isolatedModules": true
   },
   "include": [
-    "src",
-    "__tests__"
-  ]
-
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "content_scripts/**/*.ts",
+    "content_scripts/types.d.ts",
+    "__test__",
+    "background.ts"
+  ],
+  "exclude": ["node_modules"],
+  "types": ["chrome"]
 }

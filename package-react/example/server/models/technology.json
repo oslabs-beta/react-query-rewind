@@ -1,0 +1,56 @@
+[
+  {
+    "text": "Agree on the dev experience. Also, for those looking to optimize their app's performance, React Query's automatic data fetching on window refocus or network reconnect is a neat feature. Reduces the need for manual refetching and ensures data is always fresh.",
+    "liked": true,
+    "createComment": false,
+    "timestamp": "Mar 4, 2024",
+    "username": "Marcus Holloway",
+    "picture": "https://flowbite.com/docs/images/people/profile-picture-1.jpg",
+    "replies": [
+      {
+        "text": "That automatic refetching feature saved me so much time on a project where real-time data freshness was crucial. Also, the way React Query handles query invalidation makes synchronizing data across components a breeze.",
+        "timestamp": "Mar 4, 2024",
+        "username": "Samuel Drake",
+        "picture": "https://flowbite.com/docs/images/people/profile-picture-2.jpg"
+      },
+      {
+        "text": "Completely agree!",
+        "timestamp": "Mar 20, 2024",
+        "username": "Guest",
+        "picture": "guest"
+      }
+    ]
+  },
+  {
+    "text": "Has anyone integrated React Query with TypeScript? I'm curious about the type safety benefits and how well they play together.",
+    "liked": false,
+    "createComment": false,
+    "timestamp": "Mar 4, 2024",
+    "username": "Samuel Drake",
+    "picture": "https://flowbite.com/docs/images/people/profile-picture-2.jpg",
+    "replies": [
+      {
+        "text": "Yes, Samuel! React Query and TypeScript are a fantastic combo. Type safety for queries and mutations adds another layer of reliability to your app. Highly recommend giving it a try.",
+        "timestamp": "Mar 4, 2024",
+        "username": "Elena Fisher",
+        "picture": "https://flowbite.com/docs/images/people/profile-picture-4.jpg"
+      }
+    ]
+  },
+  {
+    "text": "Just started using React Query in my latest project. Anyone else here using it? Would love to hear your thoughts.",
+    "liked": false,
+    "createComment": false,
+    "timestamp": "Mar 3, 2024",
+    "username": "Elena Fisher",
+    "picture": "https://flowbite.com/docs/images/people/profile-picture-4.jpg",
+    "replies": [
+      {
+        "text": "I've been using React Query for a few months now. The way it handles caching, background updates, and pagination is a game-changer. Makes client-state management so much cleaner.",
+        "timestamp": "Mar 3, 2024",
+        "username": "Marcus Holloway",
+        "picture": "https://flowbite.com/docs/images/people/profile-picture-1.jpg"
+      }
+    ]
+  }
+]

@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JsonFormatter component renders without crashing and snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    <ul
+      style="border: 0px; padding: 0px; margin: 0.5em 0px 0.5em 0.125em; list-style: none; background-color: transparent;"
+    >
+      <li
+        style="padding: 0px; margin: 0px;"
+      >
+        <ul
+          style="padding: 0px; margin: 0px; list-style: none;"
+        >
+          <li
+            style="position: relative; padding-top: 0.25em; margin-left: 0px; padding-left: 0px;"
+          >
+            <div
+              style="display: inline-block; padding-right: 0.5em; padding-left: 0px; cursor: pointer;"
+            >
+              <div
+                style="margin-left: 0px; transition: 150ms; transform: rotateZ(0deg); transform-origin: 45% 50%; position: relative; line-height: 1.1em; font-size: 0.75em; color: rgb(38, 139, 210);"
+              >
+                ▶
+              </div>
+            </div>
+            <label
+              style="display: inline-block; color: rgb(38, 139, 210); margin: 0px; padding: 0px; cursor: pointer;"
+            >
+              <span>
+                [posts-one]:
+              </span>
+            </label>
+            <span
+              style="padding-left: 0.5em; cursor: default; color: rgb(133, 153, 0);"
+            >
+              <span>
+                <span
+                  style="margin-left: 0.3em; margin-right: 0.3em;"
+                >
+                  {}
+                </span>
+                 2 keys
+              </span>
+            </span>
+            <ul
+              style="padding: 0px; margin: 0px; list-style: none; display: block;"
+            />
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;

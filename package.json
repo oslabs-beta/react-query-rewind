@@ -27,5 +27,8 @@
     "@tanstack",
     "state",
     "devtools"
-  ]
+  ],
+  "dependencies": {
+    "@types/chrome": "^0.0.254"
+  }
 }

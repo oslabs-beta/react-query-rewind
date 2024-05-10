@@ -1,0 +1,50 @@
+[
+  {
+    "text": "With the current market volatility, I'm exploring more into crypto. It's a high-risk, high-reward scenario, but diversification is key.",
+    "liked": false,
+    "createComment": false,
+    "timestamp": "Mar 16, 2024",
+    "username": "Marcus Holloway",
+    "picture": "https://flowbite.com/docs/images/people/profile-picture-1.jpg",
+    "replies": [
+      {
+        "text": "Interesting point, Marcus. I've been hesitant about diving into crypto due to its unpredictability. Do you recommend any resources for beginners?",
+        "timestamp": "Mar 16, 2024",
+        "username": "Samuel Drake",
+        "picture": "https://flowbite.com/docs/images/people/profile-picture-2.jpg"
+      }
+    ]
+  },
+  {
+    "text": "Anyone else following the recent surge in tech stocks? It's been quite the rollercoaster the past few weeks.",
+    "liked": false,
+    "createComment": false,
+    "timestamp": "Mar 15, 2024",
+    "username": "Elena Fisher",
+    "picture": "https://flowbite.com/docs/images/people/profile-picture-4.jpg",
+    "replies": [
+      {
+        "text": "Definitely, Elena. I've been closely watching $AAPL and $MSFT. Their growth has been phenomenal. Any specific stocks you're keeping an eye on?",
+        "timestamp": "Mar 15, 2024",
+        "username": "Marcus Holloway",
+        "picture": "https://flowbite.com/docs/images/people/profile-picture-1.jpg"
+      }
+    ]
+  },
+  {
+    "text": "I'm more curious about how the electric vehicle sector will perform. With $TSLA leading the charge, it seems like a promising area for investment.",
+    "liked": false,
+    "createComment": false,
+    "timestamp": "Mar 15, 2024",
+    "username": "Samuel Drake",
+    "picture": "https://flowbite.com/docs/images/people/profile-picture-2.jpg",
+    "replies": [
+      {
+        "text": "Agreed, Samuel. The EV market's potential is huge, especially with the push for green energy. Diversifying into renewable energy stocks might also be a wise move.",
+        "timestamp": "Mar 15, 2024",
+        "username": "Elena Fisher",
+        "picture": "https://flowbite.com/docs/images/people/profile-picture-4.jpg"
+      }
+    ]
+  }
+]

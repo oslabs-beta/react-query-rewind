@@ -12,16 +12,18 @@ export type BasicTabsProps = {
 };
 
 export type ParentTabsProps = {
-  // queryOptions: string[];
   queryEvents: QueryEvent[];
   selectedQueries: string[];
   handleSelectionChange: (queries: string[]) => void;
+  devToolsPort: chrome.runtime.Port | null;
+  treeData: any;
 };
 
 export type QueryTabProps = {
   selectedQueries: string[];
   queryEvents: QueryEvent[];
   handleSelectionChange: (queries: string[]) => void;
+  devToolsPort: chrome.runtime.Port | null;
 };
 
 export type DataTabProps = {
@@ -38,6 +40,12 @@ export type SliderSectionProps = {
   isPlaying: boolean;
 };
 
+export type TreeTabProps = {
+  treeData: any[];
+  toggleProfiling: () => void;
+  profilingStatus: boolean;
+};
+
 export type JsonFormatterType = {
   jsonData: JsonDataType;
   queryKey: string;
@@ -45,10 +53,9 @@ export type JsonFormatterType = {
 };
 
 export type JsonDiffType = {
-  oldJson?: JsonDataType | string, // optional in case you're on first state
-  currentJson: JsonDataType | string, // or string since state gets initialized to an empty string
-  queryKey: string,
-  isHidden: boolean
+  oldJson?: JsonDataType | string; // optional in case you're on first state
+  currentJson: JsonDataType | string; // or string since state gets initialized to an empty string
+  isHidden: boolean;
 };
 
 // variable types
@@ -81,4 +88,4 @@ export type ExpandNodesFuncType = (
   keyPath: ReadonlyArray<string | number>,
   value: any,
   layer: number
-) => boolean
+) => boolean;
