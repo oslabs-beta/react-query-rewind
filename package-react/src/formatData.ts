@@ -15,8 +15,13 @@ export function formatData(
 
   if (queryHash === '["test-data"]') return;
 
+  // handle scenarios where queryKey or queryHash or eventType is undefined (not sure when this occurs)
+  if (!eventType || !queryKey || !queryHash) return;
+
   if (eventType === 'updated' && event.action?.type === 'success') {
     const queryData = queryClient.getQueryData(queryKey);
+    if (!queryData) return;
+
     return {
       eventType,
       queryKey,
