@@ -1,7 +1,16 @@
 [
   {
+    "text": "new",
+    "liked": false,
+    "replies": [],
+    "createComment": false,
+    "timestamp": "May 17, 2024",
+    "username": "Guest",
+    "picture": "guest"
+  },
+  {
     "text": "Can't believe the 49ers pulled off that comeback! Their defense in the second half was incredible.",
-    "liked": true,
+    "liked": false,
     "createComment": false,
     "timestamp": "Mar 10, 2024",
     "username": "Marcus Holloway",
