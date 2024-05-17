@@ -36,11 +36,11 @@ function App() {
     port.onMessage.addListener(message => {
       // console.log('DEVTOOL: Recieved message from background.ts', message);
 
-      if (message.type === 'event') {
+      if (message.type === 'event' && message?.payload) {
         setQueryEvents(queryEvents => [...queryEvents, message.payload]);
       }
 
-      if (message.type === 'tree') {
+      if (message.type === 'tree' && message?.data) {
         // console.log('APP.tsx: Recieved tree data', message);
         setTreeData(message.data);
       }
