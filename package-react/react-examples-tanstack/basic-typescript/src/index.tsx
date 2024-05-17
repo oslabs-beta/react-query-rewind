@@ -48,6 +48,16 @@ function Posts({
   setPostId: React.Dispatch<React.SetStateAction<number>>
 }) {
   const queryClient = useQueryClient()
+  const queryCache = queryClient.getQueryCache();
+  React.useEffect(() => {
+    const unsubscribe = queryCache.subscribe((event: any) => {  
+      // if (event.type === 'added') 
+      console.log('event', event)
+      
+  });
+    return () => unsubscribe();
+  }, []);
+
   const { status, data, error, isFetching } = usePosts()
 
   return (
