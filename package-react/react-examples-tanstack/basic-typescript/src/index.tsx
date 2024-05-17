@@ -11,6 +11,7 @@ import {
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
 import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import ReactQueryRewind from 'react-query-rewind'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -51,13 +52,12 @@ function Posts({
   const queryCache = queryClient.getQueryCache();
   React.useEffect(() => {
     const unsubscribe = queryCache.subscribe((event: any) => {  
-      // if (event.type === 'added') 
-      console.log('event', event)
+      if (event.type === 'updated') console.log('event', event)
       
   });
     return () => unsubscribe();
   }, []);
-
+  
   const { status, data, error, isFetching } = usePosts()
 
   return (
@@ -171,6 +171,7 @@ function App() {
         <Posts setPostId={setPostId} />
       )}
       <ReactQueryDevtools initialIsOpen />
+      {/* <ReactQueryRewind /> */}
     </PersistQueryClientProvider>
   )
 }
