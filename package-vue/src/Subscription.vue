@@ -31,9 +31,6 @@ const handleQueryCacheChange = async (event: any) => {
   if (!props.contentConnected) {
     contentMessageQueue.push(message);
   } else {
-    console.log('MESSAGE', message);
-
-    console.log('IS IT THIS EASY');
     sendEvent(message);
   }
 };

@@ -1,10 +1,16 @@
 {
   "name": "@react-query-rewind/vue-query-rewind",
   "version": "1.0.0",
-  "main": "index.ts",
+  "description": "A Vue component for React Query Rewind",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
-    "build": "vue-cli-service build",
-    "test": "vue-cli-service test"
+    "build": "vue-cli-service build --target lib --name VueQueryRewind --dest dist index.ts",
+    "test": "vue-cli-service test:unit"
   },
   "keywords": [
     "vue",
@@ -16,13 +22,17 @@
   ],
   "author": "Austin Cavanagh",
   "license": "MIT",
-  "description": "A Vue component for React Query Rewind",
   "dependencies": {
     "@tanstack/vue-query": "^5.37.1",
-    "vue": "^3.4.27"
+    "vue": "^3.0.0"
   },
   "devDependencies": {
+    "@vue/cli-plugin-typescript": "^5.0.8",
     "@vue/cli-service": "^5.0.8",
+    "ts-loader": "^9.5.1",
     "typescript": "^5.4.5"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
   }
 }
