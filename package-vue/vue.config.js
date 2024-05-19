@@ -1,10 +1,14 @@
 // vue.config.js
 module.exports = {
   chainWebpack: config => {
-    // Disable thread-loader for ts files
     config.module.rule('ts').uses.delete('thread-loader');
   },
   configureWebpack: {
+    output: {
+      libraryExport: 'default',
+      libraryTarget: 'umd', // Ensure UMD build
+      filename: '[name].js', // Dynamically generate filenames
+    },
     module: {
       rules: [
         {
