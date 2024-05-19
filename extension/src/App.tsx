@@ -36,7 +36,14 @@ function App() {
     port.onMessage.addListener(message => {
       // console.log('DEVTOOL: Recieved message from background.ts', message);
 
-      if (message.type === 'event' && message?.payload) {
+      // Add additional checks to only add data when we expect it. Future iteration could use Zod or something a little less manual
+      if (
+        message.type === 'event' &&
+        message.payload &&
+        typeof message.payload.eventType === 'string' &&
+        Array.isArray(message.payload.queryKey) &&
+        typeof message.payload.queryHash === 'string'
+      ) {
         setQueryEvents(queryEvents => [...queryEvents, message.payload]);
       }
 

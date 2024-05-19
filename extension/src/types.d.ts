@@ -61,7 +61,7 @@ export type JsonDiffType = {
 // variable types
 export type QueryEvent = {
   eventType: string;
-  queryKey: string[];
+  queryKey: (string | number) [];
   queryHash: string;
   timestamp: Date;
   queryData?: any;
