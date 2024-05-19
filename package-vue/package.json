@@ -1,39 +1,30 @@
 {
   "name": "@react-query-rewind/vue-query-rewind",
-  "version": "1.0.1",
-  "description": "A Vue component for React Query Rewind",
-  "main": "dist/VueQueryRewind.common.js",
-  "module": "dist/VueQueryRewind.esm.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "src"
-  ],
-  "scripts": {
-    "build": "vue-cli-service build --target lib --name VueQueryRewind --dest dist index.ts && webpack --config webpack.esm.config.js",
-    "test": "vue-cli-service test:unit"
+  "private": true,
+  "version": "1.0.2",
+  "main": "./dist/VueQueryRewind.cjs.js",
+  "module": "./dist/VueQueryRewind.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/VueQueryRewind.es.js",
+      "require": "./dist/VueQueryRewind.cjs.js"
+    }
   },
-  "keywords": [
-    "vue",
-    "react-query-rewind",
-    "vue-query-rewind",
-    "vue-component",
-    "query",
-    "data-fetching"
-  ],
-  "author": "Austin Cavanagh",
-  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
   "dependencies": {
     "@tanstack/vue-query": "^5.37.1",
-    "vue": "^3.0.0"
+    "vue": "^3.4.21"
   },
   "devDependencies": {
-    "@vue/cli-plugin-typescript": "^5.0.8",
-    "@vue/cli-service": "^5.0.8",
-    "ts-loader": "^9.5.1",
-    "typescript": "^5.4.5"
-  },
-  "peerDependencies": {
-    "vue": "^3.0.0"
+    "@types/node": "^20.12.12",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vue-tsc": "^2.0.6"
   }
 }
