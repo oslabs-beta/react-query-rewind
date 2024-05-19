@@ -1,95 +1,19 @@
 {
-  "name": "react-query-rewind",
-  "contributors": [
-    {
-      "name": "John Dunn"
-    },
-    {
-      "name": "Austin Cavanagh"
-    },
-    {
-      "name": "Rui Fan"
-    },
-    {
-      "name": "Emma Teering"
-    }
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/oslabs-beta/react-query-rewind"
-  },
-  "version": "1.1.1",
-  "description": "React Query Rewind is a library that helps developers debug applications that use React Query (ie TanStack Query) by letting them time travel through state changes directly in their chrome dev tools",
-  "keywords": [
-    "react",
-    "react query",
-    "tanstack query",
-    "@tanstack",
-    "state",
-    "devtools"
-  ],
-  "private": false,
-  "type": "module",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/cjs/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "name": "package-vue",
+  "version": "1.0.0",
+  "main": "index.js",
   "scripts": {
-    "install-example": "cd example && npm i && npm run install",
-    "example": "cd example && npm run example",
-    "test": "jest",
-    "lint": "eslint . --ext .ts,.tsx --fix",
-    "build": "rollup -c",
-    "watch": "rollup -c -w",
-    "prepublishOnly": "npm run build",
-    "clean": "rm -rf dist",
-    "install-all": "npm install && (cd examples/example-1 && npm install) && (cd examples/example-2 && npm install) && (cd examples/example-2/client && npm install) && (cd examples/example-2/server && npm install)",
-    "link-package-1": "npm link && (cd examples/example-1 && npm link react-query-rewind)",
-    "link-dependencies-1": "npm link examples/example-1/node_modules/react examples/example-1/node_modules/react-dom examples/example-1/node_modules/@tanstack/react-query",
-    "unlink-package-1": "(cd examples/example-1 && npm unlink react-query-rewind) && npm unlink",
-    "link-package-2": "npm link && (cd examples/example-2/client && npm link react-query-rewind)",
-    "link-dependencies-2": "npm link examples/example-2/client/node_modules/react examples/example-2/client/node_modules/react-dom examples/example-2/client/node_modules/@tanstack/react-query",
-    "unlink-package-2": "(cd examples/example-2/client && npm unlink react-query-rewind) && npm unlink",
-    "website": "cd website && npm start"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "license": "MIT",
-  "peerDependencies": {
-    "@tanstack/react-query": "^5.8.4",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "vue": "^3.4.27"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.23.5",
-    "@babel/preset-react": "^7.23.3",
-    "@babel/preset-typescript": "^7.23.3",
-    "@rollup/plugin-babel": "^6.0.4",
-    "@rollup/plugin-commonjs": "^25.0.7",
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-terser": "^0.4.4",
-    "@rollup/plugin-typescript": "^11.1.5",
-    "@tanstack/react-query": "^5.8.7",
-    "@tanstack/react-query-devtools": "^5.8.7",
-    "@testing-library/jest-dom": "^6.4.2",
-    "@testing-library/react": "^14.2.1",
-    "@testing-library/user-event": "^14.5.2",
-    "@types/react": "^18.2.38",
-    "@types/react-dom": "^18.2.17",
-    "@typescript-eslint/eslint-plugin": "^6.12.0",
-    "@typescript-eslint/parser": "^6.12.0",
-    "eslint": "^8.57.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
-    "npm-run-all": "^4.1.5",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "rollup": "^4.5.2",
-    "rollup-plugin-dts": "^6.1.0",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "ts-jest": "^29.1.2",
-    "tslib": "^2.6.2",
-    "typescript": "^5.3.2"
+    "@vue/cli-service": "^5.0.8",
+    "typescript": "^5.4.5"
   }
 }
