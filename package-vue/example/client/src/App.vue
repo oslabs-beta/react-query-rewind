@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import VueQueryRewind from './link/index.vue';
+import { VueQueryRewind } from '@react-query-rewind/vue-query-rewind';
 
 import { ref, computed } from 'vue';
 import PostsOne from './components/PostsOne.vue';

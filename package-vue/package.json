@@ -1,14 +1,22 @@
 {
-  "name": "package-vue",
+  "name": "@react-query-rewind/vue-query-rewind",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "vue-cli-service build",
+    "test": "vue-cli-service test"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": [
+    "vue",
+    "react-query-rewind",
+    "vue-query-rewind",
+    "vue-component",
+    "query",
+    "data-fetching"
+  ],
+  "author": "Austin Cavanagh",
+  "license": "MIT",
+  "description": "A Vue component for React Query Rewind",
   "dependencies": {
     "@tanstack/vue-query": "^5.37.1",
     "vue": "^3.4.27"
