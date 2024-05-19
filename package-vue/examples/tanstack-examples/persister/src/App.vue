@@ -1,35 +1,32 @@
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import { VueQueryDevtools } from '@tanstack/vue-query-devtools';
+import { defineComponent, ref } from 'vue'
 
-import Posts from './Posts.vue';
-import Post from './Post.vue';
+import Posts from './Posts.vue'
+import Post from './Post.vue'
 
 export default defineComponent({
   name: 'App',
-  components: { Posts, Post, VueQueryDevtools },
+  components: { Posts, Post },
   setup() {
-    const visitedPosts = ref(new Set());
-    const isVisited = (id: number) => visitedPosts.value.has(id);
+    const visitedPosts = ref(new Set())
+    const isVisited = (id: number) => visitedPosts.value.has(id)
 
-    const postId = ref(-1);
+    const postId = ref(-1)
     const setPostId = (id: number) => {
-      visitedPosts.value.add(id);
-      postId.value = id;
-    };
+      visitedPosts.value.add(id)
+      postId.value = id
+    }
 
     return {
       isVisited,
       postId,
       setPostId,
-    };
+    }
   },
-});
+})
 </script>
 
 <template>
-  <VueQueryRewind />
-
   <h1>Vue Query - Basic</h1>
   <p>
     As you visit the posts below, you will notice them in a loading state the
@@ -43,5 +40,4 @@ export default defineComponent({
   </p>
   <Post v-if="postId > -1" :postId="postId" @setPostId="setPostId" />
   <Posts v-else :isVisited="isVisited" @setPostId="setPostId" />
-  <VueQueryDevtools />
 </template>
