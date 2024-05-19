@@ -57,6 +57,8 @@
     "unlink-package-basic-typescript": "(cd react-examples-tanstack/basic-typescript && npm unlink react-query-rewind) && npm unlink",
     "package-setup-1-basic-typescript": "npm i && npm run install-basic-typescript && npm run link-dependencies-basic-typescript && npm run watch",
     "package-setup-2-basic-typescript": "npm run link-package-basic-typescript && (cd react-examples-tanstack/basic-typescript && npm run dev)"
+
+    
   },
   "license": "MIT",
   "peerDependencies": {

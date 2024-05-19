@@ -54,6 +54,7 @@ In a new shell (still in the package-react directory), execute `package-setup-2`
 _The below commands must be run from the package-react directory
 
 ### basic-typescript
+**** This errors when I link it but doesn't when it's downloaded from npm *****
 - Execute `package-setup-1-basic-typescript`
 - Execute `package-setup-2-basic-typescript`
 
