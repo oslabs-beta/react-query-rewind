@@ -1,6 +1,4 @@
 <template>
-  <!-- <VueQueryRewind /> -->
-
   <VueQueryRewind />
 
   <div class="window">
@@ -33,8 +31,6 @@
 </template>
 
 <script setup lang="ts">
-// import { VueQueryRewind } from '@react-query-rewind/vue-query-rewind';
-
 import { ref, computed } from 'vue';
 import PostsOne from './components/PostsOne.vue';
 import PostsTwo from './components/PostsTwo.vue';
