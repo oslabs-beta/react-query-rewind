@@ -27,12 +27,13 @@ const sendEvent = (data: any) => {
 const handleQueryCacheChange = async (event: any) => {
   const message = formatData(event, queryClient);
 
-  console.log('MESSAGE', message);
-
   if (!message) return;
   if (!props.contentConnected) {
     contentMessageQueue.push(message);
   } else {
+    console.log('MESSAGE', message);
+
+    console.log('IS IT THIS EASY');
     sendEvent(message);
   }
 };

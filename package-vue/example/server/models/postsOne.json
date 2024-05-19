@@ -2,7 +2,7 @@
   "posts": [
     {
       "text": "Feed 1 – Post 1",
-      "liked": true,
+      "liked": false,
       "comments": [],
       "createComment": false,
       "timestamp": "6:09 PM"
