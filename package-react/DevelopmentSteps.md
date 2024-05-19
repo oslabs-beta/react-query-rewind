@@ -31,7 +31,7 @@ Download the chrome extension from ***insert url here*** in order to time travel
   );
 ```
 
-## Set-Up Examples
+## Set-Up Example in the Example folder
 **From the package-react directory:**
 Execute `package-setup-1` to run:
 1. `npm i`
@@ -48,6 +48,14 @@ In a new shell (still in the package-react directory), execute `package-setup-2`
     1. Links React Query Rewind
 2. `npm run example`
     1. Starts the example server with webpack. Note: this is a hot reload, but it does not always pick up changes to the npm package
+
+## Set-up examples from Tanstack
+**All packages located in _package-react/react-examples-tanstack_ folder**
+_The below commands must be run from the package-react directory
+
+### basic-typescript
+- Execute `package-setup-1-basic-typescript`
+- Execute `package-setup-2-basic-typescript`
 
 # Publishing
 1. `npm login` to login to the npm site. Follow the instructions to publish your npm package
