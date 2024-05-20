@@ -1,7 +1,8 @@
+import { App } from 'vue';
 import VueQueryRewind from './VueQueryRewind.vue';
 
-export default {
-  install: (app: any) => {
-    app.component('VueQueryRewind', VueQueryRewind);
-  },
+const install = (app: App): void => {
+  app.component('VueQueryRewind', VueQueryRewind);
 };
+
+export { install, VueQueryRewind };

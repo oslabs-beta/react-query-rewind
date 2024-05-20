@@ -23,7 +23,7 @@ const handleContentMessages = (message: any) => {
 };
 
 onMounted(() => {
-  console.log('APP: Mounting Event Listeners');
+  // console.log('APP: Mounting Event Listeners');
   window.addEventListener('message', handleContentMessages);
 });
 
