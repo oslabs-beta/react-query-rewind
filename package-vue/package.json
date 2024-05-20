@@ -1,19 +1,22 @@
 {
   "name": "@react-query-rewind/vue-query-rewind",
-  "private": true,
-  "version": "1.0.2",
+  "version": "1.0.4",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
   "main": "./dist/VueQueryRewind.cjs.js",
   "module": "./dist/VueQueryRewind.es.js",
+  "types": "./dist/VueQueryRewind.es.d.ts",
   "exports": {
     ".": {
       "import": "./dist/VueQueryRewind.es.js",
       "require": "./dist/VueQueryRewind.cjs.js"
     }
   },
-  "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --emitDeclarationOnly && vite build",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -25,6 +28,32 @@
     "@vitejs/plugin-vue": "^5.0.4",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
+    "vite-plugin-dts": "^3.9.1",
     "vue-tsc": "^2.0.6"
-  }
+  },
+  "keywords": [
+    "vue",
+    "react-query-rewind",
+    "vue-query-rewind",
+    "vue-component",
+    "query",
+    "data-fetching",
+    "vue-query",
+    "vue-plugin",
+    "tanstack"
+  ],
+  "contributors": [
+    {
+      "name": "John Dunn"
+    },
+    {
+      "name": "Austin Cavanagh"
+    },
+    {
+      "name": "Rui Fan"
+    },
+    {
+      "name": "Emma Teering"
+    }
+  ]
 }

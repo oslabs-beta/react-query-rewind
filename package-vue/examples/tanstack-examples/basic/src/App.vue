@@ -2,14 +2,16 @@
 import { defineComponent, ref } from 'vue';
 import { VueQueryDevtools } from '@tanstack/vue-query-devtools';
 
-// @ts-ignore
-import { VueQueryRewind } from '@react-query-rewind/vue-query-rewind'; // Import VueQueryRewind
-
 import Posts from './Posts.vue';
 import Post from './Post.vue';
 
+// Import VueQueryRewind
+// @ts-ignore
+import { VueQueryRewind } from '@react-query-rewind/vue-query-rewind';
+
 export default defineComponent({
   name: 'App',
+  // Register VueQueryRewind
   components: { Posts, Post, VueQueryDevtools, VueQueryRewind },
   setup() {
     const visitedPosts = ref(new Set());
@@ -31,6 +33,7 @@ export default defineComponent({
 </script>
 
 <template>
+  <!-- Add VueQueryRewind to application -->
   <VueQueryRewind />
 
   <h1>Vue Query - Basic</h1>
