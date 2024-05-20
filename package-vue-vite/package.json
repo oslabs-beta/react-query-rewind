@@ -2,6 +2,10 @@
   "name": "@react-query-rewind/vue-query-rewind",
   "private": true,
   "version": "1.0.2",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
   "main": "./dist/VueQueryRewind.cjs.js",
   "module": "./dist/VueQueryRewind.es.js",
   "exports": {
@@ -10,10 +14,9 @@
       "require": "./dist/VueQueryRewind.cjs.js"
     }
   },
-  "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --emitDeclarationOnly && vite build",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {

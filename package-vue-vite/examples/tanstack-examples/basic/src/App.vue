@@ -2,8 +2,7 @@
 import { defineComponent, ref } from 'vue';
 import { VueQueryDevtools } from '@tanstack/vue-query-devtools';
 
-// @ts-ignore
-import { VueQueryRewind } from '@react-query-rewind/vue-query-rewind'; // Import VueQueryRewind
+import { VueQueryRewind } from '@react-query-rewind/vue-query-rewind';
 
 import Posts from './Posts.vue';
 import Post from './Post.vue';
