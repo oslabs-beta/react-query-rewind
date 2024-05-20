@@ -13,7 +13,7 @@ import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persist
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ReactQueryRewind from "react-query-rewind";
 
-console.log("ReactQueryRewind", ReactQueryRewind);
+// console.log("ReactQueryRewind", ReactQueryRewind);
 
 const queryClient = new QueryClient({
   defaultOptions: {

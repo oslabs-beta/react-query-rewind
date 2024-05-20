@@ -21,7 +21,14 @@ export function formatData(
 
   if (eventType === 'updated' && event.action?.type === 'success') {
     const queryData = queryClient.getQueryData(queryKey);
-    
+    console.log('full event: ', event);
+    console.log('parsed event: ', {
+      eventType,
+      queryKey,
+      queryHash,
+      timestamp,
+      queryData,
+    });
     return {
       eventType,
       queryKey,

@@ -52,6 +52,7 @@ In a new shell (still in the package-react directory), execute `package-setup-2`
 ## Set-up examples from Tanstack
 **All packages located in _package-react/react-examples-tanstack_ folder**
 _The below commands must be run from the package-react directory
+- If an example has not been set up, ensure it has npm commands and the vite/webpack config resolves react and react-dom to ensure we look at the correct version of react.
 
 ### basic-typescript
 **** This errors when I link it but doesn't when it's downloaded from npm *****

@@ -30,7 +30,7 @@ function ReactQueryRewind() {
 
   const handleContentMessages = (message: MessageEvent) => {
     if (message.data?.type === 'content-script-ready') {
-      // console.log('APP: Content.ts connected');
+      console.log('APP: Content.ts connected');
       contentConnectedRef.current = true;
       window.postMessage({ type: 'app-connected' }, '*');
       sendContentMessageQueue();
