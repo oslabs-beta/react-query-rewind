@@ -44,11 +44,8 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <>
-  <ReactQueryRewind />
-  
   <QueryClientProvider client={queryClient}>
     <RouterProvider router={router} />
+    <ReactQueryRewind />
   </QueryClientProvider>
-  </>
 );
