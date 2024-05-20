@@ -36,7 +36,8 @@ function App() {
     port.onMessage.addListener(message => {
       // console.log('DEVTOOL: Recieved message from background.ts', message);
 
-      // Add additional checks to only add data when we expect it. Future iteration could use Zod or something a little less manual
+      // By checking data more thoroughly, we can avoid adding data that we don't expect in child components. This is the data we have the least control over.
+      // Future iteration could use Zod or something a little less manual
       if (
         message.type === 'event' &&
         message.payload &&
