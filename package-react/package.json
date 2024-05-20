@@ -71,9 +71,14 @@
     "link-dependencies-basic-typescript": "npm link react-examples-tanstack/basic-typescript/node_modules/react react-examples-tanstack/basic-typescript/node_modules/react-dom example/client/node_modules/@tanstack/react-query",
     "unlink-package-basic-typescript": "(cd react-examples-tanstack/basic-typescript && npm unlink react-query-rewind) && npm unlink",
     "package-setup-1-basic-typescript": "npm i && npm run install-basic-typescript && npm run link-dependencies-basic-typescript && npm run watch",
-    "package-setup-2-basic-typescript": "npm run link-package-basic-typescript && (cd react-examples-tanstack/basic-typescript && npm run dev)"
+    "package-setup-2-basic-typescript": "npm run link-package-basic-typescript && (cd react-examples-tanstack/basic-typescript && npm run dev)",
 
-
+    "install-pagination": "cd react-examples-tanstack/pagination && npm i",
+    "link-package-pagination": "npm link && (cd react-examples-tanstack/pagination && npm link react-query-rewind)",
+    "link-dependencies-pagination": "npm link react-examples-tanstack/pagination/node_modules/react react-examples-tanstack/pagination/node_modules/react-dom example/client/node_modules/@tanstack/react-query",
+    "unlink-package-pagination": "(cd react-examples-tanstack/pagination && npm unlink react-query-rewind) && npm unlink",
+    "package-setup-1-pagination": "npm i && npm run install-pagination && npm run link-dependencies-pagination && npm run watch",
+    "package-setup-2-pagination": "npm run link-package-pagination && (cd react-examples-tanstack/pagination && npm run dev)"
   },
   "license": "MIT",
   "peerDependencies": {

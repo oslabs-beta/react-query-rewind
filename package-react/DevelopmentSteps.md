@@ -74,6 +74,10 @@ _Working correctly_
 - Execute `package-setup-1-basic-typescript`
 - Execute `package-setup-2-basic-typescript`
 
+### pagination
+_Fails because example has .js files_
+- Execute `package-setup-1-pagination`
+- Execute `package-setup-2-pagination`
 
 ### Notes on these examples
 - .js doesn't work but .jsx does
