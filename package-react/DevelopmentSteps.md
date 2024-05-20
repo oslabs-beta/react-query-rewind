@@ -55,23 +55,28 @@ _The below commands must be run from the package-react directory
 - If an example has not been set up, ensure it has npm commands and the vite/webpack config resolves react and react-dom to ensure we look at the correct version of react.
 
 ### algolia
+_Working correctly_
 - Execute `package-setup-1-algolia`
 - Execute `package-setup-2-algolia`
 
 ### auto-refetching
 
 ### basic
+_Working correctly_
 - Execute `package-setup-1-basic`
 - Execute `package-setup-2-basic`
 
 ### basic-graphql-request
+_Doesn't work on its own, without RQRewind_
 
 ### basic-typescript
+_Working correctly_
 - Execute `package-setup-1-basic-typescript`
 - Execute `package-setup-2-basic-typescript`
 
 
-
+### Notes on these examples
+- .js doesn't work but .jsx does
 
 # Publishing
 1. `npm login` to login to the npm site. Follow the instructions to publish your npm package
