@@ -1,0 +1,61 @@
+{
+  "name": "@react-query-rewind/svelte-query-rewind",
+  "version": "1.0.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/SvelteQueryRewind.cjs.js",
+  "module": "./dist/SvelteQueryRewind.es.js",
+  "types": "./dist/SvelteQueryRewind.es.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/SvelteQueryRewind.es.js",
+      "require": "./dist/SvelteQueryRewind.cjs.js"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^3.0.2",
+    "@tsconfig/svelte": "^5.0.2",
+    "@types/node": "^20.12.12",
+    "svelte": "^4.2.12",
+    "svelte-check": "^3.6.7",
+    "tslib": "^2.6.2",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0"
+  },
+  "keywords": [
+    "svelte",
+    "react-query-rewind",
+    "svelte-query-rewind",
+    "svelte-component",
+    "query",
+    "data-fetching",
+    "svelte-query",
+    "svelte-plugin",
+    "tanstack"
+  ],
+  "contributors": [
+    {
+      "name": "John Dunn"
+    },
+    {
+      "name": "Austin Cavanagh"
+    },
+    {
+      "name": "Rui Fan"
+    },
+    {
+      "name": "Emma Teering"
+    }
+  ],
+  "dependencies": {
+    "@tanstack/svelte-query": "^5.37.1"
+  }
+}
