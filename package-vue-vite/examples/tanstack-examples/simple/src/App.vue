@@ -1,32 +1,43 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { useQuery } from '@tanstack/vue-query'
-import { VueQueryDevtools } from '@tanstack/vue-query-devtools'
+import { defineComponent } from 'vue';
+import { useQuery } from '@tanstack/vue-query';
+
+// Import was throwing a type error so we ignored it - this is from the docs so did not change it
+// @ts-ignore
+import { VueQueryDevtools } from '@tanstack/vue-query-devtools';
+
+// Import VueQueryRewind
+// @ts-ignore
+import { VueQueryRewind } from '@react-query-rewind/vue-query-rewind';
 
 export default defineComponent({
   name: 'App',
-  components: { VueQueryDevtools },
+  // Register VueQueryRewind
+  components: { VueQueryDevtools, VueQueryRewind },
   setup() {
     const { data, error, isFetching, isPending } = useQuery({
       queryKey: ['repoData'],
       async queryFn() {
         return await fetch('https://api.github.com/repos/Tanstack/query').then(
-          (response) => response.json(),
-        )
+          response => response.json()
+        );
       },
-    })
+    });
 
     return {
       data,
       error,
       isFetching,
       isPending,
-    }
+    };
   },
-})
+});
 </script>
 
 <template>
+  <!-- Add VueQueryRewind to application -->
+  <VueQueryRewind />
+
   <template v-if="isPending"> Loading... </template>
   <template v-else-if="error">
     'An error has occurred: {{ error.message }}
