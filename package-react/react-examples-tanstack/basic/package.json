@@ -17,7 +17,6 @@
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.35.6",
     "@vitejs/plugin-react": "^4.2.1",
-    "react-query-rewind": "^2.0.2",
     "vite": "^5.1.1"
   },
   "browserslist": {

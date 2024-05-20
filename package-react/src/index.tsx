@@ -15,13 +15,16 @@ function ReactQueryRewind() {
 
   const handleMessages = (message: any) => {
     if (contentConnectedRef.current) {
+      console.log('Sending Event');
       sendEvent(message);
     } else {
       contentMessageQueueRef.current.push(message);
+      console.log('Current Queue:', contentMessageQueueRef.current);
     }
   };
 
   const sendEvent = (event: any) => {
+    console.log('Sending Event:', event.queryHash);
     window.postMessage(
       { framework: 'react', type: 'event', payload: event },
       '*'
