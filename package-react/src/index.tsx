@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Subscription from './Subscription';
 import TimeTravel from './TimeTravel';
+import ErrorBoundary from './ErrorBoundary';
 
 function ReactQueryRewind() {
   const [timeTravel, setTimeTravel] = useState(false);
@@ -29,7 +30,6 @@ function ReactQueryRewind() {
 
   const handleContentMessages = (message: MessageEvent) => {
     if (message.data?.type === 'content-script-ready') {
-      // console.log('APP: Content.ts connected');
       contentConnectedRef.current = true;
       window.postMessage({ type: 'app-connected' }, '*');
       sendContentMessageQueue();
@@ -41,7 +41,6 @@ function ReactQueryRewind() {
   };
 
   useEffect(() => {
-    // console.log('APP: Mounting Event Listeners');
     window.addEventListener('message', handleContentMessages);
 
     return () => {
@@ -50,13 +49,13 @@ function ReactQueryRewind() {
   }, []);
 
   return (
-    <div>
+    <ErrorBoundary>
       {timeTravel ? (
         <TimeTravel />
       ) : (
         <Subscription handleMessages={handleMessages} />
       )}
-    </div>
+    </ErrorBoundary>
   );
 }
 

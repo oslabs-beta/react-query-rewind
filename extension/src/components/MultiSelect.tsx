@@ -21,7 +21,7 @@ export default function MultiSelect({
   const [queryOptions, setQueryOptions] = useState<string[]>([]);
 
   useEffect(() => {
-    const newQueryOptions = queryEvents.map((event) => event.queryHash);
+    const newQueryOptions = queryEvents.map((event) => event?.queryHash);
     const uniqueQueryOptions = Array.from(new Set(newQueryOptions));
     setQueryOptions(uniqueQueryOptions);
     // when there are new query options, we need to check with local storage and see if any of them are set

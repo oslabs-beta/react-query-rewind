@@ -1,0 +1,1 @@
+self.__REACT_LOADABLE_MANIFEST="{\"../node_modules/@tanstack/query-devtools/build/dev.js -> ./Devtools/WIIHGP5G.js\":{\"id\":\"../node_modules/@tanstack/query-devtools/build/dev.js -> ./Devtools/WIIHGP5G.js\",\"files\":[\"static/chunks/node_modules_tanstack_query-devtools_build_Devtools_WIIHGP5G_js.js\"]}}"

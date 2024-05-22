@@ -12,7 +12,6 @@ function Subscription({ handleMessages }: SubscriptionProps) {
 
   const handleQueryCacheChange = async (event: any) => {
     const message = formatData(event, queryClient);
-    // console.log('message', message);
     if (message) handleMessages(message);
   };
 

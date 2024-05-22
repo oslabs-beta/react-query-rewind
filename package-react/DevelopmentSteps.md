@@ -31,7 +31,7 @@ Download the chrome extension from ***insert url here*** in order to time travel
   );
 ```
 
-## Set-Up Examples
+## Set-Up Example in the Example folder
 **From the package-react directory:**
 Execute `package-setup-1` to run:
 1. `npm i`
@@ -48,6 +48,39 @@ In a new shell (still in the package-react directory), execute `package-setup-2`
     1. Links React Query Rewind
 2. `npm run example`
     1. Starts the example server with webpack. Note: this is a hot reload, but it does not always pick up changes to the npm package
+
+## Set-up examples from Tanstack
+**All packages located in _package-react/react-examples-tanstack_ folder**
+_The below commands must be run from the package-react directory
+- If an example has not been set up, ensure it has npm commands and the vite/webpack config resolves react and react-dom to ensure we look at the correct version of react.
+
+### algolia
+_Working correctly_
+- Execute `package-setup-1-algolia`
+- Execute `package-setup-2-algolia`
+
+### auto-refetching
+
+### basic
+_Working correctly_
+- Execute `package-setup-1-basic`
+- Execute `package-setup-2-basic`
+
+### basic-graphql-request
+_Doesn't work on its own, without RQRewind_
+
+### basic-typescript
+_Working correctly_
+- Execute `package-setup-1-basic-typescript`
+- Execute `package-setup-2-basic-typescript`
+
+### pagination
+_Fails because example has .js files_
+- Execute `package-setup-1-pagination`
+- Execute `package-setup-2-pagination`
+
+### Notes on these examples
+- .js doesn't work but .jsx does
 
 # Publishing
 1. `npm login` to login to the npm site. Follow the instructions to publish your npm package

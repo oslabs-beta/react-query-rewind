@@ -36,11 +36,19 @@ function App() {
     port.onMessage.addListener(message => {
       // console.log('DEVTOOL: Recieved message from background.ts', message);
 
-      if (message.type === 'event') {
+      // By checking data more thoroughly, we can avoid adding data that we don't expect in child components. This is the data we have the least control over.
+      // Future iteration could use Zod or something a little less manual and be a more prcise
+      if (
+        message.type === 'event' &&
+        message.payload &&
+        typeof message.payload.eventType === 'string' &&
+        Array.isArray(message.payload.queryKey) &&
+        typeof message.payload.queryHash === 'string'
+      ) {
         setQueryEvents(queryEvents => [...queryEvents, message.payload]);
       }
 
-      if (message.type === 'tree') {
+      if (message.type === 'tree' && message?.data) {
         // console.log('APP.tsx: Recieved tree data', message);
         setTreeData(message.data);
       }
