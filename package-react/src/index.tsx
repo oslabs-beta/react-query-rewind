@@ -15,16 +15,13 @@ function ReactQueryRewind() {
 
   const handleMessages = (message: any) => {
     if (contentConnectedRef.current) {
-      console.log('Sending Event');
       sendEvent(message);
     } else {
       contentMessageQueueRef.current.push(message);
-      console.log('Current Queue:', contentMessageQueueRef.current);
     }
   };
 
   const sendEvent = (event: any) => {
-    console.log('Sending Event:', event.queryHash);
     window.postMessage(
       { framework: 'react', type: 'event', payload: event },
       '*'
@@ -33,7 +30,6 @@ function ReactQueryRewind() {
 
   const handleContentMessages = (message: MessageEvent) => {
     if (message.data?.type === 'content-script-ready') {
-      console.log('APP: Content.ts connected');
       contentConnectedRef.current = true;
       window.postMessage({ type: 'app-connected' }, '*');
       sendContentMessageQueue();
@@ -45,7 +41,6 @@ function ReactQueryRewind() {
   };
 
   useEffect(() => {
-    // console.log('APP: Mounting Event Listeners');
     window.addEventListener('message', handleContentMessages);
 
     return () => {
