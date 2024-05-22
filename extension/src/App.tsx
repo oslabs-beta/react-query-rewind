@@ -38,7 +38,6 @@ function App() {
 
       // By checking data more thoroughly, we can avoid adding data that we don't expect in child components. This is the data we have the least control over.
       // Future iteration could use Zod or something a little less manual and be a more prcise
-      console.log('Recieved event message', message)
       if (
         message.type === 'event' &&
         message.payload &&
