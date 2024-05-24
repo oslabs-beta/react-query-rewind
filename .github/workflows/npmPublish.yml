@@ -1,4 +1,4 @@
-name: Publish npm Package
+name: Publish npm Packages
 
 on:
   push:
@@ -8,7 +8,6 @@ on:
 jobs:
   publish-react:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -16,16 +15,68 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '20' # Use Node.js version 20
 
-      - name: Install dependencies
-        run: cd package-react
-          npm install
+      - name: Install dependencies for package-react
+        working-directory: ./package-react
+        run: npm install
 
-      - name: Build package
+      - name: Build package-react
+        working-directory: ./package-react
         run: npm run build # If you have a build step, otherwise remove this step
 
-      - name: Publish package
+      - name: Publish package-react
+        working-directory: ./package-react
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish
+
+  publish-svelte:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Use Node.js version 20
+
+      - name: Install dependencies for package-svelte
+        working-directory: ./package-svelte
+        run: npm install
+
+      - name: Build package-svelte
+        working-directory: ./package-svelte
+        run: npm run build # If you have a build step, otherwise remove this step
+
+      - name: Publish package-svelte
+        working-directory: ./package-svelte
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish
+
+  publish-vue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Use Node.js version 20
+
+      - name: Install dependencies for package-vue
+        working-directory: ./package-vue
+        run: npm install
+
+      - name: Build package-vue
+        working-directory: ./package-vue
+        run: npm run build # If you have a build step, otherwise remove this step
+
+      - name: Publish package-vue
+        working-directory: ./package-vue
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish
