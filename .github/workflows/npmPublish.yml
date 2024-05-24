@@ -5,6 +5,11 @@ on:
     branches:
       - main
 
+# These currently require that the package version has been manually updated
+# We could potentially automate it by creating a separate script that fetches the current version on npm and compares it the the version in the package.json. If it matches, it auto-increments the number in package.json (ie from 2.1.11 to 2.1.12). And we run this script before the publish step.
+# Simpler solution is to use npm version command that can be used to increment the version number (npm version patch, npm version minor, npm version major) where format is major.minor.patch
+# Any version incrementing should probably happen on pushes to dev so that dev and main branch stay in sync. We can simply always increment the patch version
+# Think we can update github settings to ensure you merges fail if an action fails, but that means each merge updates all 3 packages
 jobs:
   publish-react:
     runs-on: ubuntu-latest
