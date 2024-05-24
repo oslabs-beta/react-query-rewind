@@ -1,0 +1,87 @@
+name: Publish npm Packages
+
+on:
+  push:
+    branches:
+      - main
+
+# These currently require that the package version has been manually updated
+# We could potentially automate it by creating a separate script that fetches the current version on npm and compares it the the version in the package.json. If it matches, it auto-increments the number in package.json (ie from 2.1.11 to 2.1.12). And we run this script before the publish step.
+# Simpler solution is to use npm version command that can be used to increment the version number (npm version patch, npm version minor, npm version major) where format is major.minor.patch
+# Any version incrementing should probably happen on pushes to dev so that dev and main branch stay in sync. We can simply always increment the patch version
+# Think we can update github settings to ensure you merges fail if an action fails, but that means each merge updates all 3 packages
+jobs:
+  publish-react:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Use Node.js version 20
+
+      - name: Install dependencies for package-react
+        working-directory: ./package-react
+        run: npm install
+
+      - name: Build package-react
+        working-directory: ./package-react
+        run: npm run build # If you have a build step, otherwise remove this step
+
+      - name: Publish package-react
+        working-directory: ./package-react
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish
+
+  publish-svelte:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Use Node.js version 20
+
+      - name: Install dependencies for package-svelte
+        working-directory: ./package-svelte
+        run: npm install
+
+      - name: Build package-svelte
+        working-directory: ./package-svelte
+        run: npm run build # If you have a build step, otherwise remove this step
+
+      - name: Publish package-svelte
+        working-directory: ./package-svelte
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish
+
+  publish-vue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Use Node.js version 20
+
+      - name: Install dependencies for package-vue
+        working-directory: ./package-vue
+        run: npm install
+
+      - name: Build package-vue
+        working-directory: ./package-vue
+        run: npm run build # If you have a build step, otherwise remove this step
+
+      - name: Publish package-vue
+        working-directory: ./package-vue
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish
