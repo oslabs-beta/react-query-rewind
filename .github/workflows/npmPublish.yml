@@ -3,8 +3,7 @@ name: Publish npm Packages
 on:
   push:
     branches:
-      # **** Change this later
-      - john/npm-publish
+      - main
 
 # These currently require that the package version has been manually updated
 # We could potentially automate it by creating a separate script that fetches the current version on npm and compares it the the version in the package.json. If it matches, it auto-increments the number in package.json (ie from 2.1.11 to 2.1.12). And we run this script before the publish step.
