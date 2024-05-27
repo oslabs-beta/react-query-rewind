@@ -22,10 +22,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20' # Use Node.js version 20
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies for package-react
         working-directory: ./package-react
-        run: npm install
+        run: npm ci
 
       - name: Build package-react
         working-directory: ./package-react
