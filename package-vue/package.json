@@ -5,6 +5,10 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oslabs-beta/react-query-rewind"
+  },
   "main": "./dist/VueQueryRewind.cjs.js",
   "module": "./dist/VueQueryRewind.es.js",
   "types": "./dist/VueQueryRewind.es.d.ts",
