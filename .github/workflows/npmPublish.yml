@@ -21,14 +21,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20' # Use Node.js version 20
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies for package-react
         working-directory: ./package-react
-        run: npm install
+        run: npm ci
 
       - name: Build package-react
         working-directory: ./package-react
-        run: npm run build # If you have a build step, otherwise remove this step
+        run: npm run build
 
       - name: Publish package-react
         working-directory: ./package-react
@@ -46,14 +47,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20' # Use Node.js version 20
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies for package-svelte
         working-directory: ./package-svelte
-        run: npm install
+        run: npm ci
 
       - name: Build package-svelte
         working-directory: ./package-svelte
-        run: npm run build # If you have a build step, otherwise remove this step
+        run: npm run build
 
       - name: Publish package-svelte
         working-directory: ./package-svelte
@@ -71,14 +73,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20' # Use Node.js version 20
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies for package-vue
         working-directory: ./package-vue
-        run: npm install
+        run: npm ci
 
       - name: Build package-vue
         working-directory: ./package-vue
-        run: npm run build # If you have a build step, otherwise remove this step
+        run: npm run build
 
       - name: Publish package-vue
         working-directory: ./package-vue
