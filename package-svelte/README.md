@@ -19,7 +19,7 @@
 
 # Overview
 
-React Query Rewind introduces a powerful DevTool extension designed to work in conjunction with React Query's built-in DevTools in order to optimize time-traveling through state changes in an application. This open-source extension is tailored to enhance the debugging experience for React Query users, allowing them to explore state changes and component relationships with ease.
+Svelte Query Rewind introduces a powerful DevTool extension designed to work in conjunction with React Query's built-in DevTools in order to optimize time-traveling through state changes in an application. This open-source extension is tailored to enhance the debugging experience for React Query users, allowing them to explore state changes and component relationships with ease.
 
 # Getting Started
 
