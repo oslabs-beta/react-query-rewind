@@ -8,7 +8,7 @@ import {
   keepPreviousData,
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-// import ReactQueryRewind from 'react-query-rewind'
+import ReactQueryRewind from 'react-query-rewind'
 
 const queryClient = new QueryClient()
 
@@ -16,7 +16,7 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Example />
-      {/* <ReactQueryRewind /> */}
+      <ReactQueryRewind />
     </QueryClientProvider>
   )
 }

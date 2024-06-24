@@ -13,7 +13,8 @@ export default {
     {
       file: 'dist/cjs/index.js', // CommonJS format
       format: 'cjs',
-      sourcemap: true
+      sourcemap: true,
+      exports: 'auto'
     },
     {
       file: 'dist/esm/index.js', // ES Module format
@@ -28,7 +29,8 @@ export default {
     typescript({ tsconfig: './tsconfig.json' }), // TypeScript plugin
     babel({
       exclude: 'node_modules/**', // Babel for transpiling React and ES6
-      presets: ['@babel/preset-react']
+      babelHelpers: 'bundled',
+      // presets: ['@babel/preset-react']
     }),
     terser(), // Minifies the bundles
   ]
