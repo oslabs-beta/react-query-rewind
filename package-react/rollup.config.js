@@ -28,7 +28,7 @@ export default [
   {
     input: 'src/index.tsx',
     output: {
-      file: 'dist/my-package.esm.js',
+      file: 'dist/index.esm.js',
       format: 'esm',
       sourcemap: true,  // Enable sourcemaps
     },
@@ -38,21 +38,26 @@ export default [
   {
     input: 'src/index.tsx',
     output: {
-      file: 'dist/my-package.cjs.js',
+      file: 'dist/index.cjs.js',
       format: 'cjs',
       sourcemap: true,  // Enable sourcemaps
     },
     plugins: commonPlugins,
   },
   // UMD build
-  {
-    input: 'src/index.tsx',
-    output: {
-      file: 'dist/my-package.umd.js',
-      format: 'umd',
-      name: 'MyPackage',
-      sourcemap: true,  // Enable sourcemaps
-    },
-    plugins: commonPlugins,
-  },
+  // {
+  //   input: 'src/index.tsx',
+  //   output: {
+  //     file: 'dist/index.umd.js',
+  //     format: 'umd',
+  //     name: 'ReactQueryRewind',
+  //     sourcemap: true,  // Enable sourcemaps
+  //     globals: {
+  //       react: 'React',
+  //       'react-dom': 'ReactDOM',
+  //       '@tanstack/react-query': 'ReactQuery'
+  //     },
+  //   },
+  //   plugins: commonPlugins,
+  // },
 ];
