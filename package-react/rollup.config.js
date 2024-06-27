@@ -26,7 +26,7 @@ export default [
     {
       input: 'src/index.tsx', // Main TypeScript file of our package
       output: {
-        file: 'dist/cjs/index.js', // CommonJS format
+        file: 'dist/cjs/index.cjs', // CommonJS format
         format: 'cjs',
         sourcemap: true
       },
