@@ -7,57 +7,30 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import babel from '@rollup/plugin-babel';
 import terser from '@rollup/plugin-terser';
 
-const extensions = ['.js', '.jsx', '.ts', '.tsx'];
-
-// Common set of plugins
-const commonPlugins = [
-  peerDepsExternal(),
-  resolve({ extensions }),
-  commonjs(),
-  typescript({ tsconfig: './tsconfig.json' }),
-  babel({
-    extensions,
-    babelHelpers: 'bundled',
-    presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
-  }),
-  terser(),  // Minify the code for all builds
-];
-
-export default [
-  // ES Module build
-  {
-    input: 'src/index.tsx',
-    output: {
-      file: 'dist/index.esm.js',
-      format: 'esm',
-      sourcemap: true,  // Enable sourcemaps
-    },
-    plugins: commonPlugins,
-  },
-  // CommonJS build
-  {
-    input: 'src/index.tsx',
-    output: {
-      file: 'dist/index.cjs.js',
+export default {
+  input: 'src/index.tsx', // Main TypeScript file of our package
+  output: [
+    {
+      file: 'dist/cjs/index.js', // CommonJS format
       format: 'cjs',
-      sourcemap: true,  // Enable sourcemaps
+      sourcemap: true
     },
-    plugins: commonPlugins,
-  },
-  // UMD build
-  // {
-  //   input: 'src/index.tsx',
-  //   output: {
-  //     file: 'dist/index.umd.js',
-  //     format: 'umd',
-  //     name: 'ReactQueryRewind',
-  //     sourcemap: true,  // Enable sourcemaps
-  //     globals: {
-  //       react: 'React',
-  //       'react-dom': 'ReactDOM',
-  //       '@tanstack/react-query': 'ReactQuery'
-  //     },
-  //   },
-  //   plugins: commonPlugins,
-  // },
-];
+    {
+      file: 'dist/esm/index.js', // ES Module format
+      format: 'esm',
+      sourcemap: true
+    }
+  ],
+  plugins: [
+    peerDepsExternal(), // prevents duplicate bundling and in theory, multiple versions of react
+    resolve(), 
+    commonjs(), // Converts CommonJS modules to ES6
+    typescript({ tsconfig: './tsconfig.json' }), // TypeScript plugin
+    babel({
+      exclude: 'node_modules/**', // Babel for transpiling React and ES6
+      presets: ['@babel/preset-react']
+    }),
+    // terser(), // Minifies the bundles
+  ]
+};
+ 

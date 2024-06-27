@@ -1,3 +1,4 @@
+// 'use client'
 import React from 'react'
 import axios from 'axios'
 import {
@@ -14,10 +15,12 @@ const queryClient = new QueryClient()
 
 export default function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Example />
-      <ReactQueryRewind />
-    </QueryClientProvider>
+    <>
+       <QueryClientProvider client={queryClient}>
+        <Example />
+        <ReactQueryRewind />
+       </QueryClientProvider>
+    </>
   )
 }
 
