@@ -4,10 +4,10 @@
   "compilerOptions": {
     "outDir": "./dist",
     "module": "ESNext",
-    "target": "es5", // es6
+    "target": "ESNext",
     "jsx": "react",
     "declaration": true,
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true, // Enable compatibility with Babel-style module imports
     "strict": true, // Enable all strict type-checking options

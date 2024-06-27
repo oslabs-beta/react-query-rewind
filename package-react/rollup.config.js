@@ -19,7 +19,7 @@ const commonPlugins = [
     // already defined in .babelrc
     // presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
   }),
-  terser() // Minifies the bundles
+  // terser() // Minifies the bundles
 ];
 
 export default [
@@ -31,7 +31,7 @@ export default [
         sourcemap: true
       },
       // point to the specific typescript file for this
-      plugins: [...commonPlugins, typescript({ tsconfig: './tsconfig-cjs.json' })]
+      plugins: [...commonPlugins, typescript({ tsconfig: './tsconfig.json' })]
     },
     {
       input: 'src/index.tsx', // Main TypeScript file of our package
