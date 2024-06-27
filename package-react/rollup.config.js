@@ -7,30 +7,41 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import babel from '@rollup/plugin-babel';
 import terser from '@rollup/plugin-terser';
 
-export default {
-  input: 'src/index.tsx', // Main TypeScript file of our package
-  output: [
+const extensions = ['.js', '.jsx', '.ts', '.tsx'];
+
+const commonPlugins = [
+  peerDepsExternal(), // Prevents duplicate bundling and multiple versions of React
+  resolve({ extensions }), // Resolves modules
+  commonjs(), // Converts CommonJS modules to ES6
+  babel({
+    extensions,
+    babelHelpers: 'bundled',
+    // already defined in .babelrc
+    // presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+  }),
+  terser() // Minifies the bundles
+];
+
+export default [
     {
-      file: 'dist/cjs/index.js', // CommonJS format
-      format: 'cjs',
-      sourcemap: true
+      input: 'src/index.tsx', // Main TypeScript file of our package
+      output: {
+        file: 'dist/cjs/index.js', // CommonJS format
+        format: 'cjs',
+        sourcemap: true
+      },
+      // point to the specific typescript file for this
+      plugins: [...commonPlugins, typescript({ tsconfig: './tsconfig-cjs.json' })]
     },
     {
-      file: 'dist/esm/index.js', // ES Module format
-      format: 'esm',
-      sourcemap: true
+      input: 'src/index.tsx', // Main TypeScript file of our package
+      output: {
+        file: 'dist/esm/index.js', // ES Module format
+        format: 'esm',
+        sourcemap: true
+      },
+      // point to the specific typescript file for this
+      plugins: [...commonPlugins, typescript({ tsconfig: './tsconfig.json' })]
     }
-  ],
-  plugins: [
-    peerDepsExternal(), // prevents duplicate bundling and in theory, multiple versions of react
-    resolve(), 
-    commonjs(), // Converts CommonJS modules to ES6
-    typescript({ tsconfig: './tsconfig.json' }), // TypeScript plugin
-    babel({
-      exclude: 'node_modules/**', // Babel for transpiling React and ES6
-      presets: ['@babel/preset-react']
-    }),
-    terser(), // Minifies the bundles
-  ]
-};
+  ];
  

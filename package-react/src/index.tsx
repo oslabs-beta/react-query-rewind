@@ -49,13 +49,15 @@ function ReactQueryRewind() {
   }, []);
 
   return (
-    <ErrorBoundary>
-      {timeTravel ? (
-        <TimeTravel />
-      ) : (
-        <Subscription handleMessages={handleMessages} />
-      )}
-    </ErrorBoundary>
+    <>
+      <ErrorBoundary>
+        {timeTravel ? (
+          <TimeTravel />
+        ) : (
+          <Subscription handleMessages={handleMessages} />
+        )}
+      </ErrorBoundary>
+    </>
   );
 }
 

@@ -32,10 +32,13 @@
   "type": "module",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "types": "dist/cjs/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
   "scripts": {
     "install-example": "cd example && npm i && npm run install",
     "example": "cd example && npm run example",
