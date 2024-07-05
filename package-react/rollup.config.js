@@ -29,7 +29,7 @@ export default {
     typescript({ tsconfig: './tsconfig.json' }), // TypeScript plugin
     babel({
       babelHelpers: 'bundled',
-      extensions: ['.js', '.jsx', '.ts', '.tsx'], // add this if you're using TypeScript
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
       exclude: 'node_modules/**' 
     }),
     terser(), // Minifies the bundles
