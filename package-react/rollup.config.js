@@ -32,7 +32,7 @@ export default {
       extensions: ['.js', '.jsx', '.ts', '.tsx'],
       exclude: 'node_modules/**' 
     }),
-    terser(), // Minifies the bundles
+    // terser(), // Minifies the bundles
   ]
 };
  
