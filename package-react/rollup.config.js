@@ -28,8 +28,9 @@ export default {
     commonjs(), // Converts CommonJS modules to ES6
     typescript({ tsconfig: './tsconfig.json' }), // TypeScript plugin
     babel({
-      exclude: 'node_modules/**', // Babel for transpiling React and ES6
-      presets: ['@babel/preset-react']
+      babelHelpers: 'bundled',
+      extensions: ['.js', '.jsx', '.ts', '.tsx'], // add this if you're using TypeScript
+      exclude: 'node_modules/**' 
     }),
     terser(), // Minifies the bundles
   ]
