@@ -18,7 +18,7 @@
     "type": "git",
     "url": "git+https://github.com/oslabs-beta/react-query-rewind.git"
   },
-  "version": "2.1.10",
+  "version": "2.1.11",
   "description": "React Query Rewind is a library that helps developers debug applications that use React Query (ie TanStack Query) by letting them time travel through state changes directly in their chrome dev tools",
   "keywords": [
     "react",
