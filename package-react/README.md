@@ -45,6 +45,13 @@ React Query Rewind introduces a powerful DevTool extension designed to work in c
     import ReactQueryRewind from "react-query-rewind";
     ```
 
+    _Note: Some older versions of NextJS default to the commonJS version of the package, causing apps to error_
+    _If you encounter this error, import the component with:_
+    
+    ```javascript
+    import ReactQueryRewind from "../../node_modules/react-query-rewind/dist/esm/index.js";
+    ```
+
 3.  Place ReactQueryRewind next to the root of your application inside the QueryClientProvider component.
 
     ```javascript
