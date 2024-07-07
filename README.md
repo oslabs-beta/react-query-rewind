@@ -127,7 +127,9 @@ Rui Fan - [GitHub](https://github.com/ruifan-IU) - [LinkedIn](https://www.linked
 [![Medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@teeringe/react-query-rewind-time-travel-debugging-made-simple-46aaeeafd497)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/react-query-rewind/)
 
-Project Link: [React Query Rewind](https://github.com/oslabs-beta/react-query-rewind-chrome)
+Project Link: [React Query Rewind](https://github.com/oslabs-beta/react-query-rewind)
+
+Website: [reactqueryrewind.com](https://reactqueryrewind.com/)
 
 # License
 [MIT](https://www.mit.edu/~amini/LICENSE.md)
