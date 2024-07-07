@@ -36,7 +36,7 @@ Vue Query Rewind introduces a powerful DevTool extension designed to work in con
 1.  Download npm package into your application as a dev dependency.
 
     ```sh
-    npm i --save-dev react-query-rewind
+    npm i --save-dev @react-query-rewind/vue-query-rewind
     ```
 
 2.  Import the ReactQueryRewind component into the root of your applicaiton.
