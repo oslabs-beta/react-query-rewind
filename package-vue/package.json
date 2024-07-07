@@ -8,7 +8,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/oslabs-beta/react-query-rewind"
+    "url": "git+https://github.com/oslabs-beta/react-query-rewind.git"
   },
   "main": "./dist/VueQueryRewind.cjs.js",
   "module": "./dist/VueQueryRewind.es.js",
