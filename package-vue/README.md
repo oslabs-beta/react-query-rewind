@@ -41,21 +41,15 @@ Vue Query Rewind introduces a powerful DevTool extension designed to work in con
 
 2.  Import the ReactQueryRewind component into the root of your applicaiton.
 
-    _picture of importing the component_
-
     ```javascript
-    import ReactQueryRewind from 'react-query-rewind';
+    import VueQueryRewind from '@react-query-rewind/vue-query-rewind';
     ```
 
-3.  Place ReactQueryRewind next to the root of your application inside the QueryClientProvider component.
+3.  Use the VueQuery plugins
 
     ```javascript
-    ReactDOM.createRoot(document.getElementById('root')!).render(
-      <QueryClientProvider client={queryClient}>
-        <App />
-        <ReactQueryRewind />
-      </QueryClientProvider>
-    );
+      app.use(VueQueryPlugin, { queryClient }); // from Tanstack
+      app.use(VueQueryRewind);
     ```
 
 4.  Open the Chrome DevTool Extension and start coding!

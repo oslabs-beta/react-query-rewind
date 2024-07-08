@@ -41,10 +41,8 @@ Svelte Query Rewind introduces a powerful DevTool extension designed to work in 
 
 2.  Import the ReactQueryRewind component into the root of your applicaiton.
 
-    _picture of importing the component_
-
     ```javascript
-    import ReactQueryRewind from 'react-query-rewind';
+    import ReactQueryRewind from '@react-query-rewind/svelte-query-rewind;`
     ```
 
 3.  Place ReactQueryRewind next to the root of your application inside the QueryClientProvider component.
