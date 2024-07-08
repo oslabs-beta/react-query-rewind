@@ -36,26 +36,20 @@ Vue Query Rewind introduces a powerful DevTool extension designed to work in con
 1.  Download npm package into your application as a dev dependency.
 
     ```sh
-    npm i --save-dev react-query-rewind
+    npm i --save-dev @react-query-rewind/vue-query-rewind
     ```
 
 2.  Import the ReactQueryRewind component into the root of your applicaiton.
 
-    _picture of importing the component_
-
     ```javascript
-    import ReactQueryRewind from 'react-query-rewind';
+    import VueQueryRewind from '@react-query-rewind/vue-query-rewind';
     ```
 
-3.  Place ReactQueryRewind next to the root of your application inside the QueryClientProvider component.
+3.  Use the VueQuery plugins
 
     ```javascript
-    ReactDOM.createRoot(document.getElementById('root')!).render(
-      <QueryClientProvider client={queryClient}>
-        <App />
-        <ReactQueryRewind />
-      </QueryClientProvider>
-    );
+      app.use(VueQueryPlugin, { queryClient }); // from Tanstack
+      app.use(VueQueryRewind);
     ```
 
 4.  Open the Chrome DevTool Extension and start coding!
@@ -97,7 +91,9 @@ Rui Fan - [GitHub](https://github.com/ruifan-IU) - [LinkedIn](https://www.linked
 [![Medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@teeringe/react-query-rewind-time-travel-debugging-made-simple-46aaeeafd497)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/react-query-rewind/)
 
-Project Link: [React Query Rewind](https://github.com/oslabs-beta/react-query-rewind-chrome)
+Project Link: [React Query Rewind](https://github.com/oslabs-beta/react-query-rewind)
+
+Website: [reactqueryrewind.com](https://reactqueryrewind.com/)
 
 # License
 

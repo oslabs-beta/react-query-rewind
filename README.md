@@ -35,16 +35,35 @@ React Query Rewind introduces a powerful DevTool extension designed to work in c
 
 1.  Download npm package into your application.
 
+  **React**
+
     ```sh
     npm i -D react-query-rewind
     ```
 
-2.  Import the ReactQueryRewind component into the root of your applicaiton.
+  **Svelte**
 
-    _picture of importing the component_
+    ```sh
+    npm i --save-dev @react-query-rewind/svelte-query-rewind
+    ```
+
+  **Vue**
+
+    ```sh
+    npm i --save-dev @react-query-rewind/vue-query-rewind
+    ```
+
+2.  Import the ReactQueryRewind component into the root of your applicaiton.
 
     ```javascript
     import ReactQueryRewind from "react-query-rewind";
+    ```
+
+    _Note: Some older versions of NextJS default to the commonJS version of the package, causing apps to error_
+    _If you encounter this error, import the component with:_
+    
+    ```javascript
+    import ReactQueryRewind from "../../node_modules/react-query-rewind/dist/esm/index.js";
     ```
 
 3.  Place ReactQueryRewind next to the root of your application inside the QueryClientProvider component.
@@ -108,7 +127,9 @@ Rui Fan - [GitHub](https://github.com/ruifan-IU) - [LinkedIn](https://www.linked
 [![Medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@teeringe/react-query-rewind-time-travel-debugging-made-simple-46aaeeafd497)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/react-query-rewind/)
 
-Project Link: [React Query Rewind](https://github.com/oslabs-beta/react-query-rewind-chrome)
+Project Link: [React Query Rewind](https://github.com/oslabs-beta/react-query-rewind)
+
+Website: [reactqueryrewind.com](https://reactqueryrewind.com/)
 
 # License
 [MIT](https://www.mit.edu/~amini/LICENSE.md)

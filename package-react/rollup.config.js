@@ -11,9 +11,10 @@ export default {
   input: 'src/index.tsx', // Main TypeScript file of our package
   output: [
     {
-      file: 'dist/cjs/index.js', // CommonJS format
+      file: 'dist/cjs/index.cjs', // CommonJS format
       format: 'cjs',
-      sourcemap: true
+      sourcemap: true,
+      exports: "named"
     },
     {
       file: 'dist/esm/index.js', // ES Module format
@@ -27,10 +28,11 @@ export default {
     commonjs(), // Converts CommonJS modules to ES6
     typescript({ tsconfig: './tsconfig.json' }), // TypeScript plugin
     babel({
-      exclude: 'node_modules/**', // Babel for transpiling React and ES6
-      presets: ['@babel/preset-react']
+      babelHelpers: 'bundled',
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      exclude: 'node_modules/**' 
     }),
-    terser(), // Minifies the bundles
+    // terser(), // Minifies the bundles
   ]
 };
  
