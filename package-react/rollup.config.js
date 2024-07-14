@@ -24,7 +24,7 @@ export default {
     {
       file: 'dist/umd/index.umd.js', // UMD format
       format: 'umd',
-      exports: 'named',
+      exports: 'default', // export as default, not named
       sourcemap: true,
       name: 'reactQueryRewind'
     }
