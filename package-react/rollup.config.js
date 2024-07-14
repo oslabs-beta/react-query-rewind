@@ -20,6 +20,13 @@ export default {
       file: 'dist/esm/index.js', // ES Module format
       format: 'esm',
       sourcemap: true
+    },
+    {
+      file: 'dist/umd/index.umd.js', // UMD format
+      format: 'umd',
+      exports: 'named',
+      sourcemap: true,
+      name: 'reactQueryRewind'
     }
   ],
   plugins: [
