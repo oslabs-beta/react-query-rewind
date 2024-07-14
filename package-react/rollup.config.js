@@ -26,7 +26,13 @@ export default {
       format: 'umd',
       exports: 'default', // export as default, not named
       sourcemap: true,
-      name: 'reactQueryRewind'
+      name: 'reactQueryRewind',
+      globals: { // Map module names to global variables
+        react: 'React',
+        'react-dom': 'ReactDOM',
+        '@tanstack/react-query': 'ReactQuery',
+        'react-error-boundary': 'ReactErrorBoundary'
+      }
     }
   ],
   plugins: [
