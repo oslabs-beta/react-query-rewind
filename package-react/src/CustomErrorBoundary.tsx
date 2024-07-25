@@ -1,5 +1,5 @@
 import React from 'react';
-import { ErrorBoundary as ReactErrorBoundary, FallbackProps } from 'react-error-boundary';
+import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
 
 // Fallback component to display when an error is caught
 const ErrorFallback: React.FC<FallbackProps> = ({ error }) => {
@@ -11,12 +11,12 @@ const ErrorFallback: React.FC<FallbackProps> = ({ error }) => {
 };
 
 // ErrorBoundary component wrapping the ErrorFallback
-const ErrorBoundary: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const CustomErrorBoundary: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <ReactErrorBoundary FallbackComponent={ErrorFallback}>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
       {children}
-    </ReactErrorBoundary>
+    </ErrorBoundary>
   );
 };
 
-export default ErrorBoundary;
+export default CustomErrorBoundary;
