@@ -18,7 +18,7 @@
     "type": "git",
     "url": "git+https://github.com/oslabs-beta/react-query-rewind.git"
   },
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "Svelte Query Rewind is a library that helps developers debug applications that use React Query (ie TanStack Query) by letting them time travel through state changes directly in their chrome dev tools",
   "keywords": [
     "svelte",

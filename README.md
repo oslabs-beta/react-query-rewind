@@ -66,6 +66,16 @@ React Query Rewind introduces a powerful DevTool extension designed to work in c
     import ReactQueryRewind from "../../node_modules/react-query-rewind/dist/esm/index.js";
     ```
 
+    _OR_
+
+    ```javascript
+    import dynamic from 'next/dynamic'
+    const ReactQueryRewind = dynamic(
+      () => import('react-query-rewind').then((mod) => mod.default),
+      { ssr: false }
+    )
+    ```
+
 3.  Place ReactQueryRewind next to the root of your application inside the QueryClientProvider component.
 
     ```javascript
