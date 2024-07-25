@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Subscription from './Subscription';
 import TimeTravel from './TimeTravel';
-import ErrorBoundary from './ErrorBoundary';
+import CustomErrorBoundary from './CustomErrorBoundary';
 
 function ReactQueryRewind() {
   const [timeTravel, setTimeTravel] = useState(false);
@@ -49,13 +49,13 @@ function ReactQueryRewind() {
   }, []);
 
   return (
-    <ErrorBoundary>
+    <CustomErrorBoundary>
       {timeTravel ? (
         <TimeTravel />
       ) : (
         <Subscription handleMessages={handleMessages} />
       )}
-    </ErrorBoundary>
+    </CustomErrorBoundary>
   );
 }
 
